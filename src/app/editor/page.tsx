@@ -1,5 +1,11 @@
+import CreateStatblock from "@/components/create-statblock";
+
 const Editor = () => {
-	return <div>Editor</div>;
+	return (
+		<div>
+			<CreateStatblock />
+		</div>
+	);
 };
 
 export default Editor;
