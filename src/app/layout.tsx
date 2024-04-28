@@ -20,7 +20,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body
 				className={cn(
-					"min-h-screen max-w-6xl mx-auto px-3 lg:px-6 bg-white font-sans antialiased",
+					"min-h-screen max-w-6xl mx-auto px-3 data-[scroll-locked]:pl-3 data-[scroll-locked]:pr-3 lg:px-6 bg-white font-sans antialiased",
 					fontSans.variable
 				)}
 			>
