@@ -28,77 +28,72 @@ const MonsterAbilitiesForm = (
 					<TabsTrigger value="reactions">Reactions</TabsTrigger>
 				</TabsList>
 				<TabsContent value="traits">
-					<FormControl>
-						<Controller
-							render={({ field }) => (
-								<TiptapEditor
-									description={field.value}
-									onChange={field.onChange}
-								/>
-							)}
-							name="monster_traits.description"
-							defaultValue=""
-						/>
-					</FormControl>
-
-					{/* <FormField
-						control={form.control}
-						name="monster_traits.description"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Traits</FormLabel>
-								<FormControl>
-									<TiptapEditor placeholder="ex. Amphibious" {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/> */}
+					<FormItem className="min-h-36">
+						<FormLabel>Traits</FormLabel>
+						<FormControl>
+							<Controller
+								render={({ field }) => (
+									<TiptapEditor
+										description={field.value}
+										onChange={field.onChange}
+									/>
+								)}
+								name="monster_traits.description"
+								defaultValue=""
+							/>
+						</FormControl>
+					</FormItem>
 				</TabsContent>
 				<TabsContent value="actions">
-					<FormField
-						control={form.control}
-						name="monster_actions.description"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Actions</FormLabel>
-								<FormControl>
-									<Textarea placeholder="ex. Amphibious" {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
+					<FormItem className="min-h-36">
+						<FormLabel>Actions</FormLabel>
+						<FormControl>
+							<Controller
+								render={({ field }) => (
+									<TiptapEditor
+										description={field.value}
+										onChange={field.onChange}
+									/>
+								)}
+								name="monster_actions.description"
+								defaultValue=""
+							/>
+						</FormControl>
+					</FormItem>
 				</TabsContent>
 				<TabsContent value="bonus_actions">
-					<FormField
-						control={form.control}
-						name="monster_bonus_actions.description"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Bonus Actions</FormLabel>
-								<FormControl>
-									<Textarea placeholder="ex. Amphibious" {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
+					<FormItem className="min-h-36">
+						<FormLabel>Bonus Actions</FormLabel>
+						<FormControl>
+							<Controller
+								render={({ field }) => (
+									<TiptapEditor
+										description={field.value}
+										onChange={field.onChange}
+									/>
+								)}
+								name="monster_bonus_actions.description"
+								defaultValue=""
+							/>
+						</FormControl>
+					</FormItem>
 				</TabsContent>
 				<TabsContent value="reactions">
-					<FormField
-						control={form.control}
-						name="monster_reactions.description"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Reactions</FormLabel>
-								<FormControl>
-									<Textarea placeholder="ex. Amphibious" {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
+					<FormItem className="min-h-36 ">
+						<FormLabel>Reactions</FormLabel>
+						<FormControl>
+							<Controller
+								render={({ field }) => (
+									<TiptapEditor
+										description={field.value}
+										onChange={field.onChange}
+									/>
+								)}
+								name="monster_reactions.description"
+								defaultValue=""
+							/>
+						</FormControl>
+					</FormItem>
 				</TabsContent>
 			</Tabs>
 		</div>

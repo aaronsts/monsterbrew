@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+
 import {
 	Form,
 	FormControl,
@@ -14,10 +15,13 @@ import {
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { ComboBoxResponsive } from "./combo-box";
+
 import { createMonsterStatblockSchema } from "@/lib/formSchemas";
+
 import MonsterStatisticForm from "./monster-statistic-form";
 import MonsterSensesForm from "./monster-senses-form";
 import MonsterAbilitiesForm from "./monster-abilities-form";
+import MonsterLegendaryForm from "./monster-legendary-form";
 
 const monster_types = [
 	{ label: "Dragon", value: "dragon" },
@@ -67,6 +71,7 @@ const CreateStatblock = () => {
 			monster_actions: { description: "" },
 			monster_bonus_actions: { description: "" },
 			monster_reactions: { description: "" },
+			is_legendary: false,
 		},
 	});
 
@@ -243,6 +248,9 @@ const CreateStatblock = () => {
 					)}
 				/>
 				<MonsterAbilitiesForm form={form} />
+				<div>
+					<MonsterLegendaryForm form={form} />
+				</div>
 				<Button type="submit">Submit</Button>
 			</form>
 		</Form>

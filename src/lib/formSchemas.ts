@@ -51,4 +51,8 @@ export const createMonsterStatblockSchema = z.object({
 	monster_reactions: z.object({
 		description: z.string().optional(),
 	}),
+	is_legendary: z.boolean().default(false).optional(),
+	monster_legendary_actions: z.object({
+		description: z.string().optional(),
+	}),
 });
