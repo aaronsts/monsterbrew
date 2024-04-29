@@ -14,28 +14,10 @@ import {
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { ComboBoxResponsive } from "./combo-box";
-
-const formSchema = z.object({
-	monster_name: z
-		.string()
-		.min(2, { message: "Monster name must be atleast 2 characters." })
-		.max(50),
-	monster_type: z.string({ required_error: "Please select a monster type" }),
-	monster_sub_type: z.string().optional(),
-	monster_size: z.string({ required_error: "Please select a size" }),
-	monster_alignment: z
-		.string({ required_error: "Please select an alignment" })
-		.min(2),
-	monster_ac: z.string().min(1, { message: "Please enter an AC value" }),
-	monster_ac_type: z.string().optional(),
-	monster_hit_die: z.string().regex(new RegExp(/(\d*)d(4|6|8|10|12|20)/gm), {
-		message: "Please use a format like 2d20",
-	}),
-	monster_hit_modifier: z.string().optional(),
-	monster_movement: z.string().min(3, {
-		message: "Monster name must be atleast 3 characters.",
-	}),
-});
+import { createMonsterStatblockSchema } from "@/lib/formSchemas";
+import MonsterStatisticForm from "./monster-statistic-form";
+import MonsterSensesForm from "./monster-senses-form";
+import MonsterAbilitiesForm from "./monster-abilities-form";
 
 const monster_types = [
 	{ label: "Dragon", value: "dragon" },
@@ -54,8 +36,8 @@ const monster_sizes = [
 ];
 
 const CreateStatblock = () => {
-	const form = useForm<z.infer<typeof formSchema>>({
-		resolver: zodResolver(formSchema),
+	const form = useForm<z.infer<typeof createMonsterStatblockSchema>>({
+		resolver: zodResolver(createMonsterStatblockSchema),
 		defaultValues: {
 			monster_name: "",
 			monster_sub_type: "",
@@ -65,12 +47,31 @@ const CreateStatblock = () => {
 			monster_hit_die: "",
 			monster_hit_modifier: "",
 			monster_movement: "",
+			monster_stats: {
+				str: "",
+				dex: "",
+				con: "",
+				int: "",
+				wis: "",
+				cha: "",
+			},
+			monster_senses: {
+				blind_sight: "",
+				dark_vision: "",
+				tremor_sense: "",
+				true_sight: "",
+				unknown_sense: "",
+				passive_perception: "",
+			},
+			monster_languages: "",
+			monster_traits: { description: "" },
+			monster_actions: { description: "" },
 		},
 	});
 
 	const [subTyping, setSubTyping] = useState(false);
 
-	function onSubmit(values: z.infer<typeof formSchema>) {
+	function onSubmit(values: z.infer<typeof createMonsterStatblockSchema>) {
 		console.log(values);
 	}
 	return (
@@ -214,7 +215,7 @@ const CreateStatblock = () => {
 					name="monster_movement"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Monster Alignment</FormLabel>
+							<FormLabel>Movement</FormLabel>
 							<FormControl>
 								<Input
 									placeholder="ex. 40 ft., fly 80 ft., swim 40 ft."
@@ -225,6 +226,22 @@ const CreateStatblock = () => {
 						</FormItem>
 					)}
 				/>
+				<MonsterStatisticForm form={form} />
+				<MonsterSensesForm form={form} />
+				<FormField
+					control={form.control}
+					name="monster_languages"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Languages</FormLabel>
+							<FormControl>
+								<Input placeholder="ex. Draconic, Common" {...field} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<MonsterAbilitiesForm form={form} />
 				<Button type="submit">Submit</Button>
 			</form>
 		</Form>
