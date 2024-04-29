@@ -3,6 +3,7 @@ import { Roboto_Condensed as FontSans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { MainNavigation } from "@/components/main-nav";
+import { Toaster } from "@/components/ui/sonner";
 
 const fontSans = FontSans({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
 			>
 				<MainNavigation />
 				{children}
+				<Toaster />
 			</body>
 		</html>
 	);

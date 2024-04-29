@@ -24,6 +24,7 @@ import MonsterAbilitiesForm from "./monster-abilities-form";
 import MonsterLegendaryForm from "./monster-legendary-form";
 import MonsterLairForm from "./monster-lair-form";
 import { monster_sizes, monster_types } from "@/lib/constants";
+import { toast } from "sonner";
 
 const CreateStatblock = () => {
 	const form = useForm<z.infer<typeof createMonsterStatblockSchema>>({
@@ -67,7 +68,11 @@ const CreateStatblock = () => {
 	const [subTyping, setSubTyping] = useState(false);
 
 	function onSubmit(values: z.infer<typeof createMonsterStatblockSchema>) {
-		console.log(values);
+		// console.log(values);
+		toast.message("Event has been created.", {
+			description: `${values.monster_name} | ${values.monster_ac}`,
+			duration: 60000,
+		});
 	}
 	return (
 		<Form {...form}>
