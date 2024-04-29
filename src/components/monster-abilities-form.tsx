@@ -1,5 +1,5 @@
 import { createMonsterStatblockSchema } from "@/lib/formSchemas";
-import { UseFormReturn } from "react-hook-form";
+import { Controller, UseFormReturn } from "react-hook-form";
 import * as z from "zod";
 import {
 	FormControl,
@@ -10,6 +10,7 @@ import {
 } from "./ui/form";
 import { Textarea } from "./ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import TiptapEditor from "./tiptap";
 
 const MonsterAbilitiesForm = (
 	form:
@@ -27,19 +28,32 @@ const MonsterAbilitiesForm = (
 					<TabsTrigger value="reactions">Reactions</TabsTrigger>
 				</TabsList>
 				<TabsContent value="traits">
-					<FormField
+					<FormControl>
+						<Controller
+							render={({ field }) => (
+								<TiptapEditor
+									description={field.value}
+									onChange={field.onChange}
+								/>
+							)}
+							name="monster_traits.description"
+							defaultValue=""
+						/>
+					</FormControl>
+
+					{/* <FormField
 						control={form.control}
 						name="monster_traits.description"
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Traits</FormLabel>
 								<FormControl>
-									<Textarea placeholder="ex. Amphibious" {...field} />
+									<TiptapEditor placeholder="ex. Amphibious" {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
 						)}
-					/>
+					/> */}
 				</TabsContent>
 				<TabsContent value="actions">
 					<FormField
