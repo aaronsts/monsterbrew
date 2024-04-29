@@ -58,12 +58,8 @@ test("Should submit a form to create new monster statblock", async ({
 		.locator("div")
 		.nth(3)
 		.fill("test");
-	// Get the next console log
-	const msgPromise = page.waitForEvent("console");
 	await page.getByRole("button", { name: "Submit" }).click();
-
-	const msg = await msgPromise;
-	// Deconstruct console log arguments
-	const result = await msg.args()[0].jsonValue();
-	expect(result).toContainText("Ancient Black Dragon");
+	const submitToast = page.locator("[data-sonner-toast]");
+	// console.log(submitToast);
+	await expect(submitToast).toContainText("Ancient Black Dragon | 22");
 });
