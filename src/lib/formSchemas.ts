@@ -45,4 +45,10 @@ export const createMonsterStatblockSchema = z.object({
 	monster_actions: z.object({
 		description: z.string().optional(),
 	}),
+	monster_bonus_actions: z.object({
+		description: z.string().optional(),
+	}),
+	monster_reactions: z.object({
+		description: z.string().optional(),
+	}),
 });

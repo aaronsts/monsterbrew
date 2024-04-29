@@ -9,6 +9,7 @@ import {
 	FormMessage,
 } from "./ui/form";
 import { Textarea } from "./ui/textarea";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 
 const MonsterAbilitiesForm = (
 	form:
@@ -18,32 +19,74 @@ const MonsterAbilitiesForm = (
 ) => {
 	return (
 		<div>
-			<FormField
-				control={form.control}
-				name="monster_traits.description"
-				render={({ field }) => (
-					<FormItem>
-						<FormLabel>Traits</FormLabel>
-						<FormControl>
-							<Textarea placeholder="ex. Amphibious" {...field} />
-						</FormControl>
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
-			<FormField
-				control={form.control}
-				name="monster_actions.description"
-				render={({ field }) => (
-					<FormItem>
-						<FormLabel>Actions</FormLabel>
-						<FormControl>
-							<Textarea placeholder="ex. Amphibious" {...field} />
-						</FormControl>
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
+			<Tabs defaultValue="traits">
+				<TabsList>
+					<TabsTrigger value="traits">Traits</TabsTrigger>
+					<TabsTrigger value="actions">Actions</TabsTrigger>
+					<TabsTrigger value="bonus_actions">Bonus Actions</TabsTrigger>
+					<TabsTrigger value="reactions">Reactions</TabsTrigger>
+				</TabsList>
+				<TabsContent value="traits">
+					<FormField
+						control={form.control}
+						name="monster_traits.description"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Traits</FormLabel>
+								<FormControl>
+									<Textarea placeholder="ex. Amphibious" {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				</TabsContent>
+				<TabsContent value="actions">
+					<FormField
+						control={form.control}
+						name="monster_actions.description"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Actions</FormLabel>
+								<FormControl>
+									<Textarea placeholder="ex. Amphibious" {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				</TabsContent>
+				<TabsContent value="bonus_actions">
+					<FormField
+						control={form.control}
+						name="monster_bonus_actions.description"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Bonus Actions</FormLabel>
+								<FormControl>
+									<Textarea placeholder="ex. Amphibious" {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				</TabsContent>
+				<TabsContent value="reactions">
+					<FormField
+						control={form.control}
+						name="monster_reactions.description"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Reactions</FormLabel>
+								<FormControl>
+									<Textarea placeholder="ex. Amphibious" {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				</TabsContent>
+			</Tabs>
 		</div>
 	);
 };

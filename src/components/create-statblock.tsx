@@ -66,6 +66,8 @@ const CreateStatblock = () => {
 			monster_languages: "",
 			monster_traits: { description: "" },
 			monster_actions: { description: "" },
+			monster_bonus_actions: { description: "" },
+			monster_reactions: { description: "" },
 		},
 	});
 
