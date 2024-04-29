@@ -8,18 +8,18 @@ import TiptapEditor from "./tiptap";
 import { ToggleGroup, ToggleGroupItem } from "./ui/toggle-group";
 import { Bold, Italic, UnderlineIcon } from "lucide-react";
 
-const MonsterLegendaryForm = (
+const MonsterLairForm = (
 	form:
 		| UseFormReturn<z.infer<typeof createMonsterStatblockSchema>>
 		| any
 		| undefined
 ) => {
-	const isLegendary = useWatch({ control: form.control, name: "is_legendary" });
+	const hasLair = useWatch({ control: form.control, name: "has_lair" });
 	return (
 		<div className="space-y-6">
 			<FormField
 				control={form.control}
-				name="is_legendary"
+				name="has_lair"
 				render={({ field }) => (
 					<FormItem className="flex flex-row items-start gap-3 space-y-0  ">
 						<FormControl>
@@ -29,14 +29,14 @@ const MonsterLegendaryForm = (
 							/>
 						</FormControl>
 						<div className="space-y-1 leading-none">
-							<FormLabel>Legendary Monster</FormLabel>
+							<FormLabel>Has Lair</FormLabel>
 						</div>
 					</FormItem>
 				)}
 			/>
-			{isLegendary ? (
+			{hasLair ? (
 				<FormItem className="min-h-36">
-					<FormLabel>Legendary Actions</FormLabel>
+					<FormLabel>Lair Actions</FormLabel>
 					<FormControl>
 						<Controller
 							render={({ field }) => (
@@ -45,14 +45,14 @@ const MonsterLegendaryForm = (
 									onChange={field.onChange}
 								/>
 							)}
-							name="monster_legendary_actions.description"
+							name="monster_lair.description"
 							defaultValue=""
 						/>
 					</FormControl>
 				</FormItem>
 			) : (
 				<FormItem className="!cursor-not-allowed h-36 opacity-50">
-					<FormLabel>Legendary Actions</FormLabel>
+					<FormLabel>Lair Actions</FormLabel>
 					<div className="border border-zinc-200 shadow-sm rounded-md">
 						<ToggleGroup className="justify-start p-2" type="multiple">
 							<ToggleGroupItem
@@ -78,7 +78,7 @@ const MonsterLegendaryForm = (
 							</ToggleGroupItem>
 						</ToggleGroup>
 						<div className="border-t text-zinc-500 prose w-full max-w-full px-3 py-2 text-sm rounded-md min-h-[60px]">
-							ex. Amphibious. The dragon can breathe air and water.
+							Detect. The dragon makes a Wisdom (Perception) check.
 						</div>
 					</div>
 				</FormItem>
@@ -87,4 +87,4 @@ const MonsterLegendaryForm = (
 	);
 };
 
-export default MonsterLegendaryForm;
+export default MonsterLairForm;

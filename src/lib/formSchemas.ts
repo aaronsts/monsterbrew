@@ -20,6 +20,7 @@ export const createMonsterStatblockSchema = z.object({
 	monster_movement: z.string().min(3, {
 		message: "Monster name must be atleast 3 characters.",
 	}),
+	monster_cr: z.string().optional(),
 	monster_stats: z.object({
 		str: z.string().min(1, { message: "Please fill in your stat" }),
 		dex: z.string().min(1, { message: "Please fill in your stat" }),
@@ -53,6 +54,10 @@ export const createMonsterStatblockSchema = z.object({
 	}),
 	is_legendary: z.boolean().default(false).optional(),
 	monster_legendary_actions: z.object({
+		description: z.string().optional(),
+	}),
+	has_lair: z.boolean().default(false).optional(),
+	monster_lair: z.object({
 		description: z.string().optional(),
 	}),
 });

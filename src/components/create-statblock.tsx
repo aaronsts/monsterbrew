@@ -22,22 +22,8 @@ import MonsterStatisticForm from "./monster-statistic-form";
 import MonsterSensesForm from "./monster-senses-form";
 import MonsterAbilitiesForm from "./monster-abilities-form";
 import MonsterLegendaryForm from "./monster-legendary-form";
-
-const monster_types = [
-	{ label: "Dragon", value: "dragon" },
-	{ label: "Giant", value: "giant" },
-	{ label: "Humanoid", value: "humanoid" },
-	{ label: "Fey", value: "fey" },
-];
-
-const monster_sizes = [
-	{ label: "Gargantuan", value: "gargantuan" },
-	{ label: "Huge", value: "huge" },
-	{ label: "Large", value: "large" },
-	{ label: "Medium", value: "medium" },
-	{ label: "Small", value: "small" },
-	{ label: "Tiny", value: "tiny" },
-];
+import MonsterLairForm from "./monster-lair-form";
+import { monster_sizes, monster_types } from "@/lib/constants";
 
 const CreateStatblock = () => {
 	const form = useForm<z.infer<typeof createMonsterStatblockSchema>>({
@@ -51,6 +37,7 @@ const CreateStatblock = () => {
 			monster_hit_die: "",
 			monster_hit_modifier: "",
 			monster_movement: "",
+			monster_cr: "",
 			monster_stats: {
 				str: "",
 				dex: "",
@@ -72,6 +59,8 @@ const CreateStatblock = () => {
 			monster_bonus_actions: { description: "" },
 			monster_reactions: { description: "" },
 			is_legendary: false,
+			has_lair: false,
+			monster_lair: { description: "" },
 		},
 	});
 
@@ -232,6 +221,19 @@ const CreateStatblock = () => {
 						</FormItem>
 					)}
 				/>
+				<FormField
+					control={form.control}
+					name="monster_cr"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Challenge Rating (CR)</FormLabel>
+							<FormControl>
+								<Input placeholder="ex. 21" {...field} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
 				<MonsterStatisticForm form={form} />
 				<MonsterSensesForm form={form} />
 				<FormField
@@ -248,9 +250,9 @@ const CreateStatblock = () => {
 					)}
 				/>
 				<MonsterAbilitiesForm form={form} />
-				<div>
-					<MonsterLegendaryForm form={form} />
-				</div>
+
+				<MonsterLegendaryForm form={form} />
+				<MonsterLairForm form={form} />
 				<Button type="submit">Submit</Button>
 			</form>
 		</Form>
