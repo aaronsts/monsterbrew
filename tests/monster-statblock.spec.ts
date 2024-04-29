@@ -49,7 +49,6 @@ test("Should submit a form to create new monster statblock", async ({
 	await page.getByLabel("Traits").getByLabel("Toggle bold").click();
 	await page.getByLabel("Traits").locator("div").nth(4).fill("Amphibious. ");
 	await page.getByLabel("Traits").getByLabel("Toggle bold").click();
-	// await page.getByRole("paragraph").fill("Dragons can breath in air and water");
 	// Legendary
 	await page.getByLabel("Legendary Monster").click();
 	await page
@@ -60,6 +59,5 @@ test("Should submit a form to create new monster statblock", async ({
 		.fill("test");
 	await page.getByRole("button", { name: "Submit" }).click();
 	const submitToast = page.locator("[data-sonner-toast]");
-	// console.log(submitToast);
 	await expect(submitToast).toContainText("Ancient Black Dragon | 22");
 });
