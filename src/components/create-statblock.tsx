@@ -18,6 +18,7 @@ import { createMonsterStatblockSchema } from "@/lib/formSchemas";
 import MonsterStatisticForm from "./monster-statistic-form";
 import MonsterSensesForm from "./monster-senses-form";
 import MonsterAbilitiesForm from "./monster-abilities-form";
+import Tiptap from "./tiptap";
 
 const monster_types = [
 	{ label: "Dragon", value: "dragon" },
@@ -244,6 +245,7 @@ const CreateStatblock = () => {
 					)}
 				/>
 				<MonsterAbilitiesForm form={form} />
+				<Tiptap />
 				<Button type="submit">Submit</Button>
 			</form>
 		</Form>
