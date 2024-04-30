@@ -21,7 +21,7 @@ const MonsterAbilitiesForm = (
 	return (
 		<div>
 			<Tabs defaultValue="traits">
-				<TabsList>
+				<TabsList className="w-full md:w-fit justify-between">
 					<TabsTrigger value="traits">Traits</TabsTrigger>
 					<TabsTrigger value="actions">Actions</TabsTrigger>
 					<TabsTrigger value="bonus_actions">Bonus Actions</TabsTrigger>

@@ -16,7 +16,7 @@ const MonsterLairForm = (
 ) => {
 	const hasLair = useWatch({ control: form.control, name: "has_lair" });
 	return (
-		<div className="space-y-6">
+		<div className="space-y-3 w-full">
 			<FormField
 				control={form.control}
 				name="has_lair"

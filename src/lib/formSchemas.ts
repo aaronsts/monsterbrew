@@ -40,6 +40,7 @@ export const createMonsterStatblockSchema = z.object({
 			.min(1, { message: "Please give a passive perception" }),
 	}),
 	monster_languages: z.string().optional(),
+	monster_proficiency_bonus: z.string(),
 	monster_traits: z.object({
 		description: z.string().optional(),
 	}),

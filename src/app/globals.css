@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+	h1 {
+		@apply text-4xl font-black small-caps leading-loose;
+	}
+	h2 {
+		@apply text-3xl font-bold leading-relaxed small-caps;
+	}
+}
+
 @layer components {
 	.small-caps {
 		font-variant-caps: small-caps;

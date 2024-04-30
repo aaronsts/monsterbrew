@@ -56,6 +56,7 @@ const CreateStatblock = () => {
 				passive_perception: "",
 			},
 			monster_languages: "",
+			monster_proficiency_bonus: "",
 			monster_actions: { description: "" },
 			monster_bonus_actions: { description: "" },
 			monster_reactions: { description: "" },
@@ -76,7 +77,7 @@ const CreateStatblock = () => {
 	}
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 mb-6">
 				<FormField
 					control={form.control}
 					name="monster_name"
@@ -254,11 +255,25 @@ const CreateStatblock = () => {
 						</FormItem>
 					)}
 				/>
+				<FormField
+					control={form.control}
+					name="monster_proficiency_bonus"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Proficiency Bonus</FormLabel>
+							<FormControl>
+								<Input placeholder="ex. 7" {...field} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
 				<MonsterAbilitiesForm form={form} />
-
-				<MonsterLegendaryForm form={form} />
-				<MonsterLairForm form={form} />
-				<Button type="submit">Submit</Button>
+				<div className="flex gap-3">
+					<MonsterLegendaryForm form={form} />
+					<MonsterLairForm form={form} />
+				</div>
+				<Button type="submit">Create Monster</Button>
 			</form>
 		</Form>
 	);

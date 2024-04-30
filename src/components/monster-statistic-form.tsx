@@ -23,7 +23,7 @@ const MonsterStatisticForm = (
 				name="monster_stats.str"
 				render={({ field }) => (
 					<FormItem>
-						<FormLabel>Strength (STR)</FormLabel>
+						<FormLabel>Str</FormLabel>
 						<FormControl>
 							<Input placeholder="ex. 27" {...field} />
 						</FormControl>
@@ -36,7 +36,7 @@ const MonsterStatisticForm = (
 				name="monster_stats.dex"
 				render={({ field }) => (
 					<FormItem>
-						<FormLabel>Dexterity (DEX)</FormLabel>
+						<FormLabel>Dex</FormLabel>
 						<FormControl>
 							<Input placeholder="ex. 22" {...field} />
 						</FormControl>
@@ -49,7 +49,7 @@ const MonsterStatisticForm = (
 				name="monster_stats.con"
 				render={({ field }) => (
 					<FormItem>
-						<FormLabel>Constitution (CON)</FormLabel>
+						<FormLabel>Con</FormLabel>
 						<FormControl>
 							<Input placeholder="ex. 22" {...field} />
 						</FormControl>
@@ -62,7 +62,7 @@ const MonsterStatisticForm = (
 				name="monster_stats.int"
 				render={({ field }) => (
 					<FormItem>
-						<FormLabel>Intelligence (INT)</FormLabel>
+						<FormLabel>Int</FormLabel>
 						<FormControl>
 							<Input placeholder="ex. 22" {...field} />
 						</FormControl>
@@ -75,7 +75,7 @@ const MonsterStatisticForm = (
 				name="monster_stats.wis"
 				render={({ field }) => (
 					<FormItem>
-						<FormLabel>Wisdom (WIS)</FormLabel>
+						<FormLabel>Wis</FormLabel>
 						<FormControl>
 							<Input placeholder="ex. 22" {...field} />
 						</FormControl>
@@ -88,7 +88,7 @@ const MonsterStatisticForm = (
 				name="monster_stats.cha"
 				render={({ field }) => (
 					<FormItem>
-						<FormLabel>Charisma (CHA)</FormLabel>
+						<FormLabel>Cha</FormLabel>
 						<FormControl>
 							<Input placeholder="ex. 22" {...field} />
 						</FormControl>

@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { MainNavigation } from "@/components/main-nav";
 import { Toaster } from "@/components/ui/sonner";
+import Footer from "@/components/footer";
 
 const fontSans = FontSans({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -21,12 +22,19 @@ export default function RootLayout({
 		<html lang="en">
 			<body
 				className={cn(
-					"min-h-screen max-w-6xl mx-auto px-3 data-[scroll-locked]:pl-3 data-[scroll-locked]:pr-3 lg:px-6 bg-white font-sans antialiased",
+					"min-h-screen  bg-white font-sans antialiased",
 					fontSans.variable
 				)}
 			>
 				<MainNavigation />
-				{children}
+				<main
+					className={cn(
+						"max-w-6xl mx-auto px-3 data-[scroll-locked]:pl-3 data-[scroll-locked]:pr-3 lg:px-6"
+					)}
+				>
+					{children}
+				</main>
+				<Footer />
 				<Toaster />
 			</body>
 		</html>
