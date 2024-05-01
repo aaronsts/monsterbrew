@@ -17,18 +17,20 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
+import { IGetCreatures } from "@/app/editor/page";
+
+interface ICreatureListSelect {
+	creatures: IGetCreatures["results"];
+	value: string;
+	setValue: React.Dispatch<React.SetStateAction<string>>;
+}
 
 export function CreatureListSelect({
 	creatures,
-}: {
-	creatures: { slug: string; name: string }[];
-}) {
+	value,
+	setValue,
+}: ICreatureListSelect) {
 	const [open, setOpen] = React.useState(false);
-	const [value, setValue] = React.useState("");
-
-	const loadCreature = () => {
-		console.log(value);
-	};
 
 	return (
 		<div className="flex gap-3">
@@ -50,7 +52,7 @@ export function CreatureListSelect({
 					<Command>
 						<CommandInput placeholder="Search creature..." className="h-9" />
 						<CommandEmpty>No creature found.</CommandEmpty>
-						<CommandGroup>
+						<CommandGroup className="h-60 overflow-scroll">
 							{creatures.map((creature) => (
 								<CommandItem
 									key={creature.slug}
@@ -73,7 +75,6 @@ export function CreatureListSelect({
 					</Command>
 				</PopoverContent>
 			</Popover>
-			<Button onClick={loadCreature}>Load Creature</Button>
 		</div>
 	);
 }
