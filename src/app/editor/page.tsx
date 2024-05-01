@@ -1,4 +1,4 @@
-import CreateStatblock from "@/components/create-statblock";
+import CreatureStatblockForm from "@/components/creature-statblock-form";
 import LoadCreatureStatblock from "@/components/load-creature-statblock";
 import { toast } from "sonner";
 
@@ -25,13 +25,9 @@ async function getCreatures() {
 export default async function Editor() {
 	const data: IGetCreatures = await getCreatures();
 	return (
-		<div>
-			<h1>Create a monster</h1>
-
-			<div className="flex gap-12 mb-6">
-				<CreateStatblock />
-				<LoadCreatureStatblock data={data} />
-			</div>
+		<div className="flex gap-12 mb-6">
+			<CreatureStatblockForm />
+			<LoadCreatureStatblock data={data} />
 		</div>
 	);
 }

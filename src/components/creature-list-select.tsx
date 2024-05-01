@@ -52,7 +52,7 @@ export function CreatureListSelect({
 					<Command>
 						<CommandInput placeholder="Search creature..." className="h-9" />
 						<CommandEmpty>No creature found.</CommandEmpty>
-						<CommandGroup className="h-60 overflow-scroll">
+						<CommandGroup className="max-h-64 overflow-scroll">
 							{creatures.map((creature) => (
 								<CommandItem
 									key={creature.slug}

@@ -12,7 +12,8 @@ interface ILoadCreatureStatblock {
 
 export default function LoadCreatureStatblock(props: ILoadCreatureStatblock) {
 	const creatures = props.data.results;
-	const [value, setValue] = React.useState("");
+	const [value, setValue] = React.useState("ancient-black-dragon");
+	const [isLoading, setLoading] = React.useState(true);
 	const [creature, setCreature] = React.useState<Monster5e>();
 
 	React.useEffect(() => {
@@ -20,6 +21,7 @@ export default function LoadCreatureStatblock(props: ILoadCreatureStatblock) {
 			const api = await new Open5e();
 			const res = await api.monsters.get(value);
 			setCreature(res);
+			setLoading(false);
 		}
 		if (value.length > 0) {
 			getCreature();
@@ -27,16 +29,15 @@ export default function LoadCreatureStatblock(props: ILoadCreatureStatblock) {
 	}, [value]);
 
 	return (
-		<div>
-			<div>
-				{creatures && (
-					<CreatureListSelect
-						creatures={creatures}
-						value={value}
-						setValue={setValue}
-					/>
-				)}
-			</div>
+		<div className="w-full space-y-2">
+			{creatures && (
+				<CreatureListSelect
+					creatures={creatures}
+					value={value}
+					setValue={setValue}
+				/>
+			)}
+			{isLoading && <p>Loading...</p>}
 			{creature && <Statblock creature={creature} />}
 		</div>
 	);
