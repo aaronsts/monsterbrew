@@ -238,3 +238,19 @@ export const ALL_SKILLS: { name: string; stat: string; expert?: boolean }[] = [
 		stat: "wis",
 	},
 ];
+
+export const DAMAGE_TYPES = [
+	"acid",
+	"bludgeoning",
+	"cold",
+	"fire",
+	"force",
+	"lightning",
+	"necrotic",
+	"piercing",
+	"poison",
+	"psychic",
+	"radiant",
+	"slashing",
+	"thunder",
+];

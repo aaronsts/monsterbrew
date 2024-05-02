@@ -36,6 +36,7 @@ import { MessageSquareText } from "lucide-react";
 import Movement from "./statblock-form/movement";
 import AbilityScores from "./statblock-form/ability-scores";
 import Skills from "./statblock-form/skills";
+import Conditions from "./statblock-form/conditions";
 
 export default function CreatureStatblockForm() {
 	const form = useForm<z.infer<typeof monsterStatblockSchema>>({
@@ -288,6 +289,7 @@ export default function CreatureStatblockForm() {
 						)}
 					/>
 					<Skills form={form} />
+					<Conditions form={form} />
 					{/* <MonsterAbilitiesForm form={form} /> */}
 					{/* <div className="flex gap-3">
 						<MonsterLegendaryForm form={form} />
