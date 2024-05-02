@@ -14,7 +14,6 @@ import {
 } from "./ui/form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { ComboBoxResponsive } from "./combo-box";
 
 import { monsterStatblockSchema } from "@/lib/formSchemas";
 
@@ -23,7 +22,11 @@ import MonsterSensesForm from "./monster-senses-form";
 import MonsterAbilitiesForm from "./monster-abilities-form";
 import MonsterLegendaryForm from "./monster-legendary-form";
 import MonsterLairForm from "./monster-lair-form";
-import { monster_sizes, monster_types } from "@/lib/constants";
+import {
+	CHALLENGE_RATINGS,
+	monster_sizes,
+	monster_types,
+} from "@/lib/constants";
 import { toast } from "sonner";
 import {
 	Select,
@@ -37,6 +40,8 @@ import Movement from "./statblock-form/movement";
 import AbilityScores from "./statblock-form/ability-scores";
 import Skills from "./statblock-form/skills";
 import Conditions from "./statblock-form/conditions";
+import { Card, CardContent, CardHeader } from "./ui/card";
+import ChallengeRating from "./statblock-form/challenge-rating";
 
 export default function CreatureStatblockForm() {
 	const form = useForm<z.infer<typeof monsterStatblockSchema>>({
@@ -76,6 +81,7 @@ export default function CreatureStatblockForm() {
 			intelligence_save: 0,
 			wisdom_save: 0,
 			charisma_save: 0,
+			skills: {},
 			// monster_actions: { description: "" },
 			// monster_bonus_actions: { description: "" },
 			// monster_reactions: { description: "" },
@@ -244,19 +250,7 @@ export default function CreatureStatblockForm() {
 						/>
 					</div>
 					<Movement form={form} />
-					<FormField
-						control={form.control}
-						name="challenge_rating"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Challenge Rating (CR)</FormLabel>
-								<FormControl>
-									<Input placeholder="ex. 21" {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
+					<ChallengeRating form={form} />
 					<AbilityScores form={form} />
 					{/* <MonsterSensesForm form={form} /> */}
 					<FormField
@@ -288,7 +282,9 @@ export default function CreatureStatblockForm() {
 							</FormItem>
 						)}
 					/>
+
 					<Skills form={form} />
+
 					<Conditions form={form} />
 					{/* <MonsterAbilitiesForm form={form} /> */}
 					{/* <div className="flex gap-3">

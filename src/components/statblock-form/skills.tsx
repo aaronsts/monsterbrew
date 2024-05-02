@@ -46,63 +46,56 @@ export default function Skills({ form }: IChildForm) {
 	};
 
 	return (
-		<FormField
-			control={form.control}
-			name="skills"
-			render={({ field }) => (
-				<FormItem>
-					<FormLabel>Monster Type</FormLabel>
-					<div className="flex gap-2 pb-3 items-center">
-						<Button type="button" onClick={addSkill} data-expert="false">
-							Proficient
-						</Button>
-						<Button type="button" onClick={addSkill} data-expert="true">
-							Expert
-						</Button>
-						<p className="text-lg">With:</p>
-						<Select onValueChange={onSelectSkill}>
-							<SelectTrigger className="capitalize">
-								<SelectValue
-									className="placeholder:text-zinc-400"
-									placeholder="Select a skill"
-								/>
-							</SelectTrigger>
-							<SelectContent>
-								{ALL_SKILLS.map((type) => (
-									<SelectItem
-										className="capitalize"
-										key={type.name}
-										value={type.name}
-									>
-										{type.name}
-									</SelectItem>
-								))}
-							</SelectContent>
-						</Select>
-					</div>
-
-					<ul>
-						{skillList.map((skill, i) => (
-							<li
-								key={skill.name + i}
-								className="flex gap-2 justify-between h-10 items-center border-t first:border-t-0"
+		<FormItem>
+			<FormLabel>Skills</FormLabel>
+			<div className="flex gap-2 pb-3 items-center">
+				<Button type="button" onClick={addSkill} data-expert="false">
+					Proficient
+				</Button>
+				<Button type="button" onClick={addSkill} data-expert="true">
+					Expert
+				</Button>
+				<p className="text-lg">With:</p>
+				<Select onValueChange={onSelectSkill}>
+					<SelectTrigger className="capitalize">
+						<SelectValue
+							className="placeholder:text-zinc-400"
+							placeholder="Select a skill"
+						/>
+					</SelectTrigger>
+					<SelectContent>
+						{ALL_SKILLS.map((type) => (
+							<SelectItem
+								className="capitalize"
+								key={type.name}
+								value={type.name}
 							>
-								<p className="capitalize">
-									{skill.name} {skill.expert && "(expert)"}
-								</p>
-								<button
-									onClick={removeSkill}
-									data-index={i}
-									className="group"
-									type="button"
-								>
-									<Trash2 className="w-4 h-4 group-hover:text-red-400 transition-colors" />
-								</button>
-							</li>
+								{type.name}
+							</SelectItem>
 						))}
-					</ul>
-				</FormItem>
-			)}
-		/>
+					</SelectContent>
+				</Select>
+			</div>
+			<ul>
+				{skillList.map((skill, i) => (
+					<li
+						key={skill.name + i}
+						className="flex gap-2 justify-between h-10 items-center border-t first:border-t-0"
+					>
+						<p className="capitalize">
+							{skill.name} {skill.expert && "(expert)"}
+						</p>
+						<button
+							onClick={removeSkill}
+							data-index={i}
+							className="group"
+							type="button"
+						>
+							<Trash2 className="w-4 h-4 group-hover:text-red-400 transition-colors" />
+						</button>
+					</li>
+				))}
+			</ul>
+		</FormItem>
 	);
 }

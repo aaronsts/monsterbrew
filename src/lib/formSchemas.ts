@@ -5,10 +5,10 @@ export const monsterStatblockSchema = z.object({
 	type: z.string({ required_error: "Please select a monster type" }),
 	subtype: z.string().optional(),
 	size: z.string({ required_error: "Please select a size" }),
-	alignment: z.string({ required_error: "Please select an alignment" }).min(2),
+	alignment: z.string().min(2, { message: "Please select an alignment" }),
 	armor_class: z.coerce
 		.number()
-		.min(1, { message: "Please enter an AC value" }),
+		.min(1, { message: "Please enter an Armor Class value" }),
 	armor_desc: z.string().optional(),
 	hit_dice: z.string().regex(new RegExp(/(\d*)d(4|6|8|10|12|20)/gm), {
 		message: "Please use a format like 2d20",
@@ -22,15 +22,17 @@ export const monsterStatblockSchema = z.object({
 		climb: z.coerce.number().optional(),
 		hover: z.boolean().optional(),
 	}),
-	challenge_rating: z.string().optional(),
+	challenge_rating: z.string({
+		required_error: "Please select a challenge rating",
+	}),
 	perception: z.coerce.number().optional(),
 	skills: z.record(z.coerce.number()),
-	senses: z.string(),
+	senses: z.string().min(2, { message: "Please fill in monster senses" }),
 	damage_vulnerabilities: z.string().optional(),
 	damage_resistances: z.string().optional(),
 	damage_immunities: z.string().optional(),
 	condition_immunities: z.string().optional(),
-	languages: z.string().optional(),
+	languages: z.string().min(2, { message: "Please fill in a language" }),
 	actions: z
 		.array(
 			z.object({

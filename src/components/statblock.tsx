@@ -1,16 +1,15 @@
 import { Monster5e } from "@sturlen/open5e-ts";
 import Statistic from "./statblock/statistic";
 import { Divider } from "./ui/divider";
-import { challenge_ratings } from "@/lib/constants";
+import { CHALLENGE_RATINGS } from "@/lib/constants";
 
 const Statblock = ({ creature }: { creature: Monster5e }) => {
 	const skills = Object.entries(creature.skills);
 	const movement = Object.entries(creature.speed);
-	const exp = Object.entries(challenge_ratings)
-		.filter((key) => key[0] === creature.challenge_rating)
-		.map((item) => item[1]);
+	const exp = CHALLENGE_RATINGS.find(
+		(rating) => rating.rating === creature.challenge_rating
+	);
 
-	console.log(creature);
 	return (
 		<div className="w-full space-y-3">
 			<div>
@@ -83,14 +82,16 @@ const Statblock = ({ creature }: { creature: Monster5e }) => {
 						</span>
 					</p>
 				</div>
-				<div className="flex gap-2">
-					<h4>Skills</h4>
-					<p>
-						{skills.map((skill) => (
-							<span key={skill[0]}>{`${skill[0]} +${skill[1]}, `}</span>
-						))}
-					</p>
-				</div>
+				{skills.length > 0 && (
+					<div className="flex gap-2">
+						<h4>Skills</h4>
+						<p>
+							{skills.map((skill) => (
+								<span key={skill[0]}>{`${skill[0]} +${skill[1]}, `}</span>
+							))}
+						</p>
+					</div>
+				)}
 				{creature.damage_vulnerabilities !== "" && (
 					<div className="flex gap-2">
 						<h4>Damage Vulnerabilties</h4>
@@ -123,12 +124,12 @@ const Statblock = ({ creature }: { creature: Monster5e }) => {
 					<div className="flex gap-2">
 						<h4>Challenge Rating</h4>
 						<p>
-							{creature.challenge_rating} ({exp[0].xp} XP)
+							{creature.challenge_rating} ({exp && exp?.xp} XP)
 						</p>
 					</div>
 					<div className="flex gap-2">
 						<h4>Proficiency Bonus</h4>
-						<p>+{exp[0].prof}</p>
+						<p>+{exp && exp.prof}</p>
 					</div>
 				</div>
 			</div>
