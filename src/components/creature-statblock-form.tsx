@@ -40,6 +40,7 @@ import AbilityScores from "./statblock-form/ability-scores";
 import Skills from "./statblock-form/skills";
 import Conditions from "./statblock-form/conditions";
 import ChallengeRating from "./statblock-form/challenge-rating";
+import SpecialAbilities from "./statblock-form/special-abilities";
 
 export default function CreatureStatblockForm() {
 	const form = useForm<z.infer<typeof monsterStatblockSchema>>({
@@ -53,7 +54,12 @@ export default function CreatureStatblockForm() {
 			hit_dice: "",
 			hit_modifier: "",
 			speed: {
-				walk: 30,
+				walk: 0,
+				burrow: 0,
+				climb: 0,
+				fly: 0,
+				swim: 0,
+				hover: false,
 			},
 			challenge_rating: "",
 			strength: 10,
@@ -95,7 +101,6 @@ export default function CreatureStatblockForm() {
 			duration: 60000,
 		});
 	}
-	console.log(form.formState.errors);
 	return (
 		<div className="w-full">
 			<h1>Create Creature</h1>
@@ -284,11 +289,7 @@ export default function CreatureStatblockForm() {
 					<Skills form={form} />
 
 					<Conditions form={form} />
-					{/* <MonsterAbilitiesForm form={form} /> */}
-					{/* <div className="flex gap-3">
-						<MonsterLegendaryForm form={form} />
-						<MonsterLairForm form={form} />
-					</div> */}
+					<SpecialAbilities form={form} />
 					<Button type="submit">Create Monster</Button>
 				</form>
 			</Form>

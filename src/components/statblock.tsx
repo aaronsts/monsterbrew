@@ -10,6 +10,8 @@ const Statblock = ({ creature }: { creature: Monster5e }) => {
 		(rating) => rating.rating === creature.challenge_rating
 	);
 
+	console.log("creature", creature);
+
 	return (
 		<div className="w-full space-y-3">
 			<div>
