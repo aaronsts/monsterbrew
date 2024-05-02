@@ -18,7 +18,7 @@ import { CHALLENGE_RATINGS } from "@/lib/constants";
 import { useWatch } from "react-hook-form";
 
 export default function ChallengeRating({ form }: IChildForm) {
-	const [profBonus, setProfBonus] = useState("");
+	const [profBonus, setProfBonus] = useState<number>(0);
 	const cr = useWatch({ control: form.control, name: "challenge_rating" });
 
 	useEffect(() => {

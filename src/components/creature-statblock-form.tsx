@@ -35,12 +35,10 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "./ui/select";
-import { MessageSquareText } from "lucide-react";
 import Movement from "./statblock-form/movement";
 import AbilityScores from "./statblock-form/ability-scores";
 import Skills from "./statblock-form/skills";
 import Conditions from "./statblock-form/conditions";
-import { Card, CardContent, CardHeader } from "./ui/card";
 import ChallengeRating from "./statblock-form/challenge-rating";
 
 export default function CreatureStatblockForm() {
