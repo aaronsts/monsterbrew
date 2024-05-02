@@ -80,6 +80,7 @@ export default function Skills({ form }: IChildForm) {
 							</SelectContent>
 						</Select>
 					</div>
+
 					<ul>
 						{skillList.map((skill, i) => (
 							<li

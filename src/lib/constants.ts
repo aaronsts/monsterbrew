@@ -254,3 +254,21 @@ export const DAMAGE_TYPES = [
 	"slashing",
 	"thunder",
 ];
+
+export const CONDITION_TYPES = [
+	"blinded",
+	"charmed",
+	"deafened",
+	"exhaustion",
+	"frightened",
+	"grappled",
+	"incapacitated",
+	"invisible",
+	"paralyzed",
+	"petrified",
+	"poisoned",
+	"prone",
+	"restrained",
+	"stunned",
+	"unconscious",
+];
