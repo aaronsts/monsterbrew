@@ -8,10 +8,21 @@ export const monster_sizes = [
 ];
 
 export const monster_types = [
+	{ label: "Aberration", value: "aberration" },
+	{ label: "Beast", value: "beast" },
+	{ label: "Celestial", value: "celestial" },
+	{ label: "Construct", value: "construct" },
 	{ label: "Dragon", value: "dragon" },
+	{ label: "Elemental", value: "elemental" },
+	{ label: "Fey", value: "fey" },
+	{ label: "Fiend", value: "fiend" },
 	{ label: "Giant", value: "giant" },
 	{ label: "Humanoid", value: "humanoid" },
-	{ label: "Fey", value: "fey" },
+	{ label: "Monstrosity", value: "monstrosity" },
+	{ label: "Ooze", value: "ooze" },
+	{ label: "Plant", value: "plant" },
+	{ label: "Undead", value: "undead" },
+	{ label: "Other", value: "other" },
 ];
 
 export const challenge_ratings = {
@@ -152,3 +163,78 @@ export const challenge_ratings = {
 		prof: 9,
 	},
 };
+
+export const ALL_SKILLS: { name: string; stat: string; expert?: boolean }[] = [
+	{
+		name: "acrobatics",
+		stat: "dex",
+	},
+	{
+		name: "animal handling",
+		stat: "wis",
+	},
+	{
+		name: "arcana",
+		stat: "int",
+	},
+	{
+		name: "athletics",
+		stat: "str",
+	},
+	{
+		name: "deception",
+		stat: "cha",
+	},
+	{
+		name: "history",
+		stat: "int",
+	},
+	{
+		name: "insight",
+		stat: "wis",
+	},
+	{
+		name: "intimidation",
+		stat: "cha",
+	},
+	{
+		name: "investigation",
+		stat: "int",
+	},
+	{
+		name: "medicine",
+		stat: "wis",
+	},
+	{
+		name: "nature",
+		stat: "int",
+	},
+	{
+		name: "perception",
+		stat: "wis",
+	},
+	{
+		name: "performance",
+		stat: "cha",
+	},
+	{
+		name: "persuasion",
+		stat: "cha",
+	},
+	{
+		name: "religion",
+		stat: "int",
+	},
+	{
+		name: "sleight of Hand",
+		stat: "dex",
+	},
+	{
+		name: "stealth",
+		stat: "dex",
+	},
+	{
+		name: "survival",
+		stat: "wis",
+	},
+];

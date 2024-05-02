@@ -10,6 +10,7 @@ const Statblock = ({ creature }: { creature: Monster5e }) => {
 		.filter((key) => key[0] === creature.challenge_rating)
 		.map((item) => item[1]);
 
+	console.log(creature);
 	return (
 		<div className="w-full space-y-3">
 			<div>

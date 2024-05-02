@@ -16,64 +16,81 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { ComboBoxResponsive } from "./combo-box";
 
-import { MonsterSchema, createMonsterStatblockSchema } from "@/lib/formSchemas";
+import { monsterStatblockSchema } from "@/lib/formSchemas";
 
-import MonsterStatisticForm from "./monster-statistic-form";
+import MonsterStatisticForm from "./statblock-form/ability-scores";
 import MonsterSensesForm from "./monster-senses-form";
 import MonsterAbilitiesForm from "./monster-abilities-form";
 import MonsterLegendaryForm from "./monster-legendary-form";
 import MonsterLairForm from "./monster-lair-form";
 import { monster_sizes, monster_types } from "@/lib/constants";
 import { toast } from "sonner";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "./ui/select";
+import { MessageSquareText } from "lucide-react";
+import Movement from "./statblock-form/movement";
+import AbilityScores from "./statblock-form/ability-scores";
+import Skills from "./statblock-form/skills";
 
 export default function CreatureStatblockForm() {
-	const form = useForm<z.infer<typeof MonsterSchema>>({
-		resolver: zodResolver(createMonsterStatblockSchema),
+	const form = useForm<z.infer<typeof monsterStatblockSchema>>({
+		resolver: zodResolver(monsterStatblockSchema),
 		defaultValues: {
-			monster_name: "",
-			monster_sub_type: "",
-			monster_alignment: "",
-			monster_ac_type: "",
-			monster_ac: "",
-			monster_hit_die: "",
-			monster_hit_modifier: "",
-			monster_movement: "",
-			monster_cr: "",
-			monster_stats: {
-				str: "",
-				dex: "",
-				con: "",
-				int: "",
-				wis: "",
-				cha: "",
+			name: "",
+			type: "",
+			alignment: "",
+			armor_class: 0,
+			armor_desc: "",
+			hit_dice: "",
+			hit_modifier: "",
+			speed: {
+				walk: 30,
 			},
-			monster_senses: {
-				blind_sight: "",
-				dark_vision: "",
-				tremor_sense: "",
-				true_sight: "",
-				unknown_sense: "",
-				passive_perception: "",
-			},
-			monster_languages: "",
-			monster_proficiency_bonus: "",
-			monster_actions: { description: "" },
-			monster_bonus_actions: { description: "" },
-			monster_reactions: { description: "" },
-			is_legendary: false,
-			has_lair: false,
-			monster_lair: { description: "" },
+			challenge_rating: "",
+			strength: 10,
+			dexterity: 10,
+			constitution: 10,
+			intelligence: 10,
+			wisdom: 10,
+			charisma: 10,
+			languages: "",
+			actions: [],
+			reactions: [],
+			legendary_desc: "",
+			legendary_actions: [],
+			damage_vulnerabilities: "",
+			damage_resistances: "",
+			damage_immunities: "",
+			condition_immunities: "",
+			special_abilities: [],
+			spell_list: [],
+			strength_save: 0,
+			dexterity_save: 0,
+			constitution_save: 0,
+			intelligence_save: 0,
+			wisdom_save: 0,
+			charisma_save: 0,
+			// monster_actions: { description: "" },
+			// monster_bonus_actions: { description: "" },
+			// monster_reactions: { description: "" },
+			// is_legendary: false,
+			// has_lair: false,
+			// monster_lair: { description: "" },
 		},
 	});
 
-	const [subTyping, setSubTyping] = useState(false);
-
-	function onSubmit(values: z.infer<typeof createMonsterStatblockSchema>) {
+	function onSubmit(values: z.infer<typeof monsterStatblockSchema>) {
 		toast.message("Event has been created.", {
-			description: `${values.monster_name} | ${values.monster_ac}`,
+			description: `${values.name} | ${values.armor_class}`,
 			duration: 60000,
 		});
 	}
+	console.log(form.formState.errors);
 	return (
 		<div className="w-full">
 			<h1>Create Creature</h1>
@@ -82,68 +99,15 @@ export default function CreatureStatblockForm() {
 					onSubmit={form.handleSubmit(onSubmit)}
 					className="space-y-3 w-full"
 				>
-					<FormField
-						control={form.control}
-						name="monster_name"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Monster Name</FormLabel>
-								<FormControl>
-									<Input placeholder="ex. Ancient Black Dragon" {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<div>
-						<FormField
-							control={form.control}
-							name="monster_type"
-							render={({ field }) => (
-								<FormItem className="flex flex-col">
-									<FormLabel>Monster Type</FormLabel>
-									<FormControl>
-										<ComboBoxResponsive options={monster_types} {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<button
-							type="button"
-							className="text-sm underline block mt-2 text-zinc-700"
-							onClick={() => setSubTyping(true)}
-						>
-							Add monster sub-type
-						</button>
-					</div>
-					{subTyping && (
-						<FormField
-							control={form.control}
-							name="monster_sub_type"
-							render={({ field }) => (
-								<FormItem className="flex flex-col">
-									<FormLabel>Monster Sub-type</FormLabel>
-									<FormControl>
-										<Input
-											placeholder="Choose a sub-typing if applicable"
-											{...field}
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-					)}
 					<div className="grid grid-cols-2 gap-6">
 						<FormField
 							control={form.control}
-							name="monster_size"
+							name="name"
 							render={({ field }) => (
-								<FormItem className="w-full">
-									<FormLabel>Size</FormLabel>
+								<FormItem>
+									<FormLabel>Monster Name</FormLabel>
 									<FormControl>
-										<ComboBoxResponsive options={monster_sizes} {...field} />
+										<Input placeholder="ex. Ancient Black Dragon" {...field} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -151,7 +115,70 @@ export default function CreatureStatblockForm() {
 						/>
 						<FormField
 							control={form.control}
-							name="monster_alignment"
+							name="type"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Monster Type</FormLabel>
+									<Select
+										onValueChange={field.onChange}
+										defaultValue={field.value}
+									>
+										<FormControl>
+											<SelectTrigger>
+												<SelectValue
+													className="placeholder:text-zinc-400"
+													placeholder="Select a type"
+												/>
+											</SelectTrigger>
+										</FormControl>
+										<SelectContent>
+											{monster_types.map((type) => (
+												<SelectItem key={type.value} value={type.value}>
+													{type.label}
+												</SelectItem>
+											))}
+										</SelectContent>
+									</Select>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+					</div>
+
+					<div className="grid grid-cols-2 gap-6">
+						<FormField
+							control={form.control}
+							name="size"
+							render={({ field }) => (
+								<FormItem className="w-full">
+									<FormLabel>Size</FormLabel>
+									<Select
+										onValueChange={field.onChange}
+										defaultValue={field.value}
+									>
+										<FormControl>
+											<SelectTrigger>
+												<SelectValue
+													className="placeholder:text-zinc-400"
+													placeholder="Select a size"
+												/>
+											</SelectTrigger>
+										</FormControl>
+										<SelectContent>
+											{monster_sizes.map((type) => (
+												<SelectItem key={type.value} value={type.value}>
+													{type.label}
+												</SelectItem>
+											))}
+										</SelectContent>
+									</Select>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="alignment"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Monster Alignment</FormLabel>
@@ -164,7 +191,7 @@ export default function CreatureStatblockForm() {
 						/>
 						<FormField
 							control={form.control}
-							name="monster_ac"
+							name="armor_class"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Armor Class (AC)</FormLabel>
@@ -177,7 +204,7 @@ export default function CreatureStatblockForm() {
 						/>
 						<FormField
 							control={form.control}
-							name="monster_ac_type"
+							name="armor_desc"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Armor Class Type</FormLabel>
@@ -190,7 +217,7 @@ export default function CreatureStatblockForm() {
 						/>
 						<FormField
 							control={form.control}
-							name="monster_hit_die"
+							name="hit_dice"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Hit Die</FormLabel>
@@ -203,7 +230,7 @@ export default function CreatureStatblockForm() {
 						/>
 						<FormField
 							control={form.control}
-							name="monster_hit_modifier"
+							name="hit_modifier"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Hit Points Modifier</FormLabel>
@@ -215,25 +242,10 @@ export default function CreatureStatblockForm() {
 							)}
 						/>
 					</div>
+					<Movement form={form} />
 					<FormField
 						control={form.control}
-						name="monster_movement"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Movement</FormLabel>
-								<FormControl>
-									<Input
-										placeholder="ex. 40 ft., fly 80 ft., swim 40 ft."
-										{...field}
-									/>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={form.control}
-						name="monster_cr"
+						name="challenge_rating"
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Challenge Rating (CR)</FormLabel>
@@ -244,11 +256,27 @@ export default function CreatureStatblockForm() {
 							</FormItem>
 						)}
 					/>
-					<MonsterStatisticForm form={form} />
-					<MonsterSensesForm form={form} />
+					<AbilityScores form={form} />
+					{/* <MonsterSensesForm form={form} /> */}
 					<FormField
 						control={form.control}
-						name="monster_languages"
+						name="senses"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Senses</FormLabel>
+								<FormControl>
+									<Input
+										placeholder="ex. blindsight 60 ft., darkvision 120 ft., passive Perception 26"
+										{...field}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="languages"
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Languages</FormLabel>
@@ -259,24 +287,12 @@ export default function CreatureStatblockForm() {
 							</FormItem>
 						)}
 					/>
-					<FormField
-						control={form.control}
-						name="monster_proficiency_bonus"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Proficiency Bonus</FormLabel>
-								<FormControl>
-									<Input placeholder="ex. 7" {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<MonsterAbilitiesForm form={form} />
-					<div className="flex gap-3">
+					<Skills form={form} />
+					{/* <MonsterAbilitiesForm form={form} /> */}
+					{/* <div className="flex gap-3">
 						<MonsterLegendaryForm form={form} />
 						<MonsterLairForm form={form} />
-					</div>
+					</div> */}
 					<Button type="submit">Create Monster</Button>
 				</form>
 			</Form>

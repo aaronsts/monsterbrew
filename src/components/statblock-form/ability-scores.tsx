@@ -5,22 +5,21 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from "./ui/form";
-import { Input } from "./ui/input";
-import { createMonsterStatblockSchema } from "@/lib/formSchemas";
+} from "../ui/form";
+import { Input } from "../ui/input";
+import { monsterStatblockSchema } from "@/lib/formSchemas";
 import { UseFormReturn } from "react-hook-form";
 
-const MonsterStatisticForm = (
-	form:
-		| UseFormReturn<z.infer<typeof createMonsterStatblockSchema>>
-		| any
-		| undefined
-) => {
+export interface IChildForm {
+	form: UseFormReturn<z.infer<typeof monsterStatblockSchema>>;
+}
+
+export default function AbilityScores({ form }: IChildForm) {
 	return (
 		<div className="grid grid-cols-3 gap-6">
 			<FormField
 				control={form.control}
-				name="monster_stats.str"
+				name="strength"
 				render={({ field }) => (
 					<FormItem>
 						<FormLabel>Str</FormLabel>
@@ -33,7 +32,7 @@ const MonsterStatisticForm = (
 			/>
 			<FormField
 				control={form.control}
-				name="monster_stats.dex"
+				name="dexterity"
 				render={({ field }) => (
 					<FormItem>
 						<FormLabel>Dex</FormLabel>
@@ -46,7 +45,7 @@ const MonsterStatisticForm = (
 			/>
 			<FormField
 				control={form.control}
-				name="monster_stats.con"
+				name="constitution"
 				render={({ field }) => (
 					<FormItem>
 						<FormLabel>Con</FormLabel>
@@ -59,7 +58,7 @@ const MonsterStatisticForm = (
 			/>
 			<FormField
 				control={form.control}
-				name="monster_stats.int"
+				name="intelligence"
 				render={({ field }) => (
 					<FormItem>
 						<FormLabel>Int</FormLabel>
@@ -72,7 +71,7 @@ const MonsterStatisticForm = (
 			/>
 			<FormField
 				control={form.control}
-				name="monster_stats.wis"
+				name="wisdom"
 				render={({ field }) => (
 					<FormItem>
 						<FormLabel>Wis</FormLabel>
@@ -85,7 +84,7 @@ const MonsterStatisticForm = (
 			/>
 			<FormField
 				control={form.control}
-				name="monster_stats.cha"
+				name="charisma"
 				render={({ field }) => (
 					<FormItem>
 						<FormLabel>Cha</FormLabel>
@@ -98,6 +97,4 @@ const MonsterStatisticForm = (
 			/>
 		</div>
 	);
-};
-
-export default MonsterStatisticForm;
+}
