@@ -25,7 +25,7 @@ async function getCreatures() {
 export default async function Editor() {
 	const data: IGetCreatures = await getCreatures();
 	return (
-		<div className="flex gap-12 mb-6">
+		<div className="space-y-12 mb-6">
 			<CreatureStatblockForm />
 			<LoadCreatureStatblock data={data} />
 		</div>

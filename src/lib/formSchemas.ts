@@ -64,6 +64,17 @@ export const monsterStatblockSchema = z.object({
 			})
 		)
 		.optional(),
+	lair_desc: z.string().optional(),
+	lair_actions: z
+		.array(
+			z.object({
+				name: z.string(),
+				desc: z.string(),
+				damage_dice: z.string().optional(),
+				attack_bonus: z.string().optional(),
+			})
+		)
+		.optional(),
 	special_abilities: z
 		.array(
 			z.object({

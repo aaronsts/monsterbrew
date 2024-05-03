@@ -14,26 +14,24 @@ import { useFieldArray } from "react-hook-form";
 import { Button } from "../ui/button";
 import { Plus, Trash2 } from "lucide-react";
 
-export default function SpecialAbilities({ form }: IChildForm) {
+export default function Reactions({ form }: IChildForm) {
 	const { control } = form;
 	const { fields, append, remove } = useFieldArray({
-		name: "special_abilities",
+		name: "reactions",
 		control,
 	});
 	return (
 		<div className="space-y-2">
-			<h3 className="border-b border-zinc-700 leading-tight pb-1">
-				Special Abilities
-			</h3>
+			<h3 className="border-b border-zinc-700 leading-tight pb-1">Reactions</h3>
 			{fields.map((field, index) => (
 				<div key={field.id}>
 					<FormField
 						key={field.id}
 						control={form.control}
-						name={`special_abilities.${index}.name`}
+						name={`reactions.${index}.name`}
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Ability Name</FormLabel>
+								<FormLabel>Reaction Name</FormLabel>
 								<div className="flex justify-between gap-2 items-center">
 									<FormControl>
 										<Input
@@ -59,7 +57,7 @@ export default function SpecialAbilities({ form }: IChildForm) {
 					/>
 					<FormField
 						control={form.control}
-						name={`special_abilities.${index}.desc`}
+						name={`reactions.${index}.desc`}
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Description</FormLabel>
@@ -85,7 +83,7 @@ export default function SpecialAbilities({ form }: IChildForm) {
 				}}
 			>
 				<Plus className="w-4 h-4 mr-1" />
-				Add Ability
+				Add Reaction
 			</Button>
 		</div>
 	);

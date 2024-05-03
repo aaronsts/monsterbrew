@@ -17,16 +17,7 @@ import { Button } from "./ui/button";
 
 import { monsterStatblockSchema } from "@/lib/formSchemas";
 
-import MonsterStatisticForm from "./statblock-form/ability-scores";
-import MonsterSensesForm from "./monster-senses-form";
-import MonsterAbilitiesForm from "./monster-abilities-form";
-import MonsterLegendaryForm from "./monster-legendary-form";
-import MonsterLairForm from "./monster-lair-form";
-import {
-	CHALLENGE_RATINGS,
-	monster_sizes,
-	monster_types,
-} from "@/lib/constants";
+import { monster_sizes, monster_types } from "@/lib/constants";
 import { toast } from "sonner";
 import {
 	Select,
@@ -41,6 +32,10 @@ import Skills from "./statblock-form/skills";
 import Conditions from "./statblock-form/conditions";
 import ChallengeRating from "./statblock-form/challenge-rating";
 import SpecialAbilities from "./statblock-form/special-abilities";
+import Actions from "./statblock-form/actions";
+import Reactions from "./statblock-form/reactions";
+import LegendaryActions from "./statblock-form/legendary-actions";
+import LairActions from "./statblock-form/lair-actions";
 
 export default function CreatureStatblockForm() {
 	const form = useForm<z.infer<typeof monsterStatblockSchema>>({
@@ -69,15 +64,17 @@ export default function CreatureStatblockForm() {
 			wisdom: 10,
 			charisma: 10,
 			languages: "",
+			special_abilities: [],
 			actions: [],
 			reactions: [],
 			legendary_desc: "",
 			legendary_actions: [],
+			lair_desc: "",
+			lair_actions: [],
 			damage_vulnerabilities: "",
 			damage_resistances: "",
 			damage_immunities: "",
 			condition_immunities: "",
-			special_abilities: [],
 			spell_list: [],
 			strength_save: 0,
 			dexterity_save: 0,
@@ -86,12 +83,6 @@ export default function CreatureStatblockForm() {
 			wisdom_save: 0,
 			charisma_save: 0,
 			skills: {},
-			// monster_actions: { description: "" },
-			// monster_bonus_actions: { description: "" },
-			// monster_reactions: { description: "" },
-			// is_legendary: false,
-			// has_lair: false,
-			// monster_lair: { description: "" },
 		},
 	});
 
@@ -287,9 +278,14 @@ export default function CreatureStatblockForm() {
 					/>
 
 					<Skills form={form} />
-
 					<Conditions form={form} />
 					<SpecialAbilities form={form} />
+					<Actions form={form} />
+					<Reactions form={form} />
+					<div className="flex gap-3 w-full">
+						<LegendaryActions form={form} />
+						<LairActions form={form} />
+					</div>
 					<Button type="submit">Create Monster</Button>
 				</form>
 			</Form>
