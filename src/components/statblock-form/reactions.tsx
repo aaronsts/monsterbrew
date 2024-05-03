@@ -22,7 +22,7 @@ export default function Reactions({ form }: IChildForm) {
 	});
 	return (
 		<div className="space-y-2">
-			<h3 className="border-b border-zinc-700 leading-tight pb-1">Reactions</h3>
+			<h3 className=" leading-tight pb-1">Reactions</h3>
 			{fields.map((field, index) => (
 				<div key={field.id}>
 					<FormField

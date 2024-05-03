@@ -55,7 +55,7 @@ export default function Skills({ form }: IChildForm) {
 				<Button type="button" onClick={addSkill} data-expert="true">
 					Expert
 				</Button>
-				<p className="text-lg">With:</p>
+				<p className="text-lg">In:</p>
 				<Select onValueChange={onSelectSkill}>
 					<SelectTrigger className="capitalize">
 						<SelectValue

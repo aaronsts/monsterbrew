@@ -11,7 +11,7 @@ import { IChildForm } from "./ability-scores";
 
 export default function Movement({ form }: IChildForm) {
 	return (
-		<div className="grid grid-cols-3 gap-2">
+		<div className="grid grid-cols-3 gap-3 border-b pb-6 border-zinc-700">
 			<FormField
 				control={form.control}
 				name="speed.walk"

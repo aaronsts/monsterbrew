@@ -1,11 +1,18 @@
 import * as z from "zod";
 
 export const monsterStatblockSchema = z.object({
-	name: z.string().min(2, { message: "Monster name must have a name" }).max(50),
+	name: z
+		.string()
+		.trim()
+		.min(2, { message: "Monster name must have a name" })
+		.max(50),
 	type: z.string({ required_error: "Please select a monster type" }),
 	subtype: z.string().optional(),
 	size: z.string({ required_error: "Please select a size" }),
-	alignment: z.string().min(2, { message: "Please select an alignment" }),
+	alignment: z
+		.string()
+		.trim()
+		.min(2, { message: "Please select an alignment" }),
 	armor_class: z.coerce
 		.number()
 		.min(1, { message: "Please enter an Armor Class value" }),
@@ -27,7 +34,10 @@ export const monsterStatblockSchema = z.object({
 	}),
 	perception: z.coerce.number().optional(),
 	skills: z.record(z.coerce.number()),
-	senses: z.string().min(2, { message: "Please fill in monster senses" }),
+	senses: z
+		.string()
+		.trim()
+		.min(2, { message: "Please fill in monster senses" }),
 	damage_vulnerabilities: z.string().optional(),
 	damage_resistances: z.string().optional(),
 	damage_immunities: z.string().optional(),

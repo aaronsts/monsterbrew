@@ -13,7 +13,7 @@ const Statblock = ({ creature }: { creature: Monster5e }) => {
 	console.log("creature", creature);
 
 	return (
-		<div className="w-full space-y-3">
+		<div className="w-full lg:columns-2 space-y-3">
 			<div>
 				<h1 className="leading-none">{creature.name}</h1>
 				<p className="italic">

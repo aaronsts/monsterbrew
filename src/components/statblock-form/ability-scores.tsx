@@ -9,6 +9,7 @@ import {
 import { Input } from "../ui/input";
 import { monsterStatblockSchema } from "@/lib/formSchemas";
 import { UseFormReturn } from "react-hook-form";
+import { Divider } from "../ui/divider";
 
 export interface IChildForm {
 	form: UseFormReturn<z.infer<typeof monsterStatblockSchema>>;
@@ -16,7 +17,7 @@ export interface IChildForm {
 
 export default function AbilityScores({ form }: IChildForm) {
 	return (
-		<div className="grid grid-cols-3 gap-6">
+		<div className="grid lg:grid-cols-6 gap-3 border-b border-zinc-700 pb-6">
 			<FormField
 				control={form.control}
 				name="strength"

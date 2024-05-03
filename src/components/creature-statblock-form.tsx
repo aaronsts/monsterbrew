@@ -37,6 +37,7 @@ import Reactions from "./statblock-form/reactions";
 import LegendaryActions from "./statblock-form/legendary-actions";
 import LairActions from "./statblock-form/lair-actions";
 import SavingThrows from "./statblock-form/saving-throws";
+import BaseCreatureInfo from "./statblock-form/base-info";
 
 export default function CreatureStatblockForm() {
 	const form = useForm<z.infer<typeof monsterStatblockSchema>>({
@@ -99,191 +100,54 @@ export default function CreatureStatblockForm() {
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className="space-y-3 w-full"
+					className="space-y-6 w-full"
 				>
-					<div className="grid grid-cols-2 gap-6">
-						<FormField
-							control={form.control}
-							name="name"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Monster Name</FormLabel>
-									<FormControl>
-										<Input placeholder="ex. Ancient Black Dragon" {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<FormField
-							control={form.control}
-							name="type"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Monster Type</FormLabel>
-									<Select
-										onValueChange={field.onChange}
-										defaultValue={field.value}
-									>
-										<FormControl>
-											<SelectTrigger>
-												<SelectValue
-													className="placeholder:text-zinc-400"
-													placeholder="Select a type"
-												/>
-											</SelectTrigger>
-										</FormControl>
-										<SelectContent>
-											{monster_types.map((type) => (
-												<SelectItem key={type.value} value={type.value}>
-													{type.label}
-												</SelectItem>
-											))}
-										</SelectContent>
-									</Select>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-					</div>
-
-					<div className="grid grid-cols-2 gap-6">
-						<FormField
-							control={form.control}
-							name="size"
-							render={({ field }) => (
-								<FormItem className="w-full">
-									<FormLabel>Size</FormLabel>
-									<Select
-										onValueChange={field.onChange}
-										defaultValue={field.value}
-									>
-										<FormControl>
-											<SelectTrigger>
-												<SelectValue
-													className="placeholder:text-zinc-400"
-													placeholder="Select a size"
-												/>
-											</SelectTrigger>
-										</FormControl>
-										<SelectContent>
-											{monster_sizes.map((type) => (
-												<SelectItem key={type.value} value={type.value}>
-													{type.label}
-												</SelectItem>
-											))}
-										</SelectContent>
-									</Select>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<FormField
-							control={form.control}
-							name="alignment"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Monster Alignment</FormLabel>
-									<FormControl>
-										<Input placeholder="ex. Chaotic Evil" {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<FormField
-							control={form.control}
-							name="armor_class"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Armor Class (AC)</FormLabel>
-									<FormControl>
-										<Input type="number" placeholder="ex. 22" {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<FormField
-							control={form.control}
-							name="armor_desc"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Armor Class Type</FormLabel>
-									<FormControl>
-										<Input placeholder="ex. Natural Armor" {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<FormField
-							control={form.control}
-							name="hit_dice"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Hit Die</FormLabel>
-									<FormControl>
-										<Input placeholder="ex. 21d20" {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<FormField
-							control={form.control}
-							name="hit_modifier"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Hit Points Modifier</FormLabel>
-									<FormControl>
-										<Input type="number" placeholder="ex. 147" {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-					</div>
+					<BaseCreatureInfo form={form} />
 					<Movement form={form} />
-					<ChallengeRating form={form} />
 					<AbilityScores form={form} />
-					{/* <MonsterSensesForm form={form} /> */}
-					<FormField
-						control={form.control}
-						name="senses"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Senses</FormLabel>
-								<FormControl>
-									<Input
-										placeholder="ex. blindsight 60 ft., darkvision 120 ft., passive Perception 26"
-										{...field}
-									/>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={form.control}
-						name="languages"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Languages</FormLabel>
-								<FormControl>
-									<Input placeholder="ex. Draconic, Common" {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<SavingThrows form={form} />
-					<Skills form={form} />
-					<Conditions form={form} />
-					<SpecialAbilities form={form} />
-					<Actions form={form} />
-					<Reactions form={form} />
-					<div className="flex gap-3 w-full">
+					<div className="grid grid-cols-3 gap-3 pb-6 border-b border-zinc-700">
+						<FormField
+							control={form.control}
+							name="senses"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Senses</FormLabel>
+									<FormControl>
+										<Input
+											placeholder="ex. blindsight 60 ft., darkvision 120 ft., passive Perception 26"
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="languages"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Languages</FormLabel>
+									<FormControl>
+										<Input placeholder="ex. Draconic, Common" {...field} />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<ChallengeRating form={form} />
+					</div>
+					<div className="grid grid-cols-2 gap-3 border-b border-zinc-700 pb-6">
+						<Conditions form={form} />
+						<Skills form={form} />
+						<SavingThrows form={form} />
+					</div>
+					<div className="grid grid-cols-3 gap-6">
+						<SpecialAbilities form={form} />
+						<Actions form={form} />
+						<Reactions form={form} />
+					</div>
+					<div className="flex gap-6 w-full">
 						<LegendaryActions form={form} />
 						<LairActions form={form} />
 					</div>
