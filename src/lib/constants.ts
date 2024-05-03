@@ -25,6 +25,8 @@ export const monster_types = [
 	{ label: "Other", value: "other" },
 ];
 
+export const STAT_NAMES = ["str", "dex", "con", "int", "wis", "cha"];
+
 export const CHALLENGE_RATINGS = [
 	{ rating: "0", xp: "10", prof: 2 },
 	{ rating: "1/8", xp: "25", prof: 2 },

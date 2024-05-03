@@ -55,9 +55,7 @@ export default function Conditions({ form }: IChildForm) {
 
 	const addCondition = () => {
 		const conditionToAdd = CONDITION_TYPES.find((cnd) => cnd === condition);
-
 		if (!conditionToAdd) return;
-
 		if (conditionList.includes(conditionToAdd)) {
 			return;
 		}

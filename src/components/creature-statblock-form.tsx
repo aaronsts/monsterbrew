@@ -36,6 +36,7 @@ import Actions from "./statblock-form/actions";
 import Reactions from "./statblock-form/reactions";
 import LegendaryActions from "./statblock-form/legendary-actions";
 import LairActions from "./statblock-form/lair-actions";
+import SavingThrows from "./statblock-form/saving-throws";
 
 export default function CreatureStatblockForm() {
 	const form = useForm<z.infer<typeof monsterStatblockSchema>>({
@@ -276,7 +277,7 @@ export default function CreatureStatblockForm() {
 							</FormItem>
 						)}
 					/>
-
+					<SavingThrows form={form} />
 					<Skills form={form} />
 					<Conditions form={form} />
 					<SpecialAbilities form={form} />
