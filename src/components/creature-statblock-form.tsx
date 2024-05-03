@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -17,29 +17,27 @@ import { Button } from "./ui/button";
 
 import { monsterStatblockSchema } from "@/lib/formSchemas";
 
-import { monster_sizes, monster_types } from "@/lib/constants";
 import { toast } from "sonner";
 import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "./ui/select";
-import Movement from "./statblock-form/movement";
-import AbilityScores from "./statblock-form/ability-scores";
-import Skills from "./statblock-form/skills";
-import Conditions from "./statblock-form/conditions";
-import ChallengeRating from "./statblock-form/challenge-rating";
-import SpecialAbilities from "./statblock-form/special-abilities";
-import Actions from "./statblock-form/actions";
-import Reactions from "./statblock-form/reactions";
-import LegendaryActions from "./statblock-form/legendary-actions";
-import LairActions from "./statblock-form/lair-actions";
-import SavingThrows from "./statblock-form/saving-throws";
-import BaseCreatureInfo from "./statblock-form/base-info";
+	AbilityScores,
+	Actions,
+	BaseCreatureInfo,
+	ChallengeRating,
+	Conditions,
+	LairActions,
+	LegendaryActions,
+	Movement,
+	Reactions,
+	SavingThrows,
+	Skills,
+	SpecialAbilities,
+} from "./statblock-form";
 
 export default function CreatureStatblockForm() {
+	const [skillList, setSkillList] = useState<
+		{ name: string; stat: string; expert?: boolean }[]
+	>([]);
+
 	const form = useForm<z.infer<typeof monsterStatblockSchema>>({
 		resolver: zodResolver(monsterStatblockSchema),
 		defaultValues: {
@@ -84,6 +82,7 @@ export default function CreatureStatblockForm() {
 			intelligence_save: 0,
 			wisdom_save: 0,
 			charisma_save: 0,
+			senses: "",
 			skills: {},
 		},
 	});
@@ -139,7 +138,7 @@ export default function CreatureStatblockForm() {
 					</div>
 					<div className="grid grid-cols-2 gap-3 border-b border-zinc-700 pb-6">
 						<Conditions form={form} />
-						<Skills form={form} />
+						<Skills skillList={skillList} setSkillList={setSkillList} />
 						<SavingThrows form={form} />
 					</div>
 					<div className="grid grid-cols-3 gap-6">

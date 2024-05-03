@@ -14,12 +14,18 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { Trash2, X } from "lucide-react";
 
-export default function Skills({ form }: IChildForm) {
-	const [selectedSkill, setSelectedSkill] = useState<string>();
+type IskillList = {
+	name: string;
+	stat: string;
+	expert?: boolean;
+};
+interface ISkills {
+	skillList: IskillList[];
+	setSkillList: React.Dispatch<React.SetStateAction<IskillList[]>>;
+}
 
-	const [skillList, setSkillList] = useState<
-		{ name: string; stat: string; expert?: boolean }[]
-	>([]);
+export default function Skills({ skillList, setSkillList }: ISkills) {
+	const [selectedSkill, setSelectedSkill] = useState<string>();
 
 	const onSelectSkill = (e: string) => {
 		setSelectedSkill(e);

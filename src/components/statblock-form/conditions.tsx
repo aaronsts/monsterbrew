@@ -9,7 +9,7 @@ import {
 	SelectValue,
 } from "../ui/select";
 import { IChildForm } from "./ability-scores";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "../ui/button";
 import { Trash2, X } from "lucide-react";
@@ -20,6 +20,8 @@ export default function Conditions({ form }: IChildForm) {
 
 	const [condition, setCondition] = useState<string>();
 	const [conditionList, setConditionList] = useState<string[]>([]);
+
+	const { setValue } = form;
 
 	const onSelectDamage = (e: string) => {
 		setDamage(e);
@@ -68,6 +70,26 @@ export default function Conditions({ form }: IChildForm) {
 		const newConditionList = conditionList.filter((_, i) => i !== index);
 		setConditionList(newConditionList);
 	};
+
+	useEffect(() => {
+		setValue("condition_immunities", conditionList.join(" "));
+	}, [conditionList, setValue]);
+
+	useEffect(() => {
+		const immunities = damageList
+			.filter((dmg) => dmg.includes("immune"))
+			.map((dmg) => dmg.replace("immune to ", ""));
+		const vulnerabilities = damageList
+			.filter((dmg) => dmg.includes("vulnerable"))
+			.map((dmg) => dmg.replace("vulnerable to ", ""));
+		const resistances = damageList
+			.filter((dmg) => dmg.includes("resistant"))
+			.map((dmg) => dmg.replace("resistant to ", ""));
+
+		setValue("damage_immunities", immunities.join(" "));
+		setValue("damage_resistances", resistances.join(" "));
+		setValue("damage_vulnerabilities", vulnerabilities.join(" "));
+	}, [damageList, setValue]);
 
 	return (
 		<>

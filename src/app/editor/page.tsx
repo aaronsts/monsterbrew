@@ -27,7 +27,7 @@ export default async function Editor() {
 	return (
 		<div className="space-y-12 mb-6">
 			<CreatureStatblockForm />
-			<LoadCreatureStatblock data={data} />
+			{/* <LoadCreatureStatblock data={data} /> */}
 		</div>
 	);
 }
