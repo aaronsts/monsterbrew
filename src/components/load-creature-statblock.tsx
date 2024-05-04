@@ -1,10 +1,10 @@
 "use client";
 
-import * as React from "react";
 import { IGetCreatures } from "@/app/editor/page";
 import { CreatureListSelect } from "./creature-list-select";
 import Statblock from "./statblock";
 import { Monster5e, Open5e } from "@sturlen/open5e-ts";
+import { useEffect, useState } from "react";
 
 interface ILoadCreatureStatblock {
 	data: IGetCreatures;
@@ -12,20 +12,23 @@ interface ILoadCreatureStatblock {
 
 export default function LoadCreatureStatblock(props: ILoadCreatureStatblock) {
 	const creatures = props.data.results;
-	const [value, setValue] = React.useState("ancient-black-dragon");
-	const [isLoading, setLoading] = React.useState(true);
-	const [creature, setCreature] = React.useState<Monster5e>();
+	const [value, setValue] = useState("ancient-black-dragon");
+	const [isLoading, setLoading] = useState(true);
+	const [creature, setCreature] = useState<Monster5e>();
 
-	React.useEffect(() => {
-		async function getCreature() {
-			const api = await new Open5e();
-			const res = await api.monsters.get(value);
-			setCreature(res);
-			setLoading(false);
-		}
-		if (value.length > 0) {
-			getCreature();
-		}
+	useEffect(() => {
+		const creature = localStorage.getItem("monsterbrew-creature");
+		if (!creature) return;
+		setCreature(JSON.parse(creature));
+		// async function getCreature() {
+		// 	const api = await new Open5e();
+		// 	const res = await api.monsters.get(value);
+		// 	setCreature(res);
+		// 	setLoading(false);
+		// }
+		// if (value.length > 0) {
+		// 	getCreature();
+		// }
 	}, [value]);
 
 	return (

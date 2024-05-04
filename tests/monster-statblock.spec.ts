@@ -11,7 +11,7 @@ test("Should submit a form to create new monster statblock", async ({
 	await expect(page).toHaveURL("/editor");
 	// Fill in form
 	// Name
-	await page.getByLabel("Monster Name").fill("Ancient Black Dragon");
+	await page.getByLabel("Monster Name").fill("Ancient Black Dragon TEST");
 	// Type
 	await page.getByLabel("Monster Type").click();
 	await page.getByLabel("Dragon").click();

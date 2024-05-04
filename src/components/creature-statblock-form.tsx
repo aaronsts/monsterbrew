@@ -140,7 +140,9 @@ export default function CreatureStatblockForm() {
 				: Math.floor(modifier / 2) - 5 + proficiencyBonus.prof;
 		});
 
-		console.log(values, skillList, savingThrows);
+		console.log(values);
+
+		localStorage.setItem("monsterbrew-creature", JSON.stringify(values));
 
 		toast.message("Event has been created.", {
 			description: `${values.name} | ${values.armor_class}`,
