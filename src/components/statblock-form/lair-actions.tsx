@@ -46,7 +46,7 @@ export default function LairActions({ form }: IChildForm) {
 				<div className="space-y-2">
 					<FormField
 						control={form.control}
-						name={`legendary_desc`}
+						name={`lair_desc`}
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Description</FormLabel>
@@ -66,7 +66,7 @@ export default function LairActions({ form }: IChildForm) {
 							<FormField
 								key={field.id}
 								control={form.control}
-								name={`legendary_actions.${index}.name`}
+								name={`lair_actions.${index}.name`}
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Legendary Action Name</FormLabel>
@@ -95,7 +95,7 @@ export default function LairActions({ form }: IChildForm) {
 							/>
 							<FormField
 								control={form.control}
-								name={`legendary_actions.${index}.desc`}
+								name={`lair_actions.${index}.desc`}
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Description</FormLabel>
