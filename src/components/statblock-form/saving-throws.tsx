@@ -1,4 +1,4 @@
-import { ALL_SKILLS, STAT_NAMES } from "@/lib/constants";
+import { STAT_NAMES } from "@/lib/constants";
 
 import { FormItem, FormLabel } from "../ui/form";
 import {
@@ -8,23 +8,27 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "../ui/select";
-import { IChildForm } from "./ability-scores";
 import { useState } from "react";
 
 import { Button } from "../ui/button";
 import { Trash2 } from "lucide-react";
 
-export default function SavingThrows({ form }: IChildForm) {
-	const [stat, setStat] = useState<string>();
+interface ISavingThrows {
+	statList: { name: string; value: string }[];
+	setStatList: React.Dispatch<
+		React.SetStateAction<{ name: string; value: string }[]>
+	>;
+}
 
-	const [statList, setStatList] = useState<string[]>([]);
+export default function SavingThrows({ statList, setStatList }: ISavingThrows) {
+	const [stat, setStat] = useState<string>();
 
 	const onSelectSkill = (e: string) => {
 		setStat(e);
 	};
 
 	const addSavingThrow = () => {
-		const statToAdd = STAT_NAMES.find((s) => s === stat);
+		const statToAdd = STAT_NAMES.find((s) => s.value === stat);
 		if (!statToAdd) return;
 		if (statList.includes(statToAdd)) {
 			return;
@@ -35,8 +39,8 @@ export default function SavingThrows({ form }: IChildForm) {
 	const removeSavingThrow = (event: React.MouseEvent<HTMLElement>) => {
 		if (!event.currentTarget.dataset.index) return;
 		const index = parseInt(event.currentTarget.dataset.index);
-		const newConditionList = statList.filter((_, i) => i !== index);
-		setStatList(newConditionList);
+		const newStatList = statList.filter((_, i) => i !== index);
+		setStatList(newStatList);
 	};
 
 	return (
@@ -52,8 +56,8 @@ export default function SavingThrows({ form }: IChildForm) {
 					</SelectTrigger>
 					<SelectContent>
 						{STAT_NAMES.map((type, i) => (
-							<SelectItem className="uppercase" key={type + i} value={type}>
-								{type}
+							<SelectItem key={type.value + i} value={type.value}>
+								{type.name}
 							</SelectItem>
 						))}
 					</SelectContent>
@@ -65,10 +69,10 @@ export default function SavingThrows({ form }: IChildForm) {
 			<ul>
 				{statList.map((stat, i) => (
 					<li
-						key={stat + i}
+						key={stat.value + i}
 						className="flex gap-2 justify-between h-10 items-center border-t first:border-t-0"
 					>
-						<p className="capitalize">{stat}</p>
+						<p className="capitalize">{stat.name}</p>
 						<button
 							onClick={removeSavingThrow}
 							data-index={i}

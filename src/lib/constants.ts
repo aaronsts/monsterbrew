@@ -25,7 +25,14 @@ export const monster_types = [
 	{ label: "Other", value: "other" },
 ];
 
-export const STAT_NAMES = ["str", "dex", "con", "int", "wis", "cha"];
+export const STAT_NAMES = [
+	{ name: "Strength", value: "str" },
+	{ name: "Dexterity", value: "dex" },
+	{ name: "Constitution", value: "con" },
+	{ name: "Intelligence", value: "int" },
+	{ name: "Wisdom", value: "wis" },
+	{ name: "Charisma", value: "cha" },
+];
 
 export const CHALLENGE_RATINGS = [
 	{ rating: "0", xp: "10", prof: 2 },
@@ -67,75 +74,75 @@ export const CHALLENGE_RATINGS = [
 export const ALL_SKILLS: { name: string; stat: string; expert?: boolean }[] = [
 	{
 		name: "acrobatics",
-		stat: "dex",
+		stat: "dexterity",
 	},
 	{
 		name: "animal handling",
-		stat: "wis",
+		stat: "wisdom",
 	},
 	{
 		name: "arcana",
-		stat: "int",
+		stat: "intelligence",
 	},
 	{
 		name: "athletics",
-		stat: "str",
+		stat: "strength",
 	},
 	{
 		name: "deception",
-		stat: "cha",
+		stat: "charisma",
 	},
 	{
 		name: "history",
-		stat: "int",
+		stat: "intelligence",
 	},
 	{
 		name: "insight",
-		stat: "wis",
+		stat: "wisdom",
 	},
 	{
-		name: "intimidation",
-		stat: "cha",
+		name: "intelligenceimidation",
+		stat: "charisma",
 	},
 	{
 		name: "investigation",
-		stat: "int",
+		stat: "intelligence",
 	},
 	{
 		name: "medicine",
-		stat: "wis",
+		stat: "wisdom",
 	},
 	{
 		name: "nature",
-		stat: "int",
+		stat: "intelligence",
 	},
 	{
 		name: "perception",
-		stat: "wis",
+		stat: "wisdom",
 	},
 	{
 		name: "performance",
-		stat: "cha",
+		stat: "charisma",
 	},
 	{
 		name: "persuasion",
-		stat: "cha",
+		stat: "charisma",
 	},
 	{
 		name: "religion",
-		stat: "int",
+		stat: "intelligence",
 	},
 	{
 		name: "sleight of Hand",
-		stat: "dex",
+		stat: "dexterity",
 	},
 	{
 		name: "stealth",
-		stat: "dex",
+		stat: "dexterity",
 	},
 	{
 		name: "survival",
-		stat: "wis",
+		stat: "wisdom",
 	},
 ];
 

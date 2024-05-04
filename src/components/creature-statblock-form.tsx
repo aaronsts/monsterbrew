@@ -32,8 +32,12 @@ import {
 	Skills,
 	SpecialAbilities,
 } from "./statblock-form";
+import { CHALLENGE_RATINGS } from "@/lib/constants";
 
 export default function CreatureStatblockForm() {
+	const [savingThrows, setSavingThrows] = useState<
+		{ name: string; value: string }[]
+	>([]);
 	const [skillList, setSkillList] = useState<
 		{ name: string; stat: string; expert?: boolean }[]
 	>([]);
@@ -88,6 +92,54 @@ export default function CreatureStatblockForm() {
 	});
 
 	function onSubmit(values: z.infer<typeof monsterStatblockSchema>) {
+		if (!values) return;
+		const proficiencyBonus = CHALLENGE_RATINGS.find(
+			(rating) => rating.rating === values.challenge_rating
+		);
+		if (!proficiencyBonus) return;
+		savingThrows.forEach((t) => {
+			switch (t.value) {
+				case "str":
+					values.strength_save =
+						proficiencyBonus.prof + Math.floor(values.strength / 2) - 5;
+					break;
+				case "dex":
+					values.dexterity_save =
+						proficiencyBonus.prof + Math.floor(values.dexterity / 2) - 5;
+					break;
+				case "con":
+					values.constitution_save =
+						proficiencyBonus.prof + Math.floor(values.constitution / 2) - 5;
+					break;
+				case "wis":
+					values.wisdom_save =
+						proficiencyBonus.prof + Math.floor(values.wisdom / 2) - 5;
+					break;
+				case "int":
+					values.intelligence_save =
+						proficiencyBonus.prof + Math.floor(values.intelligence / 2) - 5;
+					break;
+				case "cha":
+					values.charisma_save =
+						proficiencyBonus.prof + Math.floor(values.charisma / 2) - 5;
+					break;
+				default:
+					break;
+			}
+		});
+
+		skillList.forEach((s) => {
+			const modifier = values[
+				s.stat as keyof z.infer<typeof monsterStatblockSchema>
+			] as number;
+
+			values.skills[s.name] = s.expert
+				? Math.floor(modifier / 2) - 5 + proficiencyBonus.prof * 2
+				: Math.floor(modifier / 2) - 5 + proficiencyBonus.prof;
+		});
+
+		console.log(values, skillList, savingThrows);
+
 		toast.message("Event has been created.", {
 			description: `${values.name} | ${values.armor_class}`,
 			duration: 60000,
@@ -139,7 +191,10 @@ export default function CreatureStatblockForm() {
 					<div className="grid grid-cols-2 gap-3 border-b border-zinc-700 pb-6">
 						<Conditions form={form} />
 						<Skills skillList={skillList} setSkillList={setSkillList} />
-						<SavingThrows form={form} />
+						<SavingThrows
+							statList={savingThrows}
+							setStatList={setSavingThrows}
+						/>
 					</div>
 					<div className="grid grid-cols-3 gap-6">
 						<SpecialAbilities form={form} />
