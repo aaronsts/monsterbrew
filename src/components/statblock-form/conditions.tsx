@@ -109,6 +109,7 @@ export default function Conditions({ form }: IChildForm) {
 					<Select onValueChange={onSelectDamage}>
 						<SelectTrigger className="capitalize">
 							<SelectValue
+								data-testid="damage-type"
 								className="placeholder:text-zinc-400"
 								placeholder="Damage type"
 							/>

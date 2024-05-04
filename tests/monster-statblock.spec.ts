@@ -13,51 +13,108 @@ test("Should submit a form to create new monster statblock", async ({
 	// Name
 	await page.getByLabel("Monster Name").fill("Ancient Black Dragon");
 	// Type
-	await page
-		.locator("div")
-		.filter({ hasText: /^Monster TypeSelect type \.\.\.$/ })
-		.getByRole("button")
-		.click();
-	await page.getByRole("option", { name: "Dragon" }).click();
+	await page.getByLabel("Monster Type").click();
+	await page.getByLabel("Dragon").click();
 	// Size
-	await page.getByRole("button", { name: "Select type" }).click();
-	await page.getByRole("option", { name: "Gargantuan" }).click();
-	// Alignment
-	await page.getByPlaceholder("ex. Chaotic Evil").fill("Chaotic Evil");
+	await page.getByLabel("Size").click();
+	await page.getByLabel("Gargantuan").click();
+	// Monster Alignment
+	await page.getByLabel("Monster Alignment").fill("Chaotic Evil");
 	// Armor Class
 	await page.getByLabel("Armor Class (AC)").fill("22");
-	// Armor Class type
-	await page.getByPlaceholder("ex. Natural Armor").fill("Natural Armor");
 	// Hit Die
-	await page.getByPlaceholder("ex. 21d20").fill("21d20");
-	await page.getByPlaceholder("ex. 147").fill("147");
-	// Movement
-	await page.getByPlaceholder("ex. 40 ft., fly 80 ft., swim").fill("40 ft.");
+	await page.getByLabel("Hit Die").fill("21d20");
+	// Hit Die Modifier
+	await page.getByLabel("Hit Points Modifier").fill("147");
+	// Movement.walk
+	await page.locator('input[name="speed\\.walk"]').fill("40");
+	// Movement.fly
+	await page.locator('input[name="speed\\.fly"]').fill("80");
+	// Movement.swim
+	await page.locator('input[name="speed\\.swim"]').fill("40");
 	// Stats
-	await page.getByLabel("Strength (STR)").fill("27");
-	await page.getByLabel("Dexterity (DEX)").fill("26");
-	await page.getByLabel("Constitution (CON)").fill("25");
-	await page.getByLabel("Intelligence (INT)").fill("24");
-	await page.getByLabel("Wisdom (WIS)").fill("23");
-	await page.getByLabel("Charisma (CHA)").fill("22");
-	// Senses
-	await page.getByLabel("True Sight").fill("10 ft.");
-	await page.getByLabel("Passive Perception").fill("22");
-	// Languages
-	await page.getByLabel("Languages").fill("Draconic");
-	// Abilities
-	await page.getByLabel("Traits").getByLabel("Toggle bold").click();
-	await page.getByLabel("Traits").locator("div").nth(4).fill("Amphibious. ");
-	await page.getByLabel("Traits").getByLabel("Toggle bold").click();
-	// Legendary
-	await page.getByLabel("Legendary Monster").click();
+	await page.getByLabel("Str").fill("27");
+	await page.getByLabel("Dex").fill("14");
+	await page.getByLabel("Con").fill("25");
+	await page.getByLabel("Int", { exact: true }).fill("16");
+	await page.getByLabel("Wis").fill("15");
+	await page.getByLabel("Cha", { exact: true }).fill("19");
+
+	// sense
 	await page
-		.locator("div")
-		.filter({ hasText: /^Legendary Actions$/ })
-		.locator("div")
-		.nth(3)
-		.fill("test");
-	await page.getByRole("button", { name: "Submit" }).click();
-	const submitToast = page.locator("[data-sonner-toast]");
-	await expect(submitToast).toContainText("Ancient Black Dragon | 22");
+		.getByPlaceholder("ex. blindsight 60 ft.,")
+		.fill("blindsight 60ft, darkvision 120ft., passive perception 26");
+
+	// Languages
+	await page.getByLabel("Languages").fill("Draconic, Common");
+
+	// Challenge Rating
+	await page.getByLabel("Challenge Rating (CR)").click();
+	await page.getByLabel("(33,000 XP)").click();
+
+	// Damages
+	await page.getByTestId("damage-type").click();
+	await page.getByLabel("acid").click();
+	await page.getByRole("button", { name: "Immune" }).click();
+
+	await page.getByTestId("damage-type").click();
+	await page.getByLabel("fire").click();
+	await page.getByRole("button", { name: "Resistant" }).click();
+	await page
+		.locator("li")
+		.filter({ hasText: "resistant to fire" })
+		.getByRole("button")
+		.click();
+
+	await page.getByTestId("skill-proficiency").click();
+	await page.getByLabel("perception").click();
+	await page.getByRole("button", { name: "Expert" }).click();
+
+	await page.getByTestId("skill-proficiency").click();
+	await page.getByLabel("stealth").click();
+	await page.getByRole("button", { name: "Proficient" }).click();
+
+	await page.getByTestId("saving-throws").click();
+	await page.getByLabel("Dexterity").click();
+	await page.getByTestId("saving-throw-button").click();
+
+	await page.getByTestId("saving-throws").click();
+	await page.getByLabel("Constitution").click();
+	await page.getByTestId("saving-throw-button").click();
+
+	await page.getByTestId("saving-throws").click();
+	await page.getByLabel("Wisdom").click();
+	await page.getByTestId("saving-throw-button").click();
+
+	await page.getByTestId("saving-throws").click();
+	await page.getByLabel("Charisma").click();
+	await page.getByTestId("saving-throw-button").click();
+
+	// Abilities
+	await page.getByRole("button", { name: "Add Ability" }).click();
+	await page.getByLabel("Ability Name").fill("Amphibious");
+	await page
+		.getByPlaceholder("ex. The dragon can breathe")
+		.fill("The dragon can breathe air and water");
+
+	await page.getByRole("button", { name: "Add Ability" }).click();
+	await page
+		.locator('[id="\\:rda\\:-form-item"]')
+		.fill("Legendary Resistance (3/Day).");
+	await page
+		.locator('[id="\\:rdb\\:-form-item"]')
+		.fill(
+			"If the dragon fails a saving throw, it can choose to succeed instead."
+		);
+
+	// Action
+	await page.getByRole("button", { name: "Add Action" }).click();
+	await page.locator('[id="\\:rdc\\:-form-item"]').fill("Multiattack");
+	await page
+		.locator('[id="\\:rdd\\:-form-item"]')
+		.fill(
+			"The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws."
+		);
+
+	await page.getByRole("button", { name: "Create Creature" }).click();
 });

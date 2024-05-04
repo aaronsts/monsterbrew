@@ -63,7 +63,7 @@ export default function Skills({ skillList, setSkillList }: ISkills) {
 				</Button>
 				<p className="text-lg">In:</p>
 				<Select onValueChange={onSelectSkill}>
-					<SelectTrigger className="capitalize">
+					<SelectTrigger data-testid="skill-proficiency" className="capitalize">
 						<SelectValue
 							className="placeholder:text-zinc-400"
 							placeholder="Select a skill"

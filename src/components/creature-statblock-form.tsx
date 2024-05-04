@@ -34,6 +34,8 @@ import {
 } from "./statblock-form";
 import { CHALLENGE_RATINGS } from "@/lib/constants";
 
+// TODO: Add passive perception calculation (10 + perception modifier)
+
 export default function CreatureStatblockForm() {
 	const [savingThrows, setSavingThrows] = useState<
 		{ name: string; value: string }[]
@@ -205,7 +207,7 @@ export default function CreatureStatblockForm() {
 						<LegendaryActions form={form} />
 						<LairActions form={form} />
 					</div>
-					<Button type="submit">Create Monster</Button>
+					<Button type="submit">Create Creature</Button>
 				</form>
 			</Form>
 		</div>

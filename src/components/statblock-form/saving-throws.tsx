@@ -48,7 +48,7 @@ export default function SavingThrows({ statList, setStatList }: ISavingThrows) {
 			<FormLabel>Saving Throws</FormLabel>
 			<div className="flex gap-2 pb-3 items-center">
 				<Select onValueChange={onSelectSkill}>
-					<SelectTrigger className="capitalize">
+					<SelectTrigger data-testid="saving-throws" className="capitalize">
 						<SelectValue
 							className="placeholder:text-zinc-400"
 							placeholder="Select a skill"
@@ -62,7 +62,11 @@ export default function SavingThrows({ statList, setStatList }: ISavingThrows) {
 						))}
 					</SelectContent>
 				</Select>
-				<Button type="button" onClick={addSavingThrow}>
+				<Button
+					data-testid="saving-throw-button"
+					type="button"
+					onClick={addSavingThrow}
+				>
 					Add
 				</Button>
 			</div>
