@@ -192,7 +192,7 @@ export default function StatblockForm({
 									<FormLabel>Senses</FormLabel>
 									<FormControl>
 										<Input
-											placeholder="ex. blindsight 60 ft., darkvision 120 ft., passive Perception 26"
+											placeholder="ex. blindsight 60 ft., darkvision 120 ft."
 											{...field}
 										/>
 									</FormControl>

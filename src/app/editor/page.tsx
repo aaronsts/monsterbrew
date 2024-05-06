@@ -25,9 +25,5 @@ async function getCreatures() {
 
 export default async function Editor() {
 	const data: IGetCreatures = await getCreatures();
-	return (
-		<div className="space-y-12 mb-6">
-			<EditStatblock creatureList={data} />
-		</div>
-	);
+	return <EditStatblock creatureList={data} />;
 }

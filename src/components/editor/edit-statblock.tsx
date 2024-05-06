@@ -14,7 +14,7 @@ function EditStatblock({ creatureList }: IEditStatblock) {
 	const [creature, setCreature] = useState<Monster5e>();
 
 	return (
-		<div>
+		<div className="space-y-6 mb-6">
 			<StatblockForm setCreature={setCreature} />
 			<ViewStatblock
 				creature={creature}

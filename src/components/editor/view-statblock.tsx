@@ -6,6 +6,7 @@ import Statblock from "../statblock";
 import { Open5e } from "@sturlen/open5e-ts";
 import { useCallback, useEffect, useState } from "react";
 import { Monster5e } from "@/types/monster5e";
+import { Button } from "../ui/button";
 
 interface IViewStatblock {
 	creatureList: IGetCreatures;
@@ -19,7 +20,6 @@ export default function ViewStatblock(props: IViewStatblock) {
 
 	const [value, setValue] = useState("ancient-black-dragon");
 	const [isLoading, setLoading] = useState(true);
-
 	const getCreature = useCallback(async () => {
 		const api = await new Open5e();
 		const result = await api.monsters.get(value);
@@ -28,25 +28,30 @@ export default function ViewStatblock(props: IViewStatblock) {
 	}, [setCreature, value]);
 
 	useEffect(() => {
-		// const localStorageCreature = localStorage.getItem("monsterbrew-creature");
-		// if (localStorageCreature) {
-		// 	setCreature(JSON.parse(localStorageCreature));
-		// 	setLoading(false);
-		// } else if (value.length > 0) {
 		getCreature();
-		// }
 	}, [getCreature, setCreature, value]);
+
+	const loadLocalCreature = () => {
+		const localStorageCreature = localStorage.getItem("monsterbrew-creature");
+		if (!localStorageCreature) return;
+		setCreature(JSON.parse(localStorageCreature));
+	};
 
 	return (
 		<div className="w-full space-y-2">
-			{creatures && (
-				<CreatureListSelect
-					creatures={creatures}
-					value={value}
-					setValue={setValue}
-					getCreature={getCreature}
-				/>
-			)}
+			<div className="flex gap-3">
+				{creatures && (
+					<CreatureListSelect
+						creatures={creatures}
+						value={value}
+						setValue={setValue}
+						getCreature={getCreature}
+					/>
+				)}
+				{localStorage.getItem("monsterbrew-creature") && (
+					<Button onClick={loadLocalCreature}>Load Local Creature</Button>
+				)}
+			</div>
 			{isLoading ? (
 				<p>Loading...</p>
 			) : (
