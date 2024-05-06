@@ -1,8 +1,8 @@
-import { Monster5e } from "@sturlen/open5e-ts";
 import Statistic from "./statblock/statistic";
 import { Divider } from "./ui/divider";
 import { CHALLENGE_RATINGS } from "@/lib/constants";
 import SavingThrows from "./statblock/saving-throws";
+import { Monster5e } from "@/types/monster5e";
 
 const Statblock = ({ creature }: { creature: Monster5e }) => {
 	const skills = Object.entries(creature.skills);
@@ -33,7 +33,8 @@ const Statblock = ({ creature }: { creature: Monster5e }) => {
 				<div className="flex gap-2">
 					<h4>Hit Points</h4>
 					<p>
-						{creature.hit_points} {`(${creature.hit_dice})`}
+						{/* {creature.hit_points}  */}
+						{`(${creature.hit_dice})`}
 					</p>
 				</div>
 				<div className="flex gap-2">
@@ -121,29 +122,8 @@ const Statblock = ({ creature }: { creature: Monster5e }) => {
 			</div>
 			<Divider />
 			<div className="py-1 space-y-1.5">
-				{creature.special_abilities.map((ability) => (
-					<div className="flex gap-2" key={ability.name}>
-						<p>
-							<span className="font-bold">{ability.name}.</span> {ability.desc}
-						</p>
-					</div>
-				))}
-			</div>
-			<div className="space-y-2">
-				<h2 className="border-b border-zinc-700">Actions</h2>
-				{creature.actions.map((ability) => (
-					<div className="flex gap-2" key={ability.name}>
-						<p>
-							<span className="font-bold">{ability.name}.</span> {ability.desc}
-						</p>
-					</div>
-				))}
-			</div>
-			{creature.legendary_actions.length !== 0 && (
-				<div className="space-y-2">
-					<h2 className="border-b border-zinc-700">Legendary Actions</h2>
-					<p>{creature.legendary_desc}</p>
-					{creature.legendary_actions.map((ability) => (
+				{creature.special_abilities &&
+					creature.special_abilities.map((ability) => (
 						<div className="flex gap-2" key={ability.name}>
 							<p>
 								<span className="font-bold">{ability.name}.</span>{" "}
@@ -151,8 +131,34 @@ const Statblock = ({ creature }: { creature: Monster5e }) => {
 							</p>
 						</div>
 					))}
-				</div>
-			)}
+			</div>
+			<div className="space-y-2">
+				<h2 className="border-b border-zinc-700">Actions</h2>
+				{creature.actions &&
+					creature.actions.map((ability) => (
+						<div className="flex gap-2" key={ability.name}>
+							<p>
+								<span className="font-bold">{ability.name}.</span>{" "}
+								{ability.desc}
+							</p>
+						</div>
+					))}
+			</div>
+			{creature.legendary_actions &&
+				creature.legendary_actions.length !== 0 && (
+					<div className="space-y-2">
+						<h2 className="border-b border-zinc-700">Legendary Actions</h2>
+						<p>{creature.legendary_desc}</p>
+						{creature.legendary_actions.map((ability) => (
+							<div className="flex gap-2" key={ability.name}>
+								<p>
+									<span className="font-bold">{ability.name}.</span>{" "}
+									{ability.desc}
+								</p>
+							</div>
+						))}
+					</div>
+				)}
 		</div>
 	);
 };

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import StatblockForm from "./statblock-form";
 import ViewStatblock from "./view-statblock";
 import { IGetCreatures } from "@/app/editor/page";
-import { Monster5e } from "@sturlen/open5e-ts";
+import { Monster5e } from "@/types/monster5e";
 
 interface IEditStatblock {
 	creatureList: IGetCreatures;

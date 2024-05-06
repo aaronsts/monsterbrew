@@ -33,7 +33,7 @@ import {
 	SpecialAbilities,
 } from "../statblock-form";
 import { CHALLENGE_RATINGS } from "@/lib/constants";
-import { Monster5e } from "@sturlen/open5e-ts";
+import { Monster5e } from "@/types/monster5e";
 
 // TODO: Add passive perception calculation (10 + perception modifier)
 
