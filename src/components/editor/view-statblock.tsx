@@ -9,27 +9,37 @@ import { Monster5e } from "@/types/monster5e";
 import { Button } from "../ui/button";
 
 interface IViewStatblock {
-	creatureList: IGetCreatures;
+	value: string | undefined;
 	creature: Monster5e | undefined;
 	setCreature: React.Dispatch<React.SetStateAction<Monster5e | undefined>>;
 }
 
 export default function ViewStatblock(props: IViewStatblock) {
-	const creatures = props.creatureList.results;
-	const { creature, setCreature } = props;
-
-	const [value, setValue] = useState("ancient-black-dragon");
+	const { creature, setCreature, value } = props;
+	const [localCreature, setLocalCreature] = useState("");
 	const [isLoading, setLoading] = useState(true);
+
 	const getCreature = useCallback(async () => {
 		const api = await new Open5e();
-		const result = await api.monsters.get(value);
-		setCreature(result as Monster5e);
-		setLoading(false);
+		if (value) {
+			const result = await api.monsters.get(value);
+			setCreature(result as Monster5e);
+			setLoading(false);
+		} else {
+			const result = await api.monsters.get("ancient-black-dragon");
+			setCreature(result as Monster5e);
+			setLoading(false);
+		}
 	}, [setCreature, value]);
 
 	useEffect(() => {
 		getCreature();
 	}, [getCreature, setCreature, value]);
+
+	useEffect(() => {
+		if (!localStorage.hasOwnProperty("monsterbrew-creature")) return;
+		setLocalCreature(localStorage.getItem("monsterbrew-creature") as string);
+	}, []);
 
 	const loadLocalCreature = () => {
 		const localStorageCreature = localStorage.getItem("monsterbrew-creature");
@@ -40,15 +50,7 @@ export default function ViewStatblock(props: IViewStatblock) {
 	return (
 		<div className="w-full space-y-2">
 			<div className="flex gap-3">
-				{creatures && (
-					<CreatureListSelect
-						creatures={creatures}
-						value={value}
-						setValue={setValue}
-						getCreature={getCreature}
-					/>
-				)}
-				{localStorage.getItem("monsterbrew-creature") && (
+				{localCreature && (
 					<Button onClick={loadLocalCreature}>Load Local Creature</Button>
 				)}
 			</div>

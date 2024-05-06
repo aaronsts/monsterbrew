@@ -50,7 +50,7 @@ export default function BaseCreatureInfo({ form }: IChildForm) {
 							</FormControl>
 							<SelectContent>
 								{monster_types.map((type) => (
-									<SelectItem key={type.value} value={type.value}>
+									<SelectItem key={type.value} value={type.label}>
 										{type.label}
 									</SelectItem>
 								))}

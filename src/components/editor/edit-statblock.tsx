@@ -5,6 +5,7 @@ import StatblockForm from "./statblock-form";
 import ViewStatblock from "./view-statblock";
 import { IGetCreatures } from "@/app/editor/page";
 import { Monster5e } from "@/types/monster5e";
+import { CreatureListSelect } from "../creature-list-select";
 
 interface IEditStatblock {
 	creatureList: IGetCreatures;
@@ -12,14 +13,24 @@ interface IEditStatblock {
 
 function EditStatblock({ creatureList }: IEditStatblock) {
 	const [creature, setCreature] = useState<Monster5e>();
+	const [value, setValue] = useState<string>();
+
+	console.log("creature", creature);
 
 	return (
-		<div className="space-y-6 mb-6">
-			<StatblockForm setCreature={setCreature} />
+		<div className="space-y-3 mb-6">
+			{creatureList.results && (
+				<CreatureListSelect
+					creatures={creatureList.results}
+					value={value}
+					setValue={setValue}
+				/>
+			)}
+			<StatblockForm creature={creature} setCreature={setCreature} />
 			<ViewStatblock
+				value={value}
 				creature={creature}
 				setCreature={setCreature}
-				creatureList={creatureList}
 			/>
 		</div>
 	);

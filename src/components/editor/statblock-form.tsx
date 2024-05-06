@@ -35,11 +35,14 @@ import {
 import { CHALLENGE_RATINGS } from "@/lib/constants";
 import { Monster5e } from "@/types/monster5e";
 
-// TODO: Add passive perception calculation (10 + perception modifier)
+// TODO:
+// - Add a fill function with existing monsters
 
 export default function StatblockForm({
 	setCreature,
+	creature,
 }: {
+	creature: Monster5e | undefined;
 	setCreature: React.Dispatch<React.SetStateAction<Monster5e | undefined>>;
 }) {
 	const [savingThrows, setSavingThrows] = useState<
@@ -48,55 +51,65 @@ export default function StatblockForm({
 	const [skillList, setSkillList] = useState<
 		{ name: string; stat: string; expert?: boolean }[]
 	>([]);
+	const [initialFormValues, setInitialFormValues] = useState<Monster5e>({
+		name: "",
+		type: "",
+		size: "",
+		alignment: "",
+		armor_class: 0,
+		armor_desc: "",
+		hit_dice: "",
+		hit_modifier: "",
+		speed: {
+			walk: "30",
+			burrow: "",
+			climb: "",
+			fly: "",
+			swim: "",
+			hover: false,
+		},
+		challenge_rating: "",
+		strength: 10,
+		dexterity: 10,
+		constitution: 10,
+		intelligence: 10,
+		wisdom: 10,
+		charisma: 10,
+		languages: "",
+		special_abilities: [],
+		actions: [],
+		reactions: [],
+		legendary_desc: "",
+		legendary_actions: [],
+		lair_desc: "",
+		lair_actions: [],
+		damage_vulnerabilities: "",
+		damage_resistances: "",
+		damage_immunities: "",
+		condition_immunities: "",
+		spell_list: [],
+		strength_save: null,
+		dexterity_save: null,
+		constitution_save: null,
+		intelligence_save: null,
+		wisdom_save: null,
+		charisma_save: null,
+		senses: "",
+		skills: {},
+	});
 
 	const form = useForm<z.infer<typeof monsterStatblockSchema>>({
 		resolver: zodResolver(monsterStatblockSchema),
-		defaultValues: {
-			name: "",
-			type: "",
-			alignment: "",
-			armor_class: 0,
-			armor_desc: "",
-			hit_dice: "",
-			hit_modifier: "",
-			speed: {
-				walk: "30",
-				burrow: "",
-				climb: "",
-				fly: "",
-				swim: "",
-				hover: false,
-			},
-			challenge_rating: "",
-			strength: 10,
-			dexterity: 10,
-			constitution: 10,
-			intelligence: 10,
-			wisdom: 10,
-			charisma: 10,
-			languages: "",
-			special_abilities: [],
-			actions: [],
-			reactions: [],
-			legendary_desc: "",
-			legendary_actions: [],
-			lair_desc: "",
-			lair_actions: [],
-			damage_vulnerabilities: "",
-			damage_resistances: "",
-			damage_immunities: "",
-			condition_immunities: "",
-			spell_list: [],
-			strength_save: null,
-			dexterity_save: null,
-			constitution_save: null,
-			intelligence_save: null,
-			wisdom_save: null,
-			charisma_save: null,
-			senses: "",
-			skills: {},
-		},
+		defaultValues: initialFormValues,
 	});
+
+	function loadCreatureValues() {
+		if (!creature) return;
+		setInitialFormValues(creature);
+		console.log("loading new default values", creature.size.toLowerCase());
+		form.setValue("name", creature.name);
+		form.setValue("size", creature.size);
+	}
 
 	function onSubmit(values: z.infer<typeof monsterStatblockSchema>) {
 		if (!values) return;
@@ -175,6 +188,7 @@ export default function StatblockForm({
 	return (
 		<div className="w-full">
 			<h1>Create Creature</h1>
+			<Button onClick={loadCreatureValues}>Use Monster</Button>
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}

@@ -21,16 +21,14 @@ import { IGetCreatures } from "@/app/editor/page";
 
 interface ICreatureListSelect {
 	creatures: IGetCreatures["results"];
-	value: string;
-	setValue: React.Dispatch<React.SetStateAction<string>>;
-	getCreature: () => Promise<void>;
+	value: string | undefined;
+	setValue: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 export function CreatureListSelect({
 	creatures,
 	value,
 	setValue,
-	getCreature,
 }: ICreatureListSelect) {
 	const [open, setOpen] = React.useState(false);
 
@@ -62,7 +60,6 @@ export function CreatureListSelect({
 									onSelect={(currentValue) => {
 										setValue(currentValue === value ? "" : currentValue);
 										setOpen(false);
-										getCreature();
 									}}
 								>
 									{creature.name}
