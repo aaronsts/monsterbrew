@@ -160,7 +160,7 @@ export default function StatblockForm({
 			? 10 + values.skills.perception
 			: 10 + Math.floor(values.wisdom / 2) - 5;
 
-		values.senses = values.senses + `passive perception ${passivePerception}`;
+		values.senses = values.senses + `, passive Perception ${passivePerception}`;
 
 		console.log(values.senses);
 
