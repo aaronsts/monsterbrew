@@ -2,6 +2,7 @@ import { Monster5e } from "@sturlen/open5e-ts";
 import Statistic from "./statblock/statistic";
 import { Divider } from "./ui/divider";
 import { CHALLENGE_RATINGS } from "@/lib/constants";
+import SavingThrows from "./statblock/saving-throws";
 
 const Statblock = ({ creature }: { creature: Monster5e }) => {
 	const skills = Object.entries(creature.skills);
@@ -9,6 +10,8 @@ const Statblock = ({ creature }: { creature: Monster5e }) => {
 	const exp = CHALLENGE_RATINGS.find(
 		(rating) => rating.rating === creature.challenge_rating
 	);
+
+	console.log(creature);
 
 	return (
 		<div className="w-full lg:columns-2 space-y-3">
@@ -57,33 +60,16 @@ const Statblock = ({ creature }: { creature: Monster5e }) => {
 			</div>
 			<Divider />
 			<div>
-				<div className="flex gap-2">
-					<h4>Saving Throws</h4>
-					<p>
-						<span>
-							{creature.strength_save && `Str +${creature.strength_save}, `}
-						</span>
-						<span>
-							{creature.dexterity_save && `Dex +${creature.dexterity_save}, `}
-						</span>
-						<span>
-							{creature.constitution_save &&
-								`Con +${creature.constitution_save}, `}
-						</span>
-						<span>
-							{creature.intelligence_save &&
-								`Int +${creature.intelligence_save}, `}
-						</span>
-						<span>
-							{creature.wisdom_save && `Wis +${creature.wisdom_save}, `}
-						</span>
-						<span>
-							{creature.charisma_save && `Cha +${creature.wisdom_save}`}
-						</span>
-					</p>
-				</div>
+				<SavingThrows
+					strength_save={creature.strength_save}
+					dexterity_save={creature.dexterity_save}
+					constitution_save={creature.constitution_save}
+					intelligence_save={creature.intelligence_save}
+					wisdom_save={creature.wisdom_save}
+					charisma_save={creature.charisma_save}
+				/>
 				{skills.length > 0 && (
-					<div className="flex gap-2">
+					<div className="flex gap-1">
 						<h4>Skills</h4>
 						<p>
 							{skills.map((skill) => (
