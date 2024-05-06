@@ -1,5 +1,6 @@
-import CreatureStatblockForm from "@/components/creature-statblock-form";
-import LoadCreatureStatblock from "@/components/load-creature-statblock";
+import EditStatblock from "@/components/editor/edit-statblock";
+import CreatureStatblockForm from "@/components/editor/statblock-form";
+import LoadCreatureStatblock from "@/components/editor/view-statblock";
 import { toast } from "sonner";
 
 export interface IGetCreatures {
@@ -26,8 +27,7 @@ export default async function Editor() {
 	const data: IGetCreatures = await getCreatures();
 	return (
 		<div className="space-y-12 mb-6">
-			<CreatureStatblockForm />
-			<LoadCreatureStatblock data={data} />
+			<EditStatblock creatureList={data} />
 		</div>
 	);
 }

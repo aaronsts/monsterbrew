@@ -11,9 +11,9 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from "./ui/form";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+} from "../ui/form";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 import { monsterStatblockSchema } from "@/lib/formSchemas";
 
@@ -31,12 +31,17 @@ import {
 	SavingThrows,
 	Skills,
 	SpecialAbilities,
-} from "./statblock-form";
+} from "../statblock-form";
 import { CHALLENGE_RATINGS } from "@/lib/constants";
+import { Monster5e } from "@/types/monster5e";
 
 // TODO: Add passive perception calculation (10 + perception modifier)
 
-export default function CreatureStatblockForm() {
+export default function StatblockForm({
+	setCreature,
+}: {
+	setCreature: React.Dispatch<React.SetStateAction<Monster5e | undefined>>;
+}) {
 	const [savingThrows, setSavingThrows] = useState<
 		{ name: string; value: string }[]
 	>([]);
@@ -55,11 +60,11 @@ export default function CreatureStatblockForm() {
 			hit_dice: "",
 			hit_modifier: "",
 			speed: {
-				walk: 0,
-				burrow: 0,
-				climb: 0,
-				fly: 0,
-				swim: 0,
+				walk: "30",
+				burrow: "",
+				climb: "",
+				fly: "",
+				swim: "",
 				hover: false,
 			},
 			challenge_rating: "",
@@ -82,12 +87,12 @@ export default function CreatureStatblockForm() {
 			damage_immunities: "",
 			condition_immunities: "",
 			spell_list: [],
-			strength_save: 0,
-			dexterity_save: 0,
-			constitution_save: 0,
-			intelligence_save: 0,
-			wisdom_save: 0,
-			charisma_save: 0,
+			strength_save: null,
+			dexterity_save: null,
+			constitution_save: null,
+			intelligence_save: null,
+			wisdom_save: null,
+			charisma_save: null,
 			senses: "",
 			skills: {},
 		},
@@ -99,6 +104,8 @@ export default function CreatureStatblockForm() {
 			(rating) => rating.rating === values.challenge_rating
 		);
 		if (!proficiencyBonus) return;
+
+		// Add numeric modifier to saving throws
 		savingThrows.forEach((t) => {
 			switch (t.value) {
 				case "str":
@@ -130,6 +137,15 @@ export default function CreatureStatblockForm() {
 			}
 		});
 
+		// Remove unused movements from object
+		Object.entries(values.speed).forEach((mov) => {
+			// If movement is 0 or hover is false
+			if (mov[1] === "" || !mov[1]) {
+				delete values.speed[mov[0] as keyof typeof values.speed];
+			}
+		});
+
+		// Add numeric modifier to skill saves
 		skillList.forEach((s) => {
 			const modifier = values[
 				s.stat as keyof z.infer<typeof monsterStatblockSchema>
@@ -140,9 +156,16 @@ export default function CreatureStatblockForm() {
 				: Math.floor(modifier / 2) - 5 + proficiencyBonus.prof;
 		});
 
-		console.log(values);
+		const passivePerception = values.skills.hasOwnProperty("perception")
+			? 10 + values.skills.perception
+			: 10 + Math.floor(values.wisdom / 2) - 5;
+
+		values.senses = values.senses + `, passive Perception ${passivePerception}`;
+
+		console.log(values.senses);
 
 		localStorage.setItem("monsterbrew-creature", JSON.stringify(values));
+		setCreature(values);
 
 		toast.message("Event has been created.", {
 			description: `${values.name} | ${values.armor_class}`,

@@ -22,11 +22,11 @@ export const monsterStatblockSchema = z.object({
 	}),
 	hit_modifier: z.string().optional(),
 	speed: z.object({
-		walk: z.coerce.number().optional(),
-		swim: z.coerce.number().optional(),
-		fly: z.coerce.number().optional(),
-		burrow: z.coerce.number().optional(),
-		climb: z.coerce.number().optional(),
+		walk: z.string().optional(),
+		swim: z.string().optional(),
+		fly: z.string().optional(),
+		burrow: z.string().optional(),
+		climb: z.string().optional(),
 		hover: z.boolean().optional(),
 	}),
 	challenge_rating: z.string({
@@ -34,10 +34,7 @@ export const monsterStatblockSchema = z.object({
 	}),
 	perception: z.coerce.number().optional(),
 	skills: z.record(z.coerce.number()),
-	senses: z
-		.string()
-		.trim()
-		.min(2, { message: "Please fill in monster senses" }),
+	senses: z.string().trim().optional(),
 	damage_vulnerabilities: z.string().optional(),
 	damage_resistances: z.string().optional(),
 	damage_immunities: z.string().optional(),
@@ -102,10 +99,10 @@ export const monsterStatblockSchema = z.object({
 	intelligence: z.coerce.number(),
 	wisdom: z.coerce.number(),
 	charisma: z.coerce.number(),
-	strength_save: z.number().optional(),
-	dexterity_save: z.number().optional(),
-	constitution_save: z.number().optional(),
-	intelligence_save: z.number().optional(),
-	wisdom_save: z.number().optional(),
-	charisma_save: z.number().optional(),
+	strength_save: z.number().nullable(),
+	dexterity_save: z.number().nullable(),
+	constitution_save: z.number().nullable(),
+	intelligence_save: z.number().nullable(),
+	wisdom_save: z.number().nullable(),
+	charisma_save: z.number().nullable(),
 });
