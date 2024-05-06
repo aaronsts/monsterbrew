@@ -156,6 +156,14 @@ export default function StatblockForm({
 				: Math.floor(modifier / 2) - 5 + proficiencyBonus.prof;
 		});
 
+		const passivePerception = values.skills.hasOwnProperty("perception")
+			? 10 + values.skills.perception
+			: 10 + Math.floor(values.wisdom / 2) - 5;
+
+		values.senses = values.senses + `passive perception ${passivePerception}`;
+
+		console.log(values.senses);
+
 		localStorage.setItem("monsterbrew-creature", JSON.stringify(values));
 		setCreature(values);
 

@@ -34,10 +34,7 @@ export const monsterStatblockSchema = z.object({
 	}),
 	perception: z.coerce.number().optional(),
 	skills: z.record(z.coerce.number()),
-	senses: z
-		.string()
-		.trim()
-		.min(2, { message: "Please fill in monster senses" }),
+	senses: z.string().trim().optional(),
 	damage_vulnerabilities: z.string().optional(),
 	damage_resistances: z.string().optional(),
 	damage_immunities: z.string().optional(),
