@@ -15,7 +15,8 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "../ui/select";
-import { monster_sizes, monster_types } from "@/lib/constants";
+import { monster_types, monster_sizes } from "@/lib/constants";
+import { ComboBoxResponsive } from "../combo-box";
 
 export default function BaseCreatureInfo({ form }: IChildForm) {
 	return (
@@ -39,23 +40,9 @@ export default function BaseCreatureInfo({ form }: IChildForm) {
 				render={({ field }) => (
 					<FormItem>
 						<FormLabel>Monster Type</FormLabel>
-						<Select onValueChange={field.onChange} defaultValue={field.value}>
-							<FormControl>
-								<SelectTrigger>
-									<SelectValue
-										className="placeholder:text-zinc-400"
-										placeholder="Select a type"
-									/>
-								</SelectTrigger>
-							</FormControl>
-							<SelectContent>
-								{monster_types.map((type) => (
-									<SelectItem key={type.value} value={type.label}>
-										{type.label}
-									</SelectItem>
-								))}
-							</SelectContent>
-						</Select>
+						<FormControl>
+							<ComboBoxResponsive options={monster_types} {...field} />
+						</FormControl>
 						<FormMessage />
 					</FormItem>
 				)}
@@ -64,25 +51,11 @@ export default function BaseCreatureInfo({ form }: IChildForm) {
 				control={form.control}
 				name="size"
 				render={({ field }) => (
-					<FormItem className="w-full">
-						<FormLabel>Size</FormLabel>
-						<Select onValueChange={field.onChange} defaultValue={field.value}>
-							<FormControl>
-								<SelectTrigger>
-									<SelectValue
-										className="placeholder:text-zinc-400"
-										placeholder="Select a size"
-									/>
-								</SelectTrigger>
-							</FormControl>
-							<SelectContent>
-								{monster_sizes.map((size) => (
-									<SelectItem key={size.value} value={size.value}>
-										{size.label}
-									</SelectItem>
-								))}
-							</SelectContent>
-						</Select>
+					<FormItem>
+						<FormLabel>Monster Size</FormLabel>
+						<FormControl>
+							<ComboBoxResponsive options={monster_sizes} {...field} />
+						</FormControl>
 						<FormMessage />
 					</FormItem>
 				)}

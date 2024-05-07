@@ -32,11 +32,16 @@ import {
 	Skills,
 	SpecialAbilities,
 } from "../statblock-form";
-import { CHALLENGE_RATINGS } from "@/lib/constants";
+import { CHALLENGE_RATINGS, STAT_NAMES } from "@/lib/constants";
 import { Monster5e } from "@/types/monster5e";
 
 // TODO:
 // - Add a fill function with existing monsters
+
+type ISavingThrows = {
+	name: string;
+	value: string;
+};
 
 export default function StatblockForm({
 	setCreature,
@@ -45,9 +50,7 @@ export default function StatblockForm({
 	creature: Monster5e | undefined;
 	setCreature: React.Dispatch<React.SetStateAction<Monster5e | undefined>>;
 }) {
-	const [savingThrows, setSavingThrows] = useState<
-		{ name: string; value: string }[]
-	>([]);
+	const [savingThrows, setSavingThrows] = useState<ISavingThrows[]>([]);
 	const [skillList, setSkillList] = useState<
 		{ name: string; stat: string; expert?: boolean }[]
 	>([]);
@@ -99,6 +102,7 @@ export default function StatblockForm({
 	});
 
 	const form = useForm<z.infer<typeof monsterStatblockSchema>>({
+		mode: "onChange",
 		resolver: zodResolver(monsterStatblockSchema),
 		defaultValues: initialFormValues,
 	});
@@ -106,15 +110,44 @@ export default function StatblockForm({
 	function loadCreatureValues() {
 		if (!creature) return;
 		setInitialFormValues(creature);
-		console.log("loading new default values", creature.size.toLowerCase());
-		form.setValue("name", creature.name);
-		form.setValue("size", creature.size);
+		form.reset({
+			...initialFormValues,
+			name: creature.name,
+			type: creature.type,
+			size: creature.size,
+			alignment: creature.alignment,
+			armor_class: creature.armor_class,
+			armor_desc: creature.armor_desc || "",
+			hit_dice: creature.hit_dice.split("+")[0],
+			hit_modifier: creature.hit_modifier || creature.hit_dice.split("+")[1],
+			speed: {
+				...creature.speed,
+			},
+			strength: creature.strength,
+			dexterity: creature.dexterity,
+			constitution: creature.constitution,
+			intelligence: creature.intelligence,
+			wisdom: creature.wisdom,
+			charisma: creature.charisma,
+			senses: creature.senses?.split("passive Perception")[0],
+			languages: creature.languages,
+			challenge_rating: creature.challenge_rating,
+		});
+
+		const newSavingThrows: ISavingThrows[] = [];
+		STAT_NAMES.forEach((stat) => {
+			const savingThrowStat = stat.name.toLowerCase() + "_save";
+			if (creature[savingThrowStat as keyof typeof creature] === null) return;
+
+			newSavingThrows.push(stat);
+		});
+		setSavingThrows(newSavingThrows);
 	}
 
 	function onSubmit(values: z.infer<typeof monsterStatblockSchema>) {
 		if (!values) return;
 		const proficiencyBonus = CHALLENGE_RATINGS.find(
-			(rating) => rating.rating === values.challenge_rating
+			(rating) => rating.label === values.challenge_rating
 		);
 		if (!proficiencyBonus) return;
 

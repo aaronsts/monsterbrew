@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StatblockForm from "./statblock-form";
 import ViewStatblock from "./view-statblock";
 import { IGetCreatures } from "@/app/editor/page";
@@ -15,7 +15,9 @@ function EditStatblock({ creatureList }: IEditStatblock) {
 	const [creature, setCreature] = useState<Monster5e>();
 	const [value, setValue] = useState<string>();
 
-	console.log("creature", creature);
+	useEffect(() => {
+		console.log("creature", creature);
+	}, [creature]);
 
 	return (
 		<div className="space-y-3 mb-6">

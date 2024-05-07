@@ -1,5 +1,4 @@
 "use client";
-import * as React from "react";
 import { Button } from "@/components/ui/button";
 import {
 	Command,
@@ -20,6 +19,7 @@ import { ChevronDown, Check } from "lucide-react";
 
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
+import { forwardRef, useEffect, useState } from "react";
 
 type IOption = {
 	label: string;
@@ -32,12 +32,18 @@ interface IComboboxProps {
 	onChange: (value: string) => void;
 }
 
-const ComboBoxResponsive = React.forwardRef<HTMLButtonElement, IComboboxProps>(
+const ComboBoxResponsive = forwardRef<HTMLButtonElement, IComboboxProps>(
 	({ options, value, onChange }: IComboboxProps, ref) => {
-		const [open, setOpen] = React.useState(false);
-		const [selectedOption, setSelectedOption] = React.useState<IOption | null>(
-			null
-		);
+		const [open, setOpen] = useState(false);
+		const [selectedOption, setSelectedOption] = useState<IOption | null>(null);
+		const isChallengeRating = options[0].hasOwnProperty("prof");
+
+		useEffect(() => {
+			const option = options.find((opt) => opt.label === value);
+			if (!option) return;
+			setSelectedOption(option);
+		}, [options, value]);
+
 		const isDesktop = useMediaQuery("(min-width: 768px)");
 
 		if (isDesktop) {
@@ -49,7 +55,9 @@ const ComboBoxResponsive = React.forwardRef<HTMLButtonElement, IComboboxProps>(
 								variant="outline"
 								className="text-zinc-800 w-full flex justify-between text-sm font-normal"
 							>
-								{selectedOption?.label}
+								{isChallengeRating
+									? `${selectedOption?.label} (+${selectedOption?.value} XP)`
+									: selectedOption?.label}
 								<ChevronDown strokeWidth={1} />
 							</Button>
 						) : (
@@ -84,7 +92,9 @@ const ComboBoxResponsive = React.forwardRef<HTMLButtonElement, IComboboxProps>(
 												)}
 											/>
 
-											{option.label}
+											{isChallengeRating
+												? `${option?.label} (+${option?.value} XP)`
+												: option?.label}
 										</CommandItem>
 									))}
 								</CommandGroup>
