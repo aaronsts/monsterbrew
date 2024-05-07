@@ -286,12 +286,12 @@ export default function StatblockForm({
 	}
 	return (
 		<div className="w-full">
+			<Button onClick={loadCreatureValues}>Use Creature</Button>
 			<h1>Create Creature</h1>
-			<Button onClick={loadCreatureValues}>Use Monster</Button>
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className="space-y-6 w-full"
+					className="flex flex-col gap-6 w-full"
 				>
 					<BaseCreatureInfo form={form} />
 					<Movement form={form} />
@@ -351,7 +351,9 @@ export default function StatblockForm({
 						<LegendaryActions form={form} />
 						<LairActions form={form} />
 					</div>
-					<Button type="submit">Create Creature</Button>
+					<Button size="lg" className="self-center" type="submit">
+						Create Creature
+					</Button>
 				</form>
 			</Form>
 		</div>

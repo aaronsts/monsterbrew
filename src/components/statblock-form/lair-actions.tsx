@@ -55,7 +55,7 @@ export default function LairActions({ form }: IChildForm) {
 				</div>
 			</div>
 			{hasLair && (
-				<div className="space-y-2">
+				<div className="flex flex-col gap-2">
 					<FormField
 						control={form.control}
 						name="lair_desc"
@@ -65,7 +65,6 @@ export default function LairActions({ form }: IChildForm) {
 								<FormControl>
 									<Textarea
 										placeholder="ex. The dragon can breathe air and water."
-										className="resize-none"
 										{...field}
 									/>
 								</FormControl>
@@ -114,7 +113,6 @@ export default function LairActions({ form }: IChildForm) {
 										<FormControl>
 											<Textarea
 												placeholder="ex. The dragon can breathe air and water."
-												className="resize-none"
 												{...field}
 											/>
 										</FormControl>
@@ -128,6 +126,7 @@ export default function LairActions({ form }: IChildForm) {
 						variant="secondary"
 						size="sm"
 						type="button"
+						className="self-end"
 						onClick={() => {
 							append({ name: "", desc: "" });
 						}}

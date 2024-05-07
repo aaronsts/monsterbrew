@@ -21,7 +21,7 @@ export default function SpecialAbilities({ form }: IChildForm) {
 		control,
 	});
 	return (
-		<div className="space-y-2">
+		<div className="flex flex-col gap-2">
 			<h3 className="leading-tight pb-1">Special Abilities</h3>
 			{fields.map((field, index) => (
 				<div key={field.id}>
@@ -64,7 +64,6 @@ export default function SpecialAbilities({ form }: IChildForm) {
 								<FormControl>
 									<Textarea
 										placeholder="ex. The dragon can breathe air and water."
-										className="resize-none"
 										{...field}
 									/>
 								</FormControl>
@@ -78,6 +77,7 @@ export default function SpecialAbilities({ form }: IChildForm) {
 				variant="secondary"
 				size="sm"
 				type="button"
+				className="self-end"
 				onClick={() => {
 					append({ name: "", desc: "" });
 				}}
