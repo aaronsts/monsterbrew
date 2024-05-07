@@ -34,11 +34,3 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
 	-moz-appearance: textfield;
 }
-
-.tiptap p.is-editor-empty:first-child::before {
-	color: rgb(113 113 122);
-	content: attr(data-placeholder);
-	float: left;
-	height: 0;
-	pointer-events: none;
-}
