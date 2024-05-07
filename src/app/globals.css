@@ -4,7 +4,7 @@
 
 @layer base {
 	h1 {
-		@apply text-4xl font-black small-caps leading-loose;
+		@apply text-5xl text-cararra-900 leading-tight;
 	}
 	h2 {
 		@apply text-3xl font-bold leading-relaxed small-caps;
@@ -23,11 +23,11 @@
 	}
 }
 
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
+.sketch-border {
+	border-top-left-radius: 255px 15px;
+	border-top-right-radius: 15px 225px;
+	border-bottom-right-radius: 225px 15px;
+	border-bottom-left-radius: 15px 255px;
 }
 
 /* Firefox */

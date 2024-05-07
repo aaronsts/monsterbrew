@@ -14,7 +14,7 @@ import {
 
 export function MainNavigation() {
 	return (
-		<div className="max-w-6xl mx-auto px-3">
+		<div className="max-w-6xl mx-auto flex justify-center pt-3 px-3">
 			<NavigationMenu>
 				<NavigationMenuList>
 					<NavigationMenuItem>

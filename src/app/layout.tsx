@@ -1,12 +1,33 @@
 import type { Metadata } from "next";
-import { Roboto_Condensed as FontSans } from "next/font/google";
+import {
+	Roboto_Condensed as FontSans,
+	Yatra_One,
+	Short_Stack,
+} from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { MainNavigation } from "@/components/main-nav";
 import { Toaster } from "@/components/ui/sonner";
 import Footer from "@/components/footer";
 
-const fontSans = FontSans({ subsets: ["latin"], variable: "--font-sans" });
+const font_sans = FontSans({
+	subsets: ["latin"],
+	display: "swap",
+	variable: "--font-sans",
+});
+const yatra_one = Yatra_One({
+	subsets: ["latin"],
+	display: "swap",
+	variable: "--font-yatra",
+	weight: "400",
+});
+
+const short_stack = Short_Stack({
+	subsets: ["latin"],
+	display: "swap",
+	variable: "--font-short-stack",
+	weight: "400",
+});
 
 export const metadata: Metadata = {
 	title: "Monsterbrew | Homebrewing monsters with ease",
@@ -21,10 +42,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={cn(
-					"min-h-screen  bg-white font-sans antialiased",
-					fontSans.variable
-				)}
+				className={`min-h-screen bg-white ${font_sans.variable} ${yatra_one.variable} ${short_stack.variable} antialiased`}
 			>
 				<MainNavigation />
 				<main
