@@ -8,14 +8,14 @@ const Statblock = ({ creature }: { creature: Monster5e }) => {
 	const skills = Object.entries(creature.skills);
 	const movement = Object.entries(creature.speed);
 	const exp = CHALLENGE_RATINGS.find(
-		(rating) => rating.rating === creature.challenge_rating
+		(rating) => rating.label === creature.challenge_rating
 	);
 
 	return (
 		<div className="w-full lg:columns-2 space-y-3">
 			<div>
 				<h1 className="leading-none">{creature.name}</h1>
-				<p className="italic">
+				<p className="italic capitalize">
 					{creature.size} {creature.type}, {creature.alignment}
 				</p>
 			</div>
@@ -31,8 +31,8 @@ const Statblock = ({ creature }: { creature: Monster5e }) => {
 				<div className="flex gap-2">
 					<h4>Hit Points</h4>
 					<p>
-						{/* {creature.hit_points}  */}
-						{`(${creature.hit_dice})`}
+						{/* {creature.hit_points} */}
+						{`(${creature.hit_dice} + ${creature.hit_modifier})`}
 					</p>
 				</div>
 				<div className="flex gap-2">
@@ -115,7 +115,7 @@ const Statblock = ({ creature }: { creature: Monster5e }) => {
 					<div className="flex gap-2">
 						<h4>Challenge Rating</h4>
 						<p>
-							{creature.challenge_rating} ({exp && exp?.xp} XP)
+							{creature.challenge_rating} ({exp && exp?.value} XP)
 						</p>
 					</div>
 					<div className="flex gap-2">

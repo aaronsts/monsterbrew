@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IChildForm } from "./ability-scores";
 import {
 	FormControl,
@@ -10,30 +10,42 @@ import {
 
 import { Textarea } from "../ui/textarea";
 import { Input } from "../ui/input";
-import { useFieldArray } from "react-hook-form";
+import { useFieldArray, useWatch } from "react-hook-form";
 import { Button } from "../ui/button";
 import { Plus, Trash2 } from "lucide-react";
 import { Checkbox } from "../ui/checkbox";
 
 export default function LairActions({ form }: IChildForm) {
 	const [hasLair, setHasLair] = useState(false);
-
-	const toggleHasLair = () => {
-		setHasLair(!hasLair);
-	};
-
 	const { control } = form;
 	const { fields, append, remove } = useFieldArray({
 		name: "lair_actions",
 		control,
 	});
 
+	const lairDesc = useWatch({ control: control, name: "lair_desc" });
+
+	const toggleHasLair = () => {
+		setHasLair(!hasLair);
+	};
+
+	useEffect(() => {
+		console.log(lairDesc);
+		if (!lairDesc) return;
+		if (lairDesc?.length === 0) return;
+		setHasLair(true);
+	}, [lairDesc]);
+
 	return (
 		<div className="w-full">
 			<div className="flex items-center border-zinc-700 justify-between border-b">
 				<h3 className="leading-tight pb-1">Lair Actions</h3>
 				<div className="space-x-2 flex items-center">
-					<Checkbox id="lair-actions" onCheckedChange={toggleHasLair} />
+					<Checkbox
+						id="lair-actions"
+						checked={hasLair}
+						onCheckedChange={toggleHasLair}
+					/>
 					<label
 						htmlFor="lair-actions"
 						className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -46,7 +58,7 @@ export default function LairActions({ form }: IChildForm) {
 				<div className="space-y-2">
 					<FormField
 						control={form.control}
-						name={`lair_desc`}
+						name="lair_desc"
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Description</FormLabel>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IChildForm } from "./ability-scores";
 import {
 	FormControl,
@@ -10,31 +10,43 @@ import {
 
 import { Textarea } from "../ui/textarea";
 import { Input } from "../ui/input";
-import { useFieldArray } from "react-hook-form";
+import { useFieldArray, useWatch } from "react-hook-form";
 import { Button } from "../ui/button";
 import { Plus, Trash2 } from "lucide-react";
 import { Checkbox } from "../ui/checkbox";
-import { cn } from "@/lib/utils";
 
 export default function LegendaryActions({ form }: IChildForm) {
 	const [isLegendary, setIsLegendary] = useState(false);
-
-	const toggleLegendary = () => {
-		setIsLegendary(!isLegendary);
-	};
-
 	const { control } = form;
 	const { fields, append, remove } = useFieldArray({
 		name: "legendary_actions",
 		control,
 	});
 
+	const legendaryDesc = useWatch({
+		control: control,
+		name: "legendary_desc",
+	});
+
+	const toggleLegendary = () => {
+		setIsLegendary(!isLegendary);
+	};
+
+	useEffect(() => {
+		if (legendaryDesc?.length === 0) return;
+		setIsLegendary(true);
+	}, [legendaryDesc]);
+
 	return (
 		<div className="w-full">
 			<div className="flex items-center border-zinc-700 justify-between border-b">
 				<h3 className="leading-tight pb-1">Legendary Actions</h3>
 				<div className="space-x-2 flex items-center">
-					<Checkbox id="legendary-actions" onCheckedChange={toggleLegendary} />
+					<Checkbox
+						id="legendary-actions"
+						checked={isLegendary}
+						onCheckedChange={toggleLegendary}
+					/>
 					<label
 						htmlFor="legendary-actions"
 						className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -47,7 +59,7 @@ export default function LegendaryActions({ form }: IChildForm) {
 				<div className="space-y-2">
 					<FormField
 						control={form.control}
-						name="lair_desc"
+						name="legendary_desc"
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Description</FormLabel>

@@ -139,6 +139,13 @@ export default function StatblockForm({
 			senses: creature.senses?.split("passive Perception")[0],
 			languages: creature.languages,
 			challenge_rating: creature.challenge_rating,
+			special_abilities: creature.special_abilities,
+			actions: creature.actions,
+			reactions: creature.reactions,
+			legendary_desc: creature.legendary_desc,
+			legendary_actions: creature.legendary_actions,
+			lair_desc: creature.lair_desc,
+			lair_actions: creature.lair_actions,
 		});
 
 		const proficiencyBonus = CHALLENGE_RATINGS.find(
