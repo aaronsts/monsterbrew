@@ -1,6 +1,6 @@
 import { ALL_SKILLS } from "@/lib/constants";
 
-import { FormField, FormItem, FormLabel } from "../ui/form";
+import { FormItem, FormLabel } from "../ui/form";
 import {
 	Select,
 	SelectContent,
@@ -8,11 +8,10 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "../ui/select";
-import { IChildForm } from "./ability-scores";
 import { useState } from "react";
 
 import { Button } from "../ui/button";
-import { Trash2, X } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 type IskillList = {
 	name: string;

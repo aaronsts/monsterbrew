@@ -32,15 +32,21 @@ import {
 	Skills,
 	SpecialAbilities,
 } from "../statblock-form";
-import { CHALLENGE_RATINGS, STAT_NAMES } from "@/lib/constants";
+import { ALL_SKILLS, CHALLENGE_RATINGS, STAT_NAMES } from "@/lib/constants";
 import { Monster5e } from "@/types/monster5e";
 
 // TODO:
 // - Add a fill function with existing monsters
 
-type ISavingThrows = {
+type ISavingThrow = {
 	name: string;
 	value: string;
+};
+
+type ISkill = {
+	name: string;
+	stat: string;
+	expert?: boolean;
 };
 
 export default function StatblockForm({
@@ -50,10 +56,8 @@ export default function StatblockForm({
 	creature: Monster5e | undefined;
 	setCreature: React.Dispatch<React.SetStateAction<Monster5e | undefined>>;
 }) {
-	const [savingThrows, setSavingThrows] = useState<ISavingThrows[]>([]);
-	const [skillList, setSkillList] = useState<
-		{ name: string; stat: string; expert?: boolean }[]
-	>([]);
+	const [savingThrows, setSavingThrows] = useState<ISavingThrow[]>([]);
+	const [skillList, setSkillList] = useState<ISkill[]>([]);
 	const [initialFormValues, setInitialFormValues] = useState<Monster5e>({
 		name: "",
 		type: "",
@@ -134,14 +138,37 @@ export default function StatblockForm({
 			challenge_rating: creature.challenge_rating,
 		});
 
-		const newSavingThrows: ISavingThrows[] = [];
+		const proficiencyBonus = CHALLENGE_RATINGS.find(
+			(cr) => cr.label === creature.challenge_rating
+		);
+		if (!proficiencyBonus) return;
+
+		const newSavingThrows: ISavingThrow[] = [];
 		STAT_NAMES.forEach((stat) => {
 			const savingThrowStat = stat.name.toLowerCase() + "_save";
 			if (creature[savingThrowStat as keyof typeof creature] === null) return;
-
 			newSavingThrows.push(stat);
 		});
 		setSavingThrows(newSavingThrows);
+
+		const newSKillList: ISkill[] = [];
+		Object.entries(creature.skills).forEach((skill) => {
+			const creatureSkills = ALL_SKILLS.find((skl) => skl.name === skill[0]);
+			if (!creatureSkills) return;
+			const skillModifier =
+				Math.floor(
+					parseInt(
+						creature[creatureSkills?.stat as keyof typeof creature] as string
+					) / 2
+				) -
+				5 +
+				proficiencyBonus.prof;
+			newSKillList.push({
+				...creatureSkills,
+				expert: skill[1] > skillModifier,
+			});
+		});
+		setSkillList(newSKillList);
 	}
 
 	function onSubmit(values: z.infer<typeof monsterStatblockSchema>) {

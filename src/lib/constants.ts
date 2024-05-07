@@ -69,7 +69,7 @@ export const CHALLENGE_RATINGS = [
 	{ label: "28", value: "120,000", prof: 8 },
 	{ label: "29", value: "135,000", prof: 9 },
 	{ label: "30", value: "155,000", prof: 9 },
-];
+] as const;
 
 export const ALL_SKILLS: { name: string; stat: string; expert?: boolean }[] = [
 	{
