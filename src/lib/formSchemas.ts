@@ -22,12 +22,12 @@ export const monsterStatblockSchema = z.object({
 	}),
 	hit_modifier: z.string().optional(),
 	speed: z.object({
-		walk: z.string().optional(),
-		swim: z.string().optional(),
-		fly: z.string().optional(),
-		burrow: z.string().optional(),
-		climb: z.string().optional(),
-		hover: z.boolean().optional(),
+		walk: z.coerce.string().optional(),
+		swim: z.coerce.string().optional(),
+		fly: z.coerce.string().optional(),
+		burrow: z.coerce.string().optional(),
+		climb: z.coerce.string().optional(),
+		hover: z.coerce.boolean().optional(),
 	}),
 	challenge_rating: z.string({
 		required_error: "Please select a challenge rating",

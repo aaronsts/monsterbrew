@@ -58,6 +58,9 @@ export default function StatblockForm({
 }) {
 	const [savingThrows, setSavingThrows] = useState<ISavingThrow[]>([]);
 	const [skillList, setSkillList] = useState<ISkill[]>([]);
+	const [damageList, setDamageList] = useState<string[]>([]);
+	const [conditionList, setConditionList] = useState<string[]>([]);
+
 	const [initialFormValues, setInitialFormValues] = useState<Monster5e>({
 		name: "",
 		type: "",
@@ -143,6 +146,7 @@ export default function StatblockForm({
 		);
 		if (!proficiencyBonus) return;
 
+		// Saving Throws
 		const newSavingThrows: ISavingThrow[] = [];
 		STAT_NAMES.forEach((stat) => {
 			const savingThrowStat = stat.name.toLowerCase() + "_save";
@@ -151,6 +155,7 @@ export default function StatblockForm({
 		});
 		setSavingThrows(newSavingThrows);
 
+		// Skill Saves
 		const newSKillList: ISkill[] = [];
 		Object.entries(creature.skills).forEach((skill) => {
 			const creatureSkills = ALL_SKILLS.find((skl) => skl.name === skill[0]);
@@ -169,6 +174,33 @@ export default function StatblockForm({
 			});
 		});
 		setSkillList(newSKillList);
+
+		// Conditions
+		const conditionImmunities =
+			creature.condition_immunities?.split(", ") || [];
+		setConditionList(conditionImmunities);
+
+		// Damage conditions
+		const dmgImm =
+			creature.damage_immunities!.length > 0
+				? creature
+						.damage_immunities!?.split(", ")
+						.map((dmg) => "immune to " + dmg)
+				: [];
+		const dmgVul =
+			creature.damage_vulnerabilities!.length > 0
+				? creature
+						.damage_vulnerabilities!?.split(", ")
+						.map((dmg) => "vulnerable to " + dmg)
+				: [];
+		const dmgRes =
+			creature.damage_resistances!.length > 0
+				? creature
+						.damage_resistances!?.split(", ")
+						.map((dmg) => "resistant to " + dmg)
+				: [];
+
+		setDamageList([...dmgImm, ...dmgVul, ...dmgRes]);
 	}
 
 	function onSubmit(values: z.infer<typeof monsterStatblockSchema>) {
@@ -290,7 +322,13 @@ export default function StatblockForm({
 						<ChallengeRating form={form} />
 					</div>
 					<div className="grid grid-cols-2 gap-3 border-b border-zinc-700 pb-6">
-						<Conditions form={form} />
+						<Conditions
+							conditionList={conditionList}
+							setConditionList={setConditionList}
+							damageList={damageList}
+							setDamageList={setDamageList}
+							form={form}
+						/>
 						<Skills skillList={skillList} setSkillList={setSkillList} />
 						<SavingThrows
 							statList={savingThrows}

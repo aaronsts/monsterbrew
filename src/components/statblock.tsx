@@ -77,22 +77,28 @@ const Statblock = ({ creature }: { creature: Monster5e }) => {
 						</p>
 					</div>
 				)}
+				{creature.condition_immunities !== "" && (
+					<div className="flex gap-2">
+						<h4>Condition Immunities</h4>
+						<p className="capitalize">{creature.condition_immunities}</p>
+					</div>
+				)}
 				{creature.damage_vulnerabilities !== "" && (
 					<div className="flex gap-2">
 						<h4>Damage Vulnerabilties</h4>
-						<p>{creature.damage_vulnerabilities}</p>
+						<p className="capitalize">{creature.damage_vulnerabilities}</p>
 					</div>
 				)}
 				{creature.damage_resistances !== "" && (
 					<div className="flex gap-2">
 						<h4>Damage Resistances</h4>
-						<p>{creature.damage_resistances}</p>
+						<p className="capitalize">{creature.damage_resistances}</p>
 					</div>
 				)}
 				{creature.damage_immunities !== "" && (
 					<div className="flex gap-2">
 						<h4>Damage Immunities</h4>
-						<p>{creature.damage_immunities}</p>
+						<p className="capitalize">{creature.damage_immunities}</p>
 					</div>
 				)}
 				<div className="flex gap-2">

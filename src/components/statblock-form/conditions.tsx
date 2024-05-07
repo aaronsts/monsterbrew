@@ -1,6 +1,6 @@
-import { ALL_SKILLS, CONDITION_TYPES, DAMAGE_TYPES } from "@/lib/constants";
+import { CONDITION_TYPES, DAMAGE_TYPES } from "@/lib/constants";
 
-import { FormField, FormItem, FormLabel } from "../ui/form";
+import { FormItem, FormLabel } from "../ui/form";
 import {
 	Select,
 	SelectContent,
@@ -9,20 +9,28 @@ import {
 	SelectValue,
 } from "../ui/select";
 import { IChildForm } from "./ability-scores";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 import { Button } from "../ui/button";
-import { Trash2, X } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
-export default function Conditions({ form }: IChildForm) {
+interface IConditions extends IChildForm {
+	damageList: string[];
+	setDamageList: Dispatch<SetStateAction<string[]>>;
+	conditionList: string[];
+	setConditionList: Dispatch<SetStateAction<string[]>>;
+}
+
+export default function Conditions({
+	form,
+	setDamageList,
+	damageList,
+	conditionList,
+	setConditionList,
+}: IConditions) {
 	const [damage, setDamage] = useState<string>();
-	const [damageList, setDamageList] = useState<string[]>([]);
-
 	const [condition, setCondition] = useState<string>();
-	const [conditionList, setConditionList] = useState<string[]>([]);
-
 	const { setValue } = form;
-
 	const onSelectDamage = (e: string) => {
 		setDamage(e);
 	};
@@ -72,7 +80,7 @@ export default function Conditions({ form }: IChildForm) {
 	};
 
 	useEffect(() => {
-		setValue("condition_immunities", conditionList.join(" "));
+		setValue("condition_immunities", conditionList.join(", "));
 	}, [conditionList, setValue]);
 
 	useEffect(() => {
@@ -86,9 +94,9 @@ export default function Conditions({ form }: IChildForm) {
 			.filter((dmg) => dmg.includes("resistant"))
 			.map((dmg) => dmg.replace("resistant to ", ""));
 
-		setValue("damage_immunities", immunities.join(" "));
-		setValue("damage_resistances", resistances.join(" "));
-		setValue("damage_vulnerabilities", vulnerabilities.join(" "));
+		setValue("damage_immunities", immunities.join(", "));
+		setValue("damage_resistances", resistances.join(", "));
+		setValue("damage_vulnerabilities", vulnerabilities.join(", "));
 	}, [damageList, setValue]);
 
 	return (
