@@ -12,13 +12,14 @@ const buttonVariants = cva(
 				default:
 					"bg-zinc-900 text-zinc-50 shadow hover:bg-zinc-900/90 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-50/90",
 				primary:
-					"bg-cararra-100 border-2 border-cararra-300 text-cararra-950 hover:bg-cararra-300 sketch-border px-3 py-1 font-short hover:-translate-y-1 transition-all",
+					"bg-cararra-600 border-2 border-cararra-800 text-cararra-50 hover:bg-cararra-800 sketch-border px-3 py-1 font-short hover:-translate-y-1 transition-all",
+				secondary:
+					"bg-transparent border-2 border-pewter-300 text-pewter-950 hover:bg-pewter-100 sketch-border px-3 py-1 font-short transition-all",
 				destructive:
-					"bg-red-500 text-zinc-50 shadow-sm hover:bg-red-500/90 dark:bg-red-900 dark:text-zinc-50 dark:hover:bg-red-900/90",
+					"bg-transparent border-2 border-danger-300 text-danger-950 hover:bg-danger-100 sketch-border px-3 py-1 font-short transition-all",
 				outline:
 					"border border-zinc-200 bg-white shadow-sm hover:bg-zinc-100 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
-				secondary:
-					"bg-zinc-100 text-zinc-900 shadow-sm hover:bg-zinc-100/80 dark:bg-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-800/80",
+
 				ghost:
 					"hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
 				link: "text-zinc-900 underline-offset-4 hover:underline dark:text-zinc-50",

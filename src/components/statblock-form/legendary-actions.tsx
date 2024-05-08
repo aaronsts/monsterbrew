@@ -14,6 +14,7 @@ import { useFieldArray, useWatch } from "react-hook-form";
 import { Button } from "../ui/button";
 import { Plus, Trash2 } from "lucide-react";
 import { Checkbox } from "../ui/checkbox";
+import { Label } from "../ui/label";
 
 export default function LegendaryActions({ form }: IChildForm) {
 	const [isLegendary, setIsLegendary] = useState(false);
@@ -47,12 +48,12 @@ export default function LegendaryActions({ form }: IChildForm) {
 						checked={isLegendary}
 						onCheckedChange={toggleLegendary}
 					/>
-					<label
+					<Label
 						htmlFor="legendary-actions"
 						className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 					>
 						Legendary Creature
-					</label>
+					</Label>
 				</div>
 			</div>
 			{isLegendary && (
@@ -90,16 +91,15 @@ export default function LegendaryActions({ form }: IChildForm) {
 													{...field}
 												/>
 											</FormControl>
-											<Button
-												size="icon"
-												variant="destructive"
+											<button
 												type="button"
+												className="group border-2 p-1.5 sketch-border border-transparent transition-colors hover:border-danger-300"
 												onClick={() => {
 													remove(index);
 												}}
 											>
-												<Trash2 className="w-5 h-5 transition-colors" />
-											</Button>
+												<Trash2 className="w-5 h-5 text-danger-600 group-hover:text-danger-400 transition-colors" />
+											</button>
 										</div>
 										<FormMessage />
 									</FormItem>

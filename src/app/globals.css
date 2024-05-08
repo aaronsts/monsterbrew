@@ -4,13 +4,13 @@
 
 @layer base {
 	h1 {
-		@apply text-5xl text-cararra-900 leading-tight;
+		@apply text-5xl text-cararra-900 font-yatra leading-tight;
 	}
 	h2 {
 		@apply text-3xl font-bold leading-relaxed small-caps;
 	}
 	h3 {
-		@apply text-xl font-bold leading-none small-caps;
+		@apply text-xl font-yatra leading-none small-caps;
 	}
 	h4 {
 		@apply font-bold;

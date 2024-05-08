@@ -63,6 +63,7 @@ export default function SavingThrows({ statList, setStatList }: ISavingThrows) {
 					</SelectContent>
 				</Select>
 				<Button
+					variant="primary"
 					data-testid="saving-throw-button"
 					type="button"
 					onClick={addSavingThrow}
@@ -80,10 +81,10 @@ export default function SavingThrows({ statList, setStatList }: ISavingThrows) {
 						<button
 							onClick={removeSavingThrow}
 							data-index={i}
-							className="group"
+							className="group border-2 p-1.5 sketch-border border-transparent transition-colors hover:border-danger-300"
 							type="button"
 						>
-							<Trash2 className="w-4 h-4 group-hover:text-red-400 transition-colors" />
+							<Trash2 className="w-4 h-4 group-hover:text-danger-400 transition-colors" />
 						</button>
 					</li>
 				))}

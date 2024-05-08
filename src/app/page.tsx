@@ -12,11 +12,18 @@ export default function Home() {
 					Start from scratch or select a preset creature and bring it to life
 					with our easy-to-use creature creator tool.
 				</p>
-				<Link href="/editor" passHref legacyBehavior>
-					<Button variant="primary" className="w-fit" size="lg">
-						Start Creating
-					</Button>
-				</Link>
+				<div className="flex gap-2">
+					<Link href="/editor" passHref legacyBehavior>
+						<Button variant="primary" className="w-fit" size="lg">
+							Start Creating
+						</Button>
+					</Link>
+					<Link href="/" passHref legacyBehavior>
+						<Button variant="secondary" className="w-fit" size="lg">
+							Learn More
+						</Button>
+					</Link>
+				</div>
 			</div>
 		</main>
 	);

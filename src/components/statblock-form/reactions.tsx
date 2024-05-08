@@ -22,7 +22,21 @@ export default function Reactions({ form }: IChildForm) {
 	});
 	return (
 		<div className="flex flex-col gap-2">
-			<h3 className="leading-tight pb-1">Reactions</h3>
+			<div className="flex justify-between">
+				<h3 className="leading-tight pb-1">Reactions</h3>
+				<Button
+					variant="secondary"
+					size="sm"
+					type="button"
+					className="self-end"
+					onClick={() => {
+						append({ name: "", desc: "" });
+					}}
+				>
+					<Plus className="w-4 h-4 mr-1" />
+					Add Reaction
+				</Button>
+			</div>
 			{fields.map((field, index) => (
 				<div key={field.id}>
 					<FormField
@@ -40,16 +54,15 @@ export default function Reactions({ form }: IChildForm) {
 											{...field}
 										/>
 									</FormControl>
-									<Button
-										size="icon"
-										variant="destructive"
+									<button
 										type="button"
+										className="group border-2 p-1.5 sketch-border border-transparent transition-colors hover:border-danger-300"
 										onClick={() => {
 											remove(index);
 										}}
 									>
-										<Trash2 className="w-5 h-5 transition-colors" />
-									</Button>
+										<Trash2 className="w-5 h-5 text-danger-600 group-hover:text-danger-400 transition-colors" />
+									</button>
 								</div>
 								<FormMessage />
 							</FormItem>
@@ -73,18 +86,6 @@ export default function Reactions({ form }: IChildForm) {
 					/>
 				</div>
 			))}
-			<Button
-				variant="secondary"
-				size="sm"
-				type="button"
-				className="self-end"
-				onClick={() => {
-					append({ name: "", desc: "" });
-				}}
-			>
-				<Plus className="w-4 h-4 mr-1" />
-				Add Reaction
-			</Button>
 		</div>
 	);
 }

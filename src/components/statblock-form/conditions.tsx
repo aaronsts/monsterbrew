@@ -104,13 +104,31 @@ export default function Conditions({
 			<FormItem>
 				<FormLabel>Damage Types</FormLabel>
 				<div className="flex gap-2 pb-3 items-center">
-					<Button type="button" onClick={addDamage} data-damage="vulnerable">
+					<Button
+						variant="secondary"
+						className="bg-norway-400 border-norway-400 text-norway-50 hover:bg-norway-300"
+						type="button"
+						onClick={addDamage}
+						data-damage="vulnerable"
+					>
 						Vulnerable
 					</Button>
-					<Button type="button" onClick={addDamage} data-damage="resistant">
+					<Button
+						className="bg-tower-400 border-tower-400 text-tower-50 hover:bg-tower-300 "
+						type="button"
+						variant="secondary"
+						onClick={addDamage}
+						data-damage="resistant"
+					>
 						Resistant
 					</Button>
-					<Button type="button" onClick={addDamage} data-damage="immune">
+					<Button
+						type="button"
+						variant="secondary"
+						className="bg-danger-400 border-danger-400 text-danger-50 hover:bg-danger-300"
+						onClick={addDamage}
+						data-damage="immune"
+					>
 						Immune
 					</Button>
 					<p className="font-normal px-2 text-lg">to:</p>
@@ -142,10 +160,10 @@ export default function Conditions({
 							<button
 								onClick={removeDamage}
 								data-index={i}
-								className="group"
+								className="group border-2 p-1.5 sketch-border border-transparent transition-colors hover:border-danger-300"
 								type="button"
 							>
-								<Trash2 className="w-4 h-4 group-hover:text-red-400 transition-colors" />
+								<Trash2 className="w-4 h-4 group-hover:text-danger-400 transition-colors" />
 							</button>
 						</li>
 					))}
@@ -170,7 +188,7 @@ export default function Conditions({
 							))}
 						</SelectContent>
 					</Select>
-					<Button type="button" onClick={addCondition}>
+					<Button type="button" variant="primary" onClick={addCondition}>
 						Add
 					</Button>
 				</div>
@@ -187,10 +205,10 @@ export default function Conditions({
 							<button
 								onClick={removeCondition}
 								data-index={i}
-								className="group"
+								className="group border-2 p-1.5 sketch-border border-transparent transition-colors hover:border-danger-300"
 								type="button"
 							>
-								<Trash2 className="w-4 h-4 group-hover:text-red-400 transition-colors" />
+								<Trash2 className="w-4 h-4 group-hover:text-danger-400 transition-colors" />
 							</button>
 						</li>
 					))}

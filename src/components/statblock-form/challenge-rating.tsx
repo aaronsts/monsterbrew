@@ -29,7 +29,7 @@ export default function ChallengeRating({ form }: IChildForm) {
 	}, [cr]);
 
 	return (
-		<div className="flex gap-2 items-end">
+		<div className="flex justify-between gap-3 items-end">
 			<FormField
 				control={form.control}
 				name="challenge_rating"
@@ -43,8 +43,8 @@ export default function ChallengeRating({ form }: IChildForm) {
 					</FormItem>
 				)}
 			/>
-			<p className="w-1/2 text-right">
-				<span className="font-bold">Proficiency Bonus:</span> + {profBonus}
+			<p className=" text-right pb-1 font-yatra">
+				<span className="font-bold ">Proficiency Bonus:</span> + {profBonus}
 			</p>
 		</div>
 	);

@@ -54,10 +54,22 @@ export default function Skills({ skillList, setSkillList }: ISkills) {
 		<FormItem>
 			<FormLabel>Skills</FormLabel>
 			<div className="flex gap-2 pb-3 items-center">
-				<Button type="button" onClick={addSkill} data-expert="false">
+				<Button
+					type="button"
+					onClick={addSkill}
+					variant="secondary"
+					className="bg-norway-400 border-norway-400 text-norway-50 hover:bg-norway-300"
+					data-expert="false"
+				>
 					Proficient
 				</Button>
-				<Button type="button" onClick={addSkill} data-expert="true">
+				<Button
+					type="button"
+					className="bg-tower-400 border-tower-400 text-tower-50 hover:bg-tower-300 "
+					onClick={addSkill}
+					variant="secondary"
+					data-expert="true"
+				>
 					Expert
 				</Button>
 				<p className="text-lg">In:</p>
@@ -93,10 +105,10 @@ export default function Skills({ skillList, setSkillList }: ISkills) {
 						<button
 							onClick={removeSkill}
 							data-index={i}
-							className="group"
+							className="group border-2 p-1.5 sketch-border border-transparent transition-colors hover:border-danger-300"
 							type="button"
 						>
-							<Trash2 className="w-4 h-4 group-hover:text-red-400 transition-colors" />
+							<Trash2 className="w-4 h-4 group-hover:text-danger-400 transition-colors" />
 						</button>
 					</li>
 				))}

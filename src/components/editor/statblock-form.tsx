@@ -286,7 +286,9 @@ export default function StatblockForm({
 	}
 	return (
 		<div className="w-full">
-			<Button onClick={loadCreatureValues}>Use Creature</Button>
+			<Button variant="primary" onClick={loadCreatureValues}>
+				Use Creature
+			</Button>
 			<h1>Create Creature</h1>
 			<Form {...form}>
 				<form
@@ -296,7 +298,7 @@ export default function StatblockForm({
 					<BaseCreatureInfo form={form} />
 					<Movement form={form} />
 					<AbilityScores form={form} />
-					<div className="grid grid-cols-3 gap-3 pb-6 border-b border-zinc-700">
+					<div className="grid grid-cols-3 gap-3 pb-6 border-b border-cararra-700">
 						<FormField
 							control={form.control}
 							name="senses"
@@ -351,7 +353,12 @@ export default function StatblockForm({
 						<LegendaryActions form={form} />
 						<LairActions form={form} />
 					</div>
-					<Button size="lg" className="self-center" type="submit">
+					<Button
+						size="lg"
+						variant="primary"
+						className="self-center"
+						type="submit"
+					>
 						Create Creature
 					</Button>
 				</form>

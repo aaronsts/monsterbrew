@@ -52,8 +52,8 @@ const ComboBoxResponsive = forwardRef<HTMLButtonElement, IComboboxProps>(
 					<PopoverTrigger asChild>
 						{value ? (
 							<Button
-								variant="outline"
-								className="text-zinc-800 w-full flex justify-between text-sm font-normal"
+								variant="secondary"
+								className="text-zinc-800 w-full border-cararra-300 hover:bg-cararra-100  flex justify-between text-sm font-normal"
 							>
 								{isChallengeRating
 									? `${selectedOption?.label} (+${selectedOption?.value} XP)`
@@ -62,8 +62,8 @@ const ComboBoxResponsive = forwardRef<HTMLButtonElement, IComboboxProps>(
 							</Button>
 						) : (
 							<Button
-								variant="outline"
-								className="text-zinc-500 flex w-full justify-between text-sm font-normal"
+								variant="secondary"
+								className="text-pewter-500 border border-cararra-300  hover:bg-cararra-100 flex w-full justify-between text-sm font-normal"
 							>
 								Select type ...
 								<ChevronDown strokeWidth={1} />
