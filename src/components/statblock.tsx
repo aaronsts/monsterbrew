@@ -31,8 +31,11 @@ const Statblock = ({ creature }: { creature: Monster5e }) => {
 				<div className="flex gap-2">
 					<h4>Hit Points</h4>
 					<p>
-						{/* {creature.hit_points} */}
-						{`(${creature.hit_dice} + ${creature.hit_modifier})`}
+						{creature.hit_modifier
+							? `${creature.hit_points} (${creature.hit_dice} + ${
+									creature.hit_modifier && creature.hit_modifier
+							  })`
+							: `${creature.hit_points} (${creature.hit_dice})`}
 					</p>
 				</div>
 				<div className="flex gap-2">

@@ -217,6 +217,13 @@ export default function StatblockForm({
 		);
 		if (!proficiencyBonus) return;
 
+		// calculate median hitpoints
+		const dice = values.hit_dice.split("d");
+		const modifier = values.hit_modifier ? parseInt(values.hit_modifier) : 0;
+		const hp =
+			parseInt(dice[0]) + Math.floor(parseInt(dice[0]) * parseInt(dice[1]));
+		values.hit_points = Math.floor(hp / 2 + modifier);
+
 		// Add numeric modifier to saving throws
 		savingThrows.forEach((t) => {
 			switch (t.value) {

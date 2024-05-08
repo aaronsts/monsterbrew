@@ -21,6 +21,7 @@ export const monsterStatblockSchema = z.object({
 		message: "Please use a format like 2d20",
 	}),
 	hit_modifier: z.string().optional(),
+	hit_points: z.number().optional(),
 	speed: z.object({
 		walk: z.coerce.string().optional(),
 		swim: z.coerce.string().optional(),
