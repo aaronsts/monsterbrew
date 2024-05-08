@@ -184,7 +184,8 @@ export default function StatblockForm({
 
 		// Conditions
 		const conditionImmunities =
-			creature.condition_immunities?.split(", ") || [];
+			creature.condition_immunities?.split(", ").filter((con) => con !== "") ||
+			[];
 		setConditionList(conditionImmunities);
 
 		// Damage conditions
