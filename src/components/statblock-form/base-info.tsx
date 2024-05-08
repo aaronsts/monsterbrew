@@ -8,24 +8,17 @@ import {
 	FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "../ui/select";
 import { monster_types, monster_sizes } from "@/lib/constants";
 import { ComboBoxResponsive } from "../combo-box";
 
 export default function BaseCreatureInfo({ form }: IChildForm) {
 	return (
-		<div className="grid grid-cols-4 gap-3 border-b border-zinc-700 pb-6">
+		<div className="grid grid-cols-3 gap-3 border-b border-cararra-700 pb-6">
 			<FormField
 				control={form.control}
 				name="name"
 				render={({ field }) => (
-					<FormItem>
+					<FormItem className="col-span-2">
 						<FormLabel>Monster Name</FormLabel>
 						<FormControl>
 							<Input placeholder="ex. Ancient Black Dragon" {...field} />

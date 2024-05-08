@@ -28,12 +28,14 @@ function EditStatblock({ creatureList }: IEditStatblock) {
 					setValue={setValue}
 				/>
 			)}
-			<StatblockForm creature={creature} setCreature={setCreature} />
-			<ViewStatblock
-				value={value}
-				creature={creature}
-				setCreature={setCreature}
-			/>
+			<div className="grid grid-cols-2 gap-6">
+				<StatblockForm creature={creature} setCreature={setCreature} />
+				<ViewStatblock
+					value={value}
+					creature={creature}
+					setCreature={setCreature}
+				/>
+			</div>
 		</div>
 	);
 }

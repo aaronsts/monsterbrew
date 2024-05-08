@@ -101,7 +101,7 @@ export const ALL_SKILLS: { name: string; stat: string; expert?: boolean }[] = [
 		stat: "wisdom",
 	},
 	{
-		name: "intelligenceimidation",
+		name: "intimidation",
 		stat: "charisma",
 	},
 	{

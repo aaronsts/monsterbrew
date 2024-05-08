@@ -298,7 +298,7 @@ export default function StatblockForm({
 					<BaseCreatureInfo form={form} />
 					<Movement form={form} />
 					<AbilityScores form={form} />
-					<div className="grid grid-cols-3 gap-3 pb-6 border-b border-cararra-700">
+					<div className="grid grid-cols-2 gap-3 pb-6 border-b border-cararra-700">
 						<FormField
 							control={form.control}
 							name="senses"
@@ -330,7 +330,7 @@ export default function StatblockForm({
 						/>
 						<ChallengeRating form={form} />
 					</div>
-					<div className="grid grid-cols-2 gap-3 border-b border-zinc-700 pb-6">
+					<div className="grid grid-cols-1 gap-3 border-b border-zinc-700 pb-6">
 						<Conditions
 							conditionList={conditionList}
 							setConditionList={setConditionList}

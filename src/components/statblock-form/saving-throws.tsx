@@ -44,9 +44,9 @@ export default function SavingThrows({ statList, setStatList }: ISavingThrows) {
 	};
 
 	return (
-		<FormItem>
+		<FormItem className="space-y-2">
 			<FormLabel>Saving Throws</FormLabel>
-			<div className="flex gap-2 pb-3 items-center">
+			<div className="flex gap-2 items-center">
 				<Select onValueChange={onSelectSkill}>
 					<SelectTrigger data-testid="saving-throws" className="capitalize">
 						<SelectValue
@@ -71,11 +71,11 @@ export default function SavingThrows({ statList, setStatList }: ISavingThrows) {
 					Add
 				</Button>
 			</div>
-			<ul>
+			<ul className="font-short flex gap-2 pt-2 flex-wrap">
 				{statList.map((stat, i) => (
 					<li
 						key={stat.value + i}
-						className="flex gap-2 justify-between h-10 items-center border-t first:border-t-0"
+						className="flex bg-cararra-100 border-cararra-300 gap-1 px-3 py-1 border justify-between items-center sketch-border"
 					>
 						<p className="capitalize">{stat.name}</p>
 						<button

@@ -13,7 +13,7 @@
 		@apply text-xl font-yatra leading-none small-caps;
 	}
 	h4 {
-		@apply font-bold;
+		@apply font-yatra;
 	}
 }
 

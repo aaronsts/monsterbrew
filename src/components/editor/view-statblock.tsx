@@ -51,7 +51,9 @@ export default function ViewStatblock(props: IViewStatblock) {
 		<div className="w-full space-y-2">
 			<div className="flex gap-3">
 				{localCreature && (
-					<Button onClick={loadLocalCreature}>Load Local Creature</Button>
+					<Button variant="secondary" onClick={loadLocalCreature}>
+						Load Local Creature
+					</Button>
 				)}
 			</div>
 			{isLoading ? (

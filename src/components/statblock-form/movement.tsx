@@ -11,7 +11,7 @@ import { IChildForm } from "./ability-scores";
 
 export default function Movement({ form }: IChildForm) {
 	return (
-		<div className="grid grid-cols-3 gap-3 border-b pb-6 border-zinc-700">
+		<div className="grid grid-cols-5 gap-3 border-b pb-6 border-zinc-700">
 			<FormField
 				control={form.control}
 				name="speed.walk"
@@ -106,7 +106,7 @@ export default function Movement({ form }: IChildForm) {
 				control={form.control}
 				name="speed.hover"
 				render={({ field }) => (
-					<FormItem className="flex gap-2 items-center self-end h-9">
+					<FormItem className="flex gap-2 col-start-5 h-fit items-center self-end">
 						<FormControl>
 							<Checkbox
 								checked={field.value}

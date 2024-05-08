@@ -13,6 +13,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 import { Button } from "../ui/button";
 import { Trash2 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface IConditions extends IChildForm {
 	damageList: string[];
@@ -101,12 +102,12 @@ export default function Conditions({
 
 	return (
 		<>
-			<FormItem>
+			<FormItem className="space-y-2">
 				<FormLabel>Damage Types</FormLabel>
-				<div className="flex gap-2 pb-3 items-center">
+				<div className="flex gap-2 items-center">
 					<Button
 						variant="secondary"
-						className="bg-norway-400 border-norway-400 text-norway-50 hover:bg-norway-300"
+						className="bg-norway-400  border-norway-400 text-norway-50 hover:bg-norway-300"
 						type="button"
 						onClick={addDamage}
 						data-damage="vulnerable"
@@ -114,7 +115,7 @@ export default function Conditions({
 						Vulnerable
 					</Button>
 					<Button
-						className="bg-tower-400 border-tower-400 text-tower-50 hover:bg-tower-300 "
+						className="bg-tower-400  border-tower-400 text-tower-50 hover:bg-tower-300 "
 						type="button"
 						variant="secondary"
 						onClick={addDamage}
@@ -125,15 +126,16 @@ export default function Conditions({
 					<Button
 						type="button"
 						variant="secondary"
-						className="bg-danger-400 border-danger-400 text-danger-50 hover:bg-danger-300"
+						className="bg-danger-400  border-danger-400 text-danger-50 hover:bg-danger-300"
 						onClick={addDamage}
 						data-damage="immune"
 					>
 						Immune
 					</Button>
-					<p className="font-normal px-2 text-lg">to:</p>
+					<p className="font-yatra w-fit text-lg">to:</p>
+
 					<Select onValueChange={onSelectDamage}>
-						<SelectTrigger className="capitalize">
+						<SelectTrigger className=" capitalize">
 							<SelectValue
 								data-testid="damage-type"
 								className="placeholder:text-zinc-400"
@@ -149,30 +151,39 @@ export default function Conditions({
 						</SelectContent>
 					</Select>
 				</div>
-				{damageList.length > 0 && <h3 className="font-medium">Creature is:</h3>}
-				<ul>
-					{damageList.map((damage, i) => (
-						<li
-							key={damage + i}
-							className="flex gap-2 justify-between h-10 items-center border-t first:border-t-0"
-						>
-							<p className="capitalize">{damage}</p>
-							<button
-								onClick={removeDamage}
-								data-index={i}
-								className="group border-2 p-1.5 sketch-border border-transparent transition-colors hover:border-danger-300"
-								type="button"
+				<div>
+					{damageList.length > 0 && <h4>Creature is:</h4>}
+					<ul className="font-short gap-2 flex flex-wrap">
+						{damageList.map((damage, i) => (
+							<li
+								key={damage + i}
+								className={cn(
+									"flex gap-1 px-3 py-1 border justify-between items-center sketch-border ",
+									damage.includes("vulnerable") &&
+										"bg-norway-100 border-norway-300 text-norway-950",
+									damage.includes("resistant") &&
+										"bg-tower-100 border-tower-300 text-tower-950",
+									damage.includes("immune") &&
+										"bg-danger-100 border-danger-300 text-danger-950"
+								)}
 							>
-								<Trash2 className="w-4 h-4 group-hover:text-danger-400 transition-colors" />
-							</button>
-						</li>
-					))}
-				</ul>
+								<p className="capitalize">{damage}</p>
+								<button
+									onClick={removeDamage}
+									data-index={i}
+									className="group "
+									type="button"
+								>
+									<Trash2 className="w-4 h-4 group-hover:text-danger-500 transition-colors" />
+								</button>
+							</li>
+						))}
+					</ul>
+				</div>
 			</FormItem>
-
-			<FormItem>
+			<FormItem className="space-y-2">
 				<FormLabel>Condition Immunities</FormLabel>
-				<div className="flex gap-2 pb-3 items-center">
+				<div className="flex gap-2  items-center">
 					<Select onValueChange={onSelectCondition}>
 						<SelectTrigger className="capitalize">
 							<SelectValue
@@ -192,27 +203,27 @@ export default function Conditions({
 						Add
 					</Button>
 				</div>
-				{conditionList.length > 0 && (
-					<h3 className="font-medium">Creature is immune to being:</h3>
-				)}
-				<ul>
-					{conditionList.map((cnd, i) => (
-						<li
-							key={cnd + i}
-							className="flex gap-2 justify-between h-10 items-center border-t first:border-t-0"
-						>
-							<p className="capitalize">{cnd}</p>
-							<button
-								onClick={removeCondition}
-								data-index={i}
-								className="group border-2 p-1.5 sketch-border border-transparent transition-colors hover:border-danger-300"
-								type="button"
+				<div className="space-y-2">
+					{conditionList.length > 0 && <h4>Creature is immune to being:</h4>}
+					<ul className="font-short gap-2 flex flex-wrap">
+						{conditionList.map((cnd, i) => (
+							<li
+								key={cnd + i}
+								className="flex gap-1 px-3 text-cararra-950 py-1 justify-between items-center sketch-border border-cararra-300 border bg-cararra-100"
 							>
-								<Trash2 className="w-4 h-4 group-hover:text-danger-400 transition-colors" />
-							</button>
-						</li>
-					))}
-				</ul>
+								<p className="capitalize">{cnd}</p>
+								<button
+									onClick={removeCondition}
+									data-index={i}
+									className="group"
+									type="button"
+								>
+									<Trash2 className="w-4 h-4 group-hover:text-danger-500 transition-colors" />
+								</button>
+							</li>
+						))}
+					</ul>
+				</div>
 			</FormItem>
 		</>
 	);

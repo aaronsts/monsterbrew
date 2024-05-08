@@ -12,6 +12,7 @@ import { useState } from "react";
 
 import { Button } from "../ui/button";
 import { Trash2 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type IskillList = {
 	name: string;
@@ -51,28 +52,28 @@ export default function Skills({ skillList, setSkillList }: ISkills) {
 	};
 
 	return (
-		<FormItem>
+		<FormItem className="space-y-2">
 			<FormLabel>Skills</FormLabel>
-			<div className="flex gap-2 pb-3 items-center">
+			<div className="flex gap-2 items-center">
 				<Button
 					type="button"
 					onClick={addSkill}
 					variant="secondary"
-					className="bg-norway-400 border-norway-400 text-norway-50 hover:bg-norway-300"
+					className="bg-tower-400 border-tower-400 text-tower-50 hover:bg-tower-300 "
 					data-expert="false"
 				>
 					Proficient
 				</Button>
 				<Button
 					type="button"
-					className="bg-tower-400 border-tower-400 text-tower-50 hover:bg-tower-300 "
+					className="bg-norway-400 border-norway-400 text-norway-50 hover:bg-norway-300"
 					onClick={addSkill}
 					variant="secondary"
 					data-expert="true"
 				>
 					Expert
 				</Button>
-				<p className="text-lg">In:</p>
+				<p className="text-lg font-yatra">In:</p>
 				<Select onValueChange={onSelectSkill}>
 					<SelectTrigger data-testid="skill-proficiency" className="capitalize">
 						<SelectValue
@@ -93,11 +94,16 @@ export default function Skills({ skillList, setSkillList }: ISkills) {
 					</SelectContent>
 				</Select>
 			</div>
-			<ul>
+			<ul className="font-short gap-2 pt-2 flex flex-wrap">
 				{skillList.map((skill, i) => (
 					<li
 						key={skill.name + i}
-						className="flex gap-2 justify-between h-10 items-center border-t first:border-t-0"
+						className={cn(
+							"flex gap-1 px-3 py-1 border justify-between items-center sketch-border ",
+							skill.expert
+								? "bg-norway-100 border-norway-300 text-norway-950"
+								: "bg-tower-100 border-tower-300 text-tower-950"
+						)}
 					>
 						<p className="capitalize">
 							{skill.name} {skill.expert && "(expert)"}

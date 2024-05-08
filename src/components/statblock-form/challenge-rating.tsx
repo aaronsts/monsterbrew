@@ -29,12 +29,12 @@ export default function ChallengeRating({ form }: IChildForm) {
 	}, [cr]);
 
 	return (
-		<div className="flex justify-between gap-3 items-end">
+		<div className="flex col-span-2 justify-between gap-3 items-end">
 			<FormField
 				control={form.control}
 				name="challenge_rating"
 				render={({ field }) => (
-					<FormItem>
+					<FormItem className="w-1/2">
 						<FormLabel>Challenge Rating (CR)</FormLabel>
 						<FormControl>
 							<ComboBoxResponsive options={CHALLENGE_RATINGS} {...field} />
