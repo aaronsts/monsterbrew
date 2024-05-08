@@ -14,7 +14,7 @@ const buttonVariants = cva(
 				primary:
 					"bg-cararra-600 border-2 border-cararra-800 text-cararra-50 hover:bg-cararra-800 sketch-border px-3 py-1 font-short hover:-translate-y-1 transition-all",
 				secondary:
-					"bg-transparent border-2 border-pewter-300 text-pewter-950 hover:bg-pewter-100 sketch-border px-3 py-1 font-short transition-all",
+					"bg-transparent border-2 border-pewter-300 text-pewter-900 hover:bg-pewter-100 sketch-border px-3 py-1 font-short transition-all",
 				destructive:
 					"bg-transparent border-2 border-danger-300 text-danger-950 hover:bg-danger-100 sketch-border px-3 py-1 font-short transition-all",
 				outline:

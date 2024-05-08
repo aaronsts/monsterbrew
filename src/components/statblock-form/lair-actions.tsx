@@ -39,8 +39,8 @@ export default function LairActions({ form }: IChildForm) {
 
 	return (
 		<div className="w-full">
-			<div className="flex items-center border-zinc-700 justify-between border-b">
-				<h3 className="leading-tight pb-1">Lair Actions</h3>
+			<div className="flex items-center border-zinc-700 pb-2 justify-between border-b">
+				<h3>Lair Actions</h3>
 				<div className="space-x-2 flex items-center">
 					<Checkbox
 						id="lair-actions"

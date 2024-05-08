@@ -47,7 +47,7 @@ export default function RootLayout({
 				<MainNavigation />
 				<main
 					className={cn(
-						"max-w-6xl mx-auto px-3 data-[scroll-locked]:pl-3 data-[scroll-locked]:pr-3 lg:px-6"
+						"max-w-7xl mx-auto px-3 data-[scroll-locked]:pl-3 data-[scroll-locked]:pr-3 lg:px-6"
 					)}
 				>
 					{children}

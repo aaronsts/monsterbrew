@@ -344,15 +344,14 @@ export default function StatblockForm({
 							setStatList={setSavingThrows}
 						/>
 					</div>
-					<div className="grid grid-cols-3 gap-6">
+					<div className="grid gap-2 grid-cols-1">
 						<SpecialAbilities form={form} />
 						<Actions form={form} />
 						<Reactions form={form} />
-					</div>
-					<div className="flex gap-6 w-full">
 						<LegendaryActions form={form} />
 						<LairActions form={form} />
 					</div>
+
 					<Button
 						size="lg"
 						variant="primary"
