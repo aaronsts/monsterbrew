@@ -42,7 +42,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`min-h-screen bg-white ${font_sans.variable} ${yatra_one.variable} ${short_stack.variable} antialiased`}
+				className={`min-h-screen text-cararra-950 selection:bg-tower-600 selection:text-tower-100 bg-white ${font_sans.variable} ${yatra_one.variable} ${short_stack.variable} antialiased`}
 			>
 				<MainNavigation />
 				<main

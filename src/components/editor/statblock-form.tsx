@@ -293,12 +293,12 @@ export default function StatblockForm({
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className="flex flex-col gap-6 w-full"
+					className="flex flex-col gap-3 w-full"
 				>
 					<BaseCreatureInfo form={form} />
 					<Movement form={form} />
 					<AbilityScores form={form} />
-					<div className="grid grid-cols-2 gap-3 pb-6 border-b border-cararra-700">
+					<div className="grid grid-cols-2 gap-3 ">
 						<FormField
 							control={form.control}
 							name="senses"
@@ -330,7 +330,7 @@ export default function StatblockForm({
 						/>
 						<ChallengeRating form={form} />
 					</div>
-					<div className="grid grid-cols-1 gap-3 border-b border-zinc-700 pb-6">
+					<div className="space-y-3">
 						<Conditions
 							conditionList={conditionList}
 							setConditionList={setConditionList}
@@ -344,14 +344,13 @@ export default function StatblockForm({
 							setStatList={setSavingThrows}
 						/>
 					</div>
-					<div className="grid gap-2 grid-cols-1">
+					<div className="space-y-3">
 						<SpecialAbilities form={form} />
 						<Actions form={form} />
 						<Reactions form={form} />
 						<LegendaryActions form={form} />
 						<LairActions form={form} />
 					</div>
-
 					<Button
 						size="lg"
 						variant="primary"
