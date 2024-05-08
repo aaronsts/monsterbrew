@@ -282,8 +282,6 @@ export default function StatblockForm({
 
 		values.senses = values.senses + `, passive Perception ${passivePerception}`;
 
-		console.log(values.senses);
-
 		localStorage.setItem("monsterbrew-creature", JSON.stringify(values));
 		setCreature(values);
 

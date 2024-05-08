@@ -11,10 +11,13 @@ const Statblock = ({ creature }: { creature: Monster5e }) => {
 		(rating) => rating.label === creature.challenge_rating
 	);
 
+	console.log("shown creature", creature);
+
 	return (
-		<div className="w-full space-y-3">
+		<div className="w-full text-cararra-950 space-y-3">
 			<div>
-				<h1 className="leading-none">{creature.name}</h1>
+				<h2>{creature.name}</h2>
+
 				<p className="italic capitalize">
 					{creature.size} {creature.type}, {creature.alignment}
 				</p>

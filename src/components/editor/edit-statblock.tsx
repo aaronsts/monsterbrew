@@ -15,10 +15,6 @@ function EditStatblock({ creatureList }: IEditStatblock) {
 	const [creature, setCreature] = useState<Monster5e>();
 	const [value, setValue] = useState<string>();
 
-	useEffect(() => {
-		console.log("creature", creature);
-	}, [creature]);
-
 	return (
 		<div className="space-y-3 mb-6">
 			{creatureList.results && (

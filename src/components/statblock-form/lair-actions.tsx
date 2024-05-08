@@ -31,7 +31,6 @@ export default function LairActions({ form }: IChildForm) {
 	};
 
 	useEffect(() => {
-		console.log(lairDesc);
 		if (!lairDesc) return;
 		if (lairDesc?.length === 0) return;
 		setHasLair(true);
