@@ -12,11 +12,17 @@ import Head from "next/head";
 
 export const metadata: Metadata = {
 	metadataBase: new URL("https://monsterbrew.vercel.app/"),
+	alternates: {
+		canonical: "./",
+	},
+
 	title: "Monsterbrew | Homebrewing monsters with ease",
 	description:
 		"Create homebrew monsters for Dungeons & Dragons 5e now with ease.",
-	alternates: {
-		canonical: "./",
+	openGraph: {
+		title: "Monsterbrew | Homebrewing monsters with ease",
+		description:
+			"Create homebrew monsters for Dungeons & Dragons 5e now with ease.",
 	},
 };
 
