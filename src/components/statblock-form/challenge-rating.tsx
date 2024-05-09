@@ -44,7 +44,8 @@ export default function ChallengeRating({ form }: IChildForm) {
 				)}
 			/>
 			<p className=" text-right pb-1 font-yatra">
-				<span className="font-bold ">Proficiency Bonus:</span> + {profBonus}
+				<span className="font-yatra text-sm">Proficiency Bonus:</span> +
+				{profBonus}
 			</p>
 		</div>
 	);

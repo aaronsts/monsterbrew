@@ -63,7 +63,7 @@ const ComboBoxResponsive = forwardRef<HTMLButtonElement, IComboboxProps>(
 						) : (
 							<Button
 								variant="secondary"
-								className="text-pewter-500 border border-cararra-300   hover:bg-cararra-100 flex w-full justify-between text-sm font-normal"
+								className="text-pewter-500 border border-cararra-300 hover:bg-cararra-100 flex w-full justify-between text-sm font-normal"
 							>
 								Select type ...
 								<ChevronDown strokeWidth={1} />
@@ -110,16 +110,16 @@ const ComboBoxResponsive = forwardRef<HTMLButtonElement, IComboboxProps>(
 				<DrawerTrigger asChild>
 					{value ? (
 						<Button
-							variant="outline"
-							className="text-zinc-800 flex w-full justify-between text-sm font-normal"
+							variant="secondary"
+							className="text-pewter-800 border font-short border-cararra-300   hover:bg-cararra-100 flex w-full justify-between text-sm font-normal"
 						>
 							{selectedOption?.label}
 							<ChevronDown strokeWidth={1} />
 						</Button>
 					) : (
 						<Button
-							variant="outline"
-							className="text-zinc-500 flex w-full justify-between text-sm font-normal"
+							variant="secondary"
+							className="text-pewter-500 border font-short border-cararra-300   hover:bg-cararra-100 flex w-full justify-between text-sm font-normal"
 						>
 							Select type ...
 							<ChevronDown strokeWidth={1} />

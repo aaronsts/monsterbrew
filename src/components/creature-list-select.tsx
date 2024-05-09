@@ -1,9 +1,6 @@
 "use client";
 
-import * as React from "react";
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
-
-import { cn } from "@/lib/utils";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import { Button } from "@/components/ui/button";
 import {
 	Command,
@@ -11,70 +8,118 @@ import {
 	CommandGroup,
 	CommandInput,
 	CommandItem,
+	CommandList,
 } from "@/components/ui/command";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import { IGetCreatures } from "@/app/editor/page";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { CaretSortIcon } from "@radix-ui/react-icons";
+
+type Option = {
+	slug: string;
+	name: string;
+};
 
 interface ICreatureListSelect {
-	creatures: IGetCreatures["results"];
-	value: string | undefined;
-	setValue: React.Dispatch<React.SetStateAction<string | undefined>>;
+	options: IGetCreatures["results"];
+	setValue: Dispatch<SetStateAction<string | undefined>>;
 }
 
-export function CreatureListSelect({
-	creatures,
-	value,
-	setValue,
-}: ICreatureListSelect) {
-	const [open, setOpen] = React.useState(false);
+export function CreatureListSelect({ options, setValue }: ICreatureListSelect) {
+	const [open, setOpen] = useState(false);
+	const isDesktop = useMediaQuery("(min-width: 768px)");
+	const [selectedStatus, setSelectedStatus] = useState<Option | null>(null);
 
-	return (
-		<div className="flex gap-3">
+	useEffect(() => {
+		if (!selectedStatus) return;
+		setValue(selectedStatus.slug);
+	}, [selectedStatus, setValue]);
+
+	if (isDesktop) {
+		return (
 			<Popover open={open} onOpenChange={setOpen}>
 				<PopoverTrigger asChild>
-					<Button
-						variant="secondary"
-						role="combobox"
-						aria-expanded={open}
-						className="w-[200px] font-normal justify-between"
-					>
-						{value
-							? creatures.find((creature) => creature.slug === value)?.name
-							: "Select creature..."}
+					<Button variant="secondary" className="justify-start">
+						{selectedStatus ? (
+							<>{selectedStatus.name}</>
+						) : (
+							<>Search Creatures...</>
+						)}
 						<CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 					</Button>
 				</PopoverTrigger>
-				<PopoverContent className="w-[200px] p-0">
-					<Command>
-						<CommandInput placeholder="Search creature..." className="h-9" />
-						<CommandEmpty>No creature found.</CommandEmpty>
-						<CommandGroup className="max-h-64 overflow-scroll">
-							{creatures.map((creature) => (
-								<CommandItem
-									key={creature.slug}
-									value={creature.slug}
-									onSelect={(currentValue) => {
-										setValue(currentValue === value ? "" : currentValue);
-										setOpen(false);
-									}}
-								>
-									{creature.name}
-									<CheckIcon
-										className={cn(
-											"ml-auto h-4 w-4",
-											value === creature.slug ? "opacity-100" : "opacity-0"
-										)}
-									/>
-								</CommandItem>
-							))}
-						</CommandGroup>
-					</Command>
+				<PopoverContent className="w-[200px] p-0" align="start">
+					<StatusList
+						setOpen={setOpen}
+						options={options}
+						setSelectedStatus={setSelectedStatus}
+					/>
 				</PopoverContent>
 			</Popover>
-		</div>
+		);
+	}
+
+	return (
+		<Drawer open={open} onOpenChange={setOpen}>
+			<DrawerTrigger asChild>
+				<Button variant="secondary" className="justify-start">
+					{selectedStatus ? (
+						<>{selectedStatus.name}</>
+					) : (
+						<>Search Creatures...</>
+					)}
+					<CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+				</Button>
+			</DrawerTrigger>
+			<DrawerContent>
+				<div className="mt-4 border-t">
+					<StatusList
+						options={options}
+						setOpen={setOpen}
+						setSelectedStatus={setSelectedStatus}
+					/>
+				</div>
+			</DrawerContent>
+		</Drawer>
+	);
+}
+
+function StatusList({
+	setOpen,
+	setSelectedStatus,
+	options,
+}: {
+	setOpen: (open: boolean) => void;
+	setSelectedStatus: (status: Option | null) => void;
+	options: IGetCreatures["results"];
+}) {
+	return (
+		<Command>
+			<CommandInput placeholder="Filter Creatures..." />
+			<CommandList>
+				<CommandEmpty>No Creatures found.</CommandEmpty>
+				<CommandGroup>
+					{options.map((option) => (
+						<CommandItem
+							key={option.slug}
+							value={option.slug}
+							onSelect={(value) => {
+								setSelectedStatus(
+									options.find((priority) => priority.slug === value) || null
+								);
+								setOpen(false);
+							}}
+						>
+							{option.name}
+						</CommandItem>
+					))}
+				</CommandGroup>
+			</CommandList>
+		</Command>
 	);
 }

@@ -13,7 +13,7 @@ import { ComboBoxResponsive } from "../combo-box";
 
 export default function BaseCreatureInfo({ form }: IChildForm) {
 	return (
-		<div className="grid grid-cols-3 gap-3">
+		<div className="grid grid-cols-2 md:grid-cols-3 gap-3">
 			<FormField
 				control={form.control}
 				name="name"

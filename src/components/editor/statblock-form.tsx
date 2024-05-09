@@ -291,7 +291,7 @@ export default function StatblockForm({
 		});
 	}
 	return (
-		<div className="w-full">
+		<div className="md:w-full">
 			<Button variant="primary" onClick={loadCreatureValues}>
 				Use Creature
 			</Button>

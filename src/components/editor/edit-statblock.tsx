@@ -19,12 +19,11 @@ function EditStatblock({ creatureList }: IEditStatblock) {
 		<div className="space-y-3 mb-6">
 			{creatureList.results && (
 				<CreatureListSelect
-					creatures={creatureList.results}
-					value={value}
+					options={creatureList.results}
 					setValue={setValue}
 				/>
 			)}
-			<div className="grid grid-cols-2 gap-6">
+			<div className="grid md:grid-cols-2 gap-6">
 				<StatblockForm creature={creature} setCreature={setCreature} />
 				<div>
 					<ViewStatblock
