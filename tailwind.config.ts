@@ -84,9 +84,9 @@ const config = {
 				},
 			},
 			fontFamily: {
-				sans: ["var(--font-sans)", ...fontFamily.sans],
-				yatra: ["var(--font-yatra)"],
-				short: ["var(--font-short-stack)"],
+				sans: ["Roboto Condensed Variable", ...fontFamily.sans],
+				yatra: ["Yatra One", ...fontFamily.serif],
+				short: ["Short Stack", ...fontFamily.serif],
 			},
 			keyframes: {
 				"accordion-down": {

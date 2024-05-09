@@ -10,6 +10,9 @@
 		"test": "playwright test"
 	},
 	"dependencies": {
+		"@fontsource-variable/roboto-condensed": "^5.0.3",
+		"@fontsource/short-stack": "^5.0.12",
+		"@fontsource/yatra-one": "^5.0.13",
 		"@hookform/resolvers": "^3.3.4",
 		"@radix-ui/react-checkbox": "^1.0.4",
 		"@radix-ui/react-dialog": "^1.0.5",
@@ -32,6 +35,7 @@
 		"react": "^18",
 		"react-dom": "^18",
 		"react-hook-form": "^7.51.3",
+		"react-to-print": "^2.15.1",
 		"sonner": "^1.4.41",
 		"tailwind-merge": "^2.3.0",
 		"tailwindcss-animate": "^1.0.7",

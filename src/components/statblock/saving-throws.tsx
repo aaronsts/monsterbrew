@@ -23,17 +23,15 @@ function SavingThrows(props: ISavingThrows) {
 			intelligence_save ||
 			wisdom_save ||
 			charisma_save) && (
-			<div className="flex gap-1">
-				<h4>Saving Throws</h4>
-				<p>
-					<span>{strength_save && `Str +${strength_save}, `}</span>
-					<span>{dexterity_save && `Dex +${dexterity_save}, `}</span>
-					<span>{constitution_save && `Con +${constitution_save}, `}</span>
-					<span>{intelligence_save && `Int +${intelligence_save}, `}</span>
-					<span>{wisdom_save && `Wis +${wisdom_save}, `}</span>
-					<span>{charisma_save && `Cha +${wisdom_save}`}</span>
-				</p>
-			</div>
+			<p>
+				<span className="font-yatra leading-none">Saving Throws </span>
+				<span>{strength_save && `Str +${strength_save}, `}</span>
+				<span>{dexterity_save && `Dex +${dexterity_save}, `}</span>
+				<span>{constitution_save && `Con +${constitution_save}, `}</span>
+				<span>{intelligence_save && `Int +${intelligence_save}, `}</span>
+				<span>{wisdom_save && `Wis +${wisdom_save}, `}</span>
+				<span>{charisma_save && `Cha +${wisdom_save}`}</span>
+			</p>
 		)
 	);
 }
