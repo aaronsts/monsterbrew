@@ -9,8 +9,7 @@ export default function Home() {
 					Unique creatures <br /> for your D&D advendures
 				</h1>
 				<p className="font-short max-w-xl pb-3">
-					Start from scratch or select a preset creature and bring it to life
-					with our easy-to-use creature creator tool.
+					Start from scratch or select a preset creature and bring it to life.
 				</p>
 				<div className="flex gap-2">
 					<Link href="/editor" passHref legacyBehavior>
