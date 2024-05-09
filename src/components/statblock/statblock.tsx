@@ -1,7 +1,7 @@
-import Statistic from "./statblock/statistic";
-import { Divider } from "./ui/divider";
+import Statistic from "./statistic";
+import { Divider } from "../ui/divider";
 import { CHALLENGE_RATINGS } from "@/lib/constants";
-import SavingThrows from "./statblock/saving-throws";
+import SavingThrows from "./saving-throws";
 import { Monster5e } from "@/types/monster5e";
 
 const Statblock = ({ creature }: { creature: Monster5e }) => {
@@ -172,5 +172,7 @@ const Statblock = ({ creature }: { creature: Monster5e }) => {
 		</div>
 	);
 };
+
+Statblock.displayName = "Statblock";
 
 export default Statblock;

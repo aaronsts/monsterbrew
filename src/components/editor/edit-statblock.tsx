@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import StatblockForm from "./statblock-form";
 import ViewStatblock from "./view-statblock";
 import { IGetCreatures } from "@/app/editor/page";
@@ -26,11 +26,13 @@ function EditStatblock({ creatureList }: IEditStatblock) {
 			)}
 			<div className="grid grid-cols-2 gap-6">
 				<StatblockForm creature={creature} setCreature={setCreature} />
-				<ViewStatblock
-					value={value}
-					creature={creature}
-					setCreature={setCreature}
-				/>
+				<div>
+					<ViewStatblock
+						value={value}
+						creature={creature}
+						setCreature={setCreature}
+					/>
+				</div>
 			</div>
 		</div>
 	);

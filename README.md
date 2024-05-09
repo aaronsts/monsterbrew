@@ -8,3 +8,4 @@
 
 ## Bugs
 - [x] Condition Immunities shows empty box on creature load
+- [ ] Search does not work with spaces

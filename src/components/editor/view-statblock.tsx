@@ -1,12 +1,12 @@
 "use client";
-
-import { IGetCreatures } from "@/app/editor/page";
-import { CreatureListSelect } from "../creature-list-select";
-import Statblock from "../statblock";
+import Statblock from "../statblock/statblock";
 import { Open5e } from "@sturlen/open5e-ts";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Monster5e } from "@/types/monster5e";
 import { Button } from "../ui/button";
+import { useReactToPrint } from "react-to-print";
+import PdfStatblock from "../statblock/pdf-statblock";
+import { Yatra_One } from "next/font/google";
 
 interface IViewStatblock {
 	value: string | undefined;
@@ -18,6 +18,18 @@ export default function ViewStatblock(props: IViewStatblock) {
 	const { creature, setCreature, value } = props;
 	const [localCreature, setLocalCreature] = useState("");
 	const [isLoading, setLoading] = useState(true);
+
+	const componentRef = useRef(null);
+
+	const reactToPrintContent = useCallback(() => {
+		return componentRef.current;
+	}, []);
+
+	const handlePrint = useReactToPrint({
+		content: reactToPrintContent,
+		documentTitle: `${creature?.name}`,
+		removeAfterPrint: true,
+	});
 
 	const getCreature = useCallback(async () => {
 		const api = await new Open5e();
@@ -55,12 +67,18 @@ export default function ViewStatblock(props: IViewStatblock) {
 						Load Local Creature
 					</Button>
 				)}
+				<Button onClick={handlePrint} variant="primary">
+					Save to PDF
+				</Button>
 			</div>
 			{isLoading ? (
 				<p>Loading...</p>
 			) : (
 				creature && <Statblock creature={creature} />
 			)}
+			<div>
+				{creature && <PdfStatblock ref={componentRef} creature={creature} />}
+			</div>
 		</div>
 	);
 }
