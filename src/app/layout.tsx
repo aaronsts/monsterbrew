@@ -9,6 +9,7 @@ import "@fontsource/yatra-one";
 import "@fontsource/short-stack";
 import "@fontsource-variable/roboto-condensed";
 import Head from "next/head";
+import Script from "next/script";
 
 export const metadata: Metadata = {
 	metadataBase: new URL("https://monsterbrew.vercel.app/"),
@@ -33,13 +34,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<Head>
-				<script
-					defer
-					data-domain="monsterbrew.vercel.app"
-					src="https://plausible.io/js/script.js"
-				></script>
-			</Head>
+			<Script
+				defer
+				data-domain="monsterbrew.vercel.app"
+				src="https://plausible.io/js/script.js"
+			/>
 			<body className="min-h-screen text-cararra-950 selection:bg-tower-600 selection:text-tower-100 bg-white $ antialiased">
 				<MainNavigation />
 				<main
