@@ -18,11 +18,6 @@ export default function Home() {
 							Start Creating
 						</Button>
 					</Link>
-					<Link href="/" passHref legacyBehavior>
-						<Button variant="secondary" className="w-fit" size="lg">
-							Learn More
-						</Button>
-					</Link>
 				</div>
 			</div>
 		</main>

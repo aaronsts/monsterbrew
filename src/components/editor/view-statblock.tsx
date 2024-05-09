@@ -76,7 +76,7 @@ export default function ViewStatblock(props: IViewStatblock) {
 			) : (
 				creature && <Statblock creature={creature} />
 			)}
-			<div>
+			<div className="hidden">
 				{creature && <PdfStatblock ref={componentRef} creature={creature} />}
 			</div>
 		</div>
