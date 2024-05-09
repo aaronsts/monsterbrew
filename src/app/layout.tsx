@@ -33,6 +33,13 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
+			<Head>
+				<script
+					defer
+					data-domain="monsterbrew.vercel.app"
+					src="https://plausible.io/js/script.js"
+				></script>
+			</Head>
 			<body className="min-h-screen text-cararra-950 selection:bg-tower-600 selection:text-tower-100 bg-white $ antialiased">
 				<MainNavigation />
 				<main
