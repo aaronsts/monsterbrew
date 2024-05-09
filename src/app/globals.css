@@ -4,7 +4,7 @@
 
 @layer base {
 	h1 {
-		@apply text-5xl text-cararra-900 font-yatra leading-tight;
+		@apply text-4xl md:text-5xl text-cararra-900 font-yatra leading-tight;
 	}
 	h2 {
 		@apply text-3xl font-yatra leading-none small-caps;

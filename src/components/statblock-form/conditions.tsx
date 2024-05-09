@@ -104,7 +104,7 @@ export default function Conditions({
 		<>
 			<FormItem className="space-y-2">
 				<FormLabel>Damage Types</FormLabel>
-				<div className="flex gap-2 items-center">
+				<div className="flex flex-wrap md:flex-nowrap gap-2 items-center">
 					<Button
 						variant="secondary"
 						className="bg-norway-400  border-norway-400 text-norway-50 hover:bg-norway-300"

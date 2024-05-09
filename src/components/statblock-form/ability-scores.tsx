@@ -17,7 +17,7 @@ export interface IChildForm {
 
 export default function AbilityScores({ form }: IChildForm) {
 	return (
-		<div className="grid lg:grid-cols-6 gap-3 border-b border-zinc-700 pb-6">
+		<div className="grid grid-cols-3 lg:grid-cols-6 gap-3 border-b border-zinc-700 pb-6">
 			<FormField
 				control={form.control}
 				name="strength"
