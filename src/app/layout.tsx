@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<PlausibleProvider domain="https://monsterbrew.vercel.app/" />
+			<PlausibleProvider domain="monsterbrew.vercel.app" />
 			<body className="min-h-screen text-cararra-950 selection:bg-tower-600 selection:text-tower-100 bg-white $ antialiased">
 				<MainNavigation />
 				<main
