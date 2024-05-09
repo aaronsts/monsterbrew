@@ -18,11 +18,11 @@ export const metadata: Metadata = {
 
 	title: "Monsterbrew | Homebrewing monsters with ease",
 	description:
-		"Create homebrew monsters for Dungeons & Dragons 5e now with ease.",
+		"Create custom 5e Dungeons & Dragons monsters effortlessly with an intuitive D&D homebrew tool!",
 	openGraph: {
 		title: "Monsterbrew | Homebrewing monsters with ease",
 		description:
-			"Create homebrew monsters for Dungeons & Dragons 5e now with ease.",
+			"Create custom 5e Dungeons & Dragons monsters effortlessly with an intuitive D&D homebrew tool!",
 	},
 };
 
