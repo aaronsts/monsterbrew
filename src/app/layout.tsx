@@ -8,10 +8,16 @@ import Footer from "@/components/footer";
 import "@fontsource/yatra-one";
 import "@fontsource/short-stack";
 import "@fontsource-variable/roboto-condensed";
+import Head from "next/head";
 
 export const metadata: Metadata = {
+	metadataBase: new URL("https://monsterbrew.vercel.app/"),
 	title: "Monsterbrew | Homebrewing monsters with ease",
-	description: "Homebrew your monsters now.",
+	description:
+		"Create homebrew monsters for Dungeons & Dragons 5e now with ease.",
+	alternates: {
+		canonical: "./",
+	},
 };
 
 export default function RootLayout({
