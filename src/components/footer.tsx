@@ -33,10 +33,21 @@ const Footer = () => {
 					<p className="text-center text-cararra-100 ">
 						Any feedback or suggestions can be send to{" "}
 						<a
-							className="hover:underline underline-offset-2"
+							className="hover:underline underline-offset-2 text-white font-medium"
 							href="mailto:aaron.staes@gmail.com"
 						>
 							aaron.staes@gmail.com
+						</a>
+					</p>
+					<p className="text-center text-cararra-100 ">
+						This tool is made possible by the awesome folks behind{" "}
+						<a
+							rel="noopener noreferrer"
+							className="hover:underline underline-offset-2 text-white font-medium"
+							target="_blank"
+							href="https://open5e.com/"
+						>
+							Open5e
 						</a>
 					</p>
 					<p className="text-center text-sm max-w-6xl text-cararra-100">
