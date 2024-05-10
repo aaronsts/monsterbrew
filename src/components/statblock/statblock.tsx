@@ -11,8 +11,6 @@ const Statblock = ({ creature }: { creature: Monster5e }) => {
 		(rating) => rating.label === creature.challenge_rating
 	);
 
-	console.log("shown creature", creature);
-
 	return (
 		<div className="w-full text-cararra-950 space-y-3">
 			<div>

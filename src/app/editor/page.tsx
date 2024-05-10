@@ -1,4 +1,10 @@
 import EditStatblock from "@/components/editor/edit-statblock";
+import { getAllCreatures } from "@/services/creatures";
+import {
+	HydrationBoundary,
+	QueryClient,
+	dehydrate,
+} from "@tanstack/react-query";
 import { toast } from "sonner";
 
 export interface IGetCreatures {
@@ -8,20 +14,17 @@ export interface IGetCreatures {
 	results: { slug: string; name: string }[];
 }
 
-async function getCreatures() {
-	try {
-		const res = await fetch(
-			"https://api.open5e.com/monsters/?format=json&limit=500&fields=slug,name&document__slug=wotc-srd"
-		);
-		if (!res.ok) throw new Error("Failed to fetch data");
-		const data = await res.json();
-		return data;
-	} catch (error: any) {
-		toast.error(`Something went wrong ${error.message}`);
-	}
-}
-
 export default async function Editor() {
-	const data: IGetCreatures = await getCreatures();
-	return <EditStatblock creatureList={data} />;
+	const queryClient = new QueryClient();
+
+	await queryClient.prefetchQuery({
+		queryKey: ["creatures"],
+		queryFn: getAllCreatures,
+	});
+	// const data: IGetCreatures = await getCreatures();
+	return (
+		<HydrationBoundary state={dehydrate(queryClient)}>
+			<EditStatblock />
+		</HydrationBoundary>
+	);
 }

@@ -27,7 +27,7 @@ type Option = {
 
 interface ICreatureListSelect {
 	options: IGetCreatures["results"];
-	setValue: Dispatch<SetStateAction<string | undefined>>;
+	setValue: Dispatch<SetStateAction<string>>;
 }
 
 export function CreatureListSelect({ options, setValue }: ICreatureListSelect) {

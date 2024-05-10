@@ -6,7 +6,6 @@ import { Monster5e } from "@/types/monster5e";
 import { Button } from "../ui/button";
 import { useReactToPrint } from "react-to-print";
 import PdfStatblock from "../statblock/pdf-statblock";
-import { Yatra_One } from "next/font/google";
 
 interface IViewStatblock {
 	value: string | undefined;
