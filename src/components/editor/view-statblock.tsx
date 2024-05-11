@@ -1,15 +1,10 @@
 "use client";
 import Statblock from "../statblock/statblock";
-import { Open5e } from "@sturlen/open5e-ts";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Monster5e } from "@/types/monster5e";
 import { Button } from "../ui/button";
 import { useReactToPrint } from "react-to-print";
 import PdfStatblock from "../statblock/pdf-statblock";
 import { useCreaturesStore } from "@/store/zustand";
-import { useQuery } from "@tanstack/react-query";
-import { getCreature } from "@/services/creatures";
-import { Divider } from "../ui/divider";
 
 export default function ViewStatblock() {
 	const { creature, setCreature } = useCreaturesStore();

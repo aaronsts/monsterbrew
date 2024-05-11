@@ -16,6 +16,9 @@ export const useCreaturesStore = create<CreatureStore>((set) => ({
 	creature: initialCreature,
 	selectedCreature: "ancient-black-dragon",
 	setCreatures: (data) => set(() => ({ creatures: [...data] })),
-	setCreature: (data) => set(() => ({ creature: data })),
+	setCreature: (data) =>
+		set((prevState) => {
+			return { creature: data || prevState.creature };
+		}),
 	setSelectedCreature: (slug) => set(() => ({ selectedCreature: slug })),
 }));

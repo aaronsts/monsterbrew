@@ -3,15 +3,16 @@ import { Divider } from "../ui/divider";
 import { CHALLENGE_RATINGS } from "@/lib/constants";
 import SavingThrows from "./saving-throws";
 import { useCreaturesStore } from "@/store/zustand";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getCreature } from "@/services/creatures";
 import { useEffect } from "react";
 
 const Statblock = () => {
 	const { selectedCreature, setCreature, creature } = useCreaturesStore();
-	const { data, isPending, error } = useQuery({
+	const { data, isLoading, error } = useQuery({
 		queryKey: ["creature", selectedCreature],
 		queryFn: () => getCreature(selectedCreature),
+		placeholderData: keepPreviousData,
 	});
 
 	useEffect(() => {
@@ -19,7 +20,7 @@ const Statblock = () => {
 		setCreature(data);
 	}, [data, setCreature]);
 
-	if (isPending || !creature) return <div className="font-yatra">Loading</div>;
+	if (isLoading) return <div className="font-yatra">Loading</div>;
 	if (error) return <div>{error.message}</div>;
 
 	const skills = Object.entries(creature.skills);
