@@ -1,3 +1,4 @@
+import { Monster5e } from "@/types/monster5e";
 import { Open5e } from "@sturlen/open5e-ts";
 import { toast } from "sonner";
 
@@ -28,7 +29,7 @@ export async function getCreature(slug: string) {
 	try {
 		const result = await api.monsters.get(slug);
 		if (!result) throw new Error(`Failed to fetch data for ${slug}`);
-		return result;
+		return result as Monster5e;
 	} catch (error: any) {
 		toast.error(`Something went wrong: ${error.message}`);
 	}

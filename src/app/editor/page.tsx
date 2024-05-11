@@ -5,14 +5,6 @@ import {
 	QueryClient,
 	dehydrate,
 } from "@tanstack/react-query";
-import { toast } from "sonner";
-
-export interface IGetCreatures {
-	count: number;
-	next: string;
-	previous: string | null;
-	results: { slug: string; name: string }[];
-}
 
 export default async function Editor() {
 	const queryClient = new QueryClient();
@@ -21,7 +13,6 @@ export default async function Editor() {
 		queryKey: ["creatures"],
 		queryFn: getAllCreatures,
 	});
-	// const data: IGetCreatures = await getCreatures();
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
 			<EditStatblock />

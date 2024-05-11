@@ -7,7 +7,7 @@
 		@apply text-4xl md:text-5xl text-cararra-900 font-yatra leading-tight;
 	}
 	h2 {
-		@apply text-3xl font-yatra leading-none small-caps;
+		@apply text-2xl md:text-3xl font-yatra leading-none small-caps;
 	}
 	h3 {
 		@apply text-xl font-yatra leading-none small-caps;

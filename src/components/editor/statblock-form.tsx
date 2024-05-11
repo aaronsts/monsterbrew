@@ -34,6 +34,9 @@ import {
 } from "../statblock-form";
 import { ALL_SKILLS, CHALLENGE_RATINGS, STAT_NAMES } from "@/lib/constants";
 import { Monster5e } from "@/types/monster5e";
+import { useCreaturesStore } from "@/store/zustand";
+import { CreatureListSelect } from "../creature-list-select";
+import { Divider } from "../ui/divider";
 
 // TODO:
 // - Add a fill function with existing monsters
@@ -49,13 +52,8 @@ type ISkill = {
 	expert?: boolean;
 };
 
-export default function StatblockForm({
-	setCreature,
-	creature,
-}: {
-	creature: Monster5e | undefined;
-	setCreature: React.Dispatch<React.SetStateAction<Monster5e | undefined>>;
-}) {
+export default function StatblockForm() {
+	const { creature, setCreature } = useCreaturesStore();
 	const [savingThrows, setSavingThrows] = useState<ISavingThrow[]>([]);
 	const [skillList, setSkillList] = useState<ISkill[]>([]);
 	const [damageList, setDamageList] = useState<string[]>([]);
@@ -280,7 +278,7 @@ export default function StatblockForm({
 			? 10 + values.skills.perception
 			: 10 + Math.floor(values.wisdom / 2) - 5;
 
-		values.senses = values.senses + `, passive Perception ${passivePerception}`;
+		values.senses = values.senses + ` passive Perception ${passivePerception}`;
 
 		localStorage.setItem("monsterbrew-creature", JSON.stringify(values));
 		setCreature(values);
@@ -292,15 +290,29 @@ export default function StatblockForm({
 	}
 	return (
 		<div className="md:w-full">
-			<Button variant="primary" onClick={loadCreatureValues}>
-				Use Creature
-			</Button>
-			<h1>Create Creature</h1>
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className="flex flex-col gap-3 w-full"
+					className="flex flex-col relative gap-3 w-full"
 				>
+					<div className="bg-white z-20 sticky space-y-3 pb-1 top-16 ">
+						<div className="flex gap-3  items-center">
+							<CreatureListSelect />
+							<Button
+								variant="secondary"
+								className="bg-tower-500 text-white border-tower-700 hover:bg-tower-700"
+								onClick={loadCreatureValues}
+							>
+								Use Preset
+							</Button>
+						</div>
+						<div className="flex gap-3 items-center justify-between">
+							<h2>Create Creature</h2>
+							<Button variant="primary" type="submit">
+								Create Creature
+							</Button>
+						</div>
+					</div>
 					<BaseCreatureInfo form={form} />
 					<Movement form={form} />
 					<AbilityScores form={form} />
@@ -357,12 +369,7 @@ export default function StatblockForm({
 						<LegendaryActions form={form} />
 						<LairActions form={form} />
 					</div>
-					<Button
-						size="lg"
-						variant="primary"
-						className="self-center"
-						type="submit"
-					>
+					<Button variant="primary" type="submit">
 						Create Creature
 					</Button>
 				</form>
