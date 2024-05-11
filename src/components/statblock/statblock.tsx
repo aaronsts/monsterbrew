@@ -19,7 +19,7 @@ const Statblock = () => {
 		setCreature(data);
 	}, [data, setCreature]);
 
-	if (isPending) return <div className="font-yatra">Loading</div>;
+	if (isPending || !creature) return <div className="font-yatra">Loading</div>;
 	if (error) return <div>{error.message}</div>;
 
 	const skills = Object.entries(creature.skills);
