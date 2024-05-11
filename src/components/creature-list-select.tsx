@@ -16,49 +16,54 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
-import { IGetCreatures } from "@/app/editor/page";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { CaretSortIcon } from "@radix-ui/react-icons";
+import { useCreaturesStore } from "@/store/zustand";
+import { useQuery } from "@tanstack/react-query";
+import { getCreature } from "@/services/creatures";
+import { Monster5e } from "@/types/monster5e";
 
 type Option = {
 	slug: string;
 	name: string;
 };
 
-interface ICreatureListSelect {
-	options: IGetCreatures["results"];
-	setValue: Dispatch<SetStateAction<string | undefined>>;
-}
-
-export function CreatureListSelect({ options, setValue }: ICreatureListSelect) {
+export function CreatureListSelect() {
 	const [open, setOpen] = useState(false);
+	const { setCreature, setSelectedCreature, selectedCreature } =
+		useCreaturesStore();
 	const isDesktop = useMediaQuery("(min-width: 768px)");
 	const [selectedStatus, setSelectedStatus] = useState<Option | null>(null);
 
 	useEffect(() => {
 		if (!selectedStatus) return;
-		setValue(selectedStatus.slug);
-	}, [selectedStatus, setValue]);
+		setSelectedCreature(selectedStatus.slug);
+	}, [selectedStatus, setSelectedCreature]);
+
+	const { data } = useQuery({
+		queryKey: ["creature", selectedCreature],
+		queryFn: () => getCreature(selectedCreature),
+	});
+
+	useEffect(() => {
+		setCreature(data as Monster5e);
+	}, [data, setCreature]);
 
 	if (isDesktop) {
 		return (
 			<Popover open={open} onOpenChange={setOpen}>
 				<PopoverTrigger asChild>
-					<Button variant="secondary" className="justify-start">
+					<Button variant="secondary" className="w-56 flex justify-between">
 						{selectedStatus ? (
-							<>{selectedStatus.name}</>
+							<span>{selectedStatus.name}</span>
 						) : (
-							<>Search Creatures...</>
+							<span>Search Creatures...</span>
 						)}
 						<CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 					</Button>
 				</PopoverTrigger>
 				<PopoverContent className="w-[200px] p-0" align="start">
-					<StatusList
-						setOpen={setOpen}
-						options={options}
-						setSelectedStatus={setSelectedStatus}
-					/>
+					<StatusList setOpen={setOpen} setSelectedStatus={setSelectedStatus} />
 				</PopoverContent>
 			</Popover>
 		);
@@ -67,7 +72,7 @@ export function CreatureListSelect({ options, setValue }: ICreatureListSelect) {
 	return (
 		<Drawer open={open} onOpenChange={setOpen}>
 			<DrawerTrigger asChild>
-				<Button variant="secondary" className="justify-start">
+				<Button variant="secondary" className="w-full sm:w-56 justify-between">
 					{selectedStatus ? (
 						<>{selectedStatus.name}</>
 					) : (
@@ -78,11 +83,7 @@ export function CreatureListSelect({ options, setValue }: ICreatureListSelect) {
 			</DrawerTrigger>
 			<DrawerContent>
 				<div className="mt-4 border-t">
-					<StatusList
-						options={options}
-						setOpen={setOpen}
-						setSelectedStatus={setSelectedStatus}
-					/>
+					<StatusList setOpen={setOpen} setSelectedStatus={setSelectedStatus} />
 				</div>
 			</DrawerContent>
 		</Drawer>
@@ -92,12 +93,12 @@ export function CreatureListSelect({ options, setValue }: ICreatureListSelect) {
 function StatusList({
 	setOpen,
 	setSelectedStatus,
-	options,
 }: {
 	setOpen: (open: boolean) => void;
 	setSelectedStatus: (status: Option | null) => void;
-	options: IGetCreatures["results"];
 }) {
+	const { creatures: options } = useCreaturesStore();
+
 	return (
 		<Command>
 			<CommandInput placeholder="Filter Creatures..." />

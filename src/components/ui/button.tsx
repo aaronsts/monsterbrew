@@ -12,7 +12,7 @@ const buttonVariants = cva(
 				default:
 					"bg-zinc-900 text-zinc-50 shadow hover:bg-zinc-900/90 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-50/90",
 				primary:
-					"bg-cararra-600 border-2 border-cararra-800 text-cararra-50 hover:bg-cararra-800 sketch-border px-3 py-1 font-short hover:-translate-y-1 transition-all",
+					"bg-cararra-600 border-2 border-cararra-800 text-cararra-50 hover:bg-cararra-800 sketch-border px-3 py-1 font-short transition-all",
 				secondary:
 					"bg-transparent border-2 border-pewter-300 text-pewter-900 hover:bg-pewter-100 sketch-border px-3 py-1 font-short transition-all",
 				destructive:

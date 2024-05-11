@@ -2,28 +2,40 @@ import Statistic from "./statistic";
 import { Divider } from "../ui/divider";
 import { CHALLENGE_RATINGS } from "@/lib/constants";
 import SavingThrows from "./saving-throws";
-import { Monster5e } from "@/types/monster5e";
+import { useCreaturesStore } from "@/store/zustand";
+import { useQuery } from "@tanstack/react-query";
+import { getCreature } from "@/services/creatures";
+import { useEffect } from "react";
 
-const Statblock = ({ creature }: { creature: Monster5e }) => {
+const Statblock = () => {
+	const { selectedCreature, setCreature, creature } = useCreaturesStore();
+	const { data, isPending, error } = useQuery({
+		queryKey: ["creature", selectedCreature],
+		queryFn: () => getCreature(selectedCreature),
+	});
+
+	useEffect(() => {
+		if (!data) return;
+		setCreature(data);
+	}, [data, setCreature]);
+
+	if (isPending || !creature) return <div className="font-yatra">Loading</div>;
+	if (error) return <div>{error.message}</div>;
+
 	const skills = Object.entries(creature.skills);
 	const movement = Object.entries(creature.speed);
 	const exp = CHALLENGE_RATINGS.find(
 		(rating) => rating.label === creature.challenge_rating
 	);
 
-	console.log("shown creature", creature);
-
 	return (
 		<div className="w-full text-cararra-950 space-y-3">
 			<div>
 				<h2>{creature.name}</h2>
-
-				<p className="italic capitalize">
+				<p className="italic capitalize pb-3">
 					{creature.size} {creature.type}, {creature.alignment}
 				</p>
-			</div>
-			<Divider />
-			<div>
+				<Divider />
 				<div className="flex gap-2">
 					<h4>Armor Class</h4>
 					<p>

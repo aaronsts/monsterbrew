@@ -6,18 +6,14 @@ import { Monster5e } from "@/types/monster5e";
 import { Button } from "../ui/button";
 import { useReactToPrint } from "react-to-print";
 import PdfStatblock from "../statblock/pdf-statblock";
-import { Yatra_One } from "next/font/google";
+import { useCreaturesStore } from "@/store/zustand";
+import { useQuery } from "@tanstack/react-query";
+import { getCreature } from "@/services/creatures";
+import { Divider } from "../ui/divider";
 
-interface IViewStatblock {
-	value: string | undefined;
-	creature: Monster5e | undefined;
-	setCreature: React.Dispatch<React.SetStateAction<Monster5e | undefined>>;
-}
-
-export default function ViewStatblock(props: IViewStatblock) {
-	const { creature, setCreature, value } = props;
+export default function ViewStatblock() {
+	const { creature, setCreature } = useCreaturesStore();
 	const [localCreature, setLocalCreature] = useState("");
-	const [isLoading, setLoading] = useState(true);
 
 	const componentRef = useRef(null);
 
@@ -30,23 +26,6 @@ export default function ViewStatblock(props: IViewStatblock) {
 		documentTitle: `${creature?.name}`,
 		removeAfterPrint: true,
 	});
-
-	const getCreature = useCallback(async () => {
-		const api = await new Open5e();
-		if (value) {
-			const result = await api.monsters.get(value);
-			setCreature(result as Monster5e);
-			setLoading(false);
-		} else {
-			const result = await api.monsters.get("ancient-black-dragon");
-			setCreature(result as Monster5e);
-			setLoading(false);
-		}
-	}, [setCreature, value]);
-
-	useEffect(() => {
-		getCreature();
-	}, [getCreature, setCreature, value]);
 
 	useEffect(() => {
 		if (!localStorage.hasOwnProperty("monsterbrew-creature")) return;
@@ -61,21 +40,19 @@ export default function ViewStatblock(props: IViewStatblock) {
 
 	return (
 		<div className="w-full space-y-2">
-			<div className="flex gap-3">
-				{localCreature && (
-					<Button variant="secondary" onClick={loadLocalCreature}>
-						Load Local Creature
+			<div className="bg-white md:sticky z-30 top-16">
+				<div className="flex gap-3 pb-3">
+					{localCreature && (
+						<Button variant="secondary" onClick={loadLocalCreature}>
+							Load Local Creature
+						</Button>
+					)}
+					<Button onClick={handlePrint} variant="primary">
+						Save to PDF
 					</Button>
-				)}
-				<Button onClick={handlePrint} variant="primary">
-					Save to PDF
-				</Button>
+				</div>
 			</div>
-			{isLoading ? (
-				<p>Loading...</p>
-			) : (
-				creature && <Statblock creature={creature} />
-			)}
+			<Statblock />
 			<div className="hidden">
 				{creature && <PdfStatblock ref={componentRef} creature={creature} />}
 			</div>

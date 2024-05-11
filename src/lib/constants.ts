@@ -179,3 +179,112 @@ export const CONDITION_TYPES = [
 	"stunned",
 	"unconscious",
 ];
+
+export const initialCreature = {
+	slug: "ancient-black-dragon",
+	name: "Ancient Black Dragon",
+	desc: "",
+	size: "Gargantuan",
+	type: "Dragon",
+	subtype: "",
+	group: "Black Dragon",
+	alignment: "chaotic evil",
+	armor_class: 22,
+	armor_desc: "natural armor",
+	hit_points: 367,
+	hit_dice: "21d20+147",
+	speed: {
+		walk: "40",
+		swim: "40",
+		fly: "80",
+	},
+	perception: 16,
+	skills: {
+		perception: 16,
+		stealth: 9,
+	},
+	damage_vulnerabilities: "",
+	damage_resistances: "",
+	damage_immunities: "acid",
+	condition_immunities: "",
+	senses: "blindsight 60 ft., darkvision 120 ft., passive Perception 26",
+	languages: "Common, Draconic",
+	challenge_rating: "21",
+	cr: 21,
+	actions: [
+		{
+			name: "Multiattack",
+			desc: "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
+		},
+		{
+			name: "Bite",
+			desc: "Melee Weapon Attack: +15 to hit, reach 15 ft., one target. Hit: 19 (2d10 + 8) piercing damage plus 9 (2d8) acid damage.",
+			damage_dice: "2d10+2d8",
+		},
+		{
+			name: "Claw",
+			desc: "Melee Weapon Attack: +15 to hit, reach 10 ft., one target. Hit: 15 (2d6 + 8) slashing damage.",
+			damage_dice: "2d6",
+		},
+		{
+			name: "Tail",
+			desc: "Melee Weapon Attack: +15 to hit, reach 20 ft., one target. Hit: 17 (2d8 + 8) bludgeoning damage.",
+			damage_dice: "2d8",
+		},
+		{
+			name: "Frightful Presence",
+			desc: "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 19 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours.",
+		},
+		{
+			name: "Acid Breath (Recharge 5-6)",
+			desc: "The dragon exhales acid in a 90-foot line that is 10 feet wide. Each creature in that line must make a DC 22 Dexterity saving throw, taking 67 (15d8) acid damage on a failed save, or half as much damage on a successful one.",
+		},
+	],
+	reactions: [],
+	legendary_desc:
+		"The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.",
+	legendary_actions: [
+		{
+			name: "Detect",
+			desc: "The dragon makes a Wisdom (Perception) check.",
+		},
+		{
+			name: "Tail Attack",
+			desc: "The dragon makes a tail attack.",
+		},
+		{
+			name: "Wing Attack (Costs 2 Actions)",
+			desc: "The dragon beats its wings. Each creature within 15 ft. of the dragon must succeed on a DC 23 Dexterity saving throw or take 15 (2d6 + 8) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed.",
+		},
+	],
+	special_abilities: [
+		{
+			name: "Amphibious",
+			desc: "The dragon can breathe air and water.",
+		},
+		{
+			name: "Legendary Resistance (3/Day)",
+			desc: "If the dragon fails a saving throw, it can choose to succeed instead.",
+		},
+	],
+	spell_list: [],
+	page_no: 280,
+	strength: 27,
+	dexterity: 14,
+	constitution: 25,
+	intelligence: 16,
+	wisdom: 15,
+	charisma: 19,
+	strength_save: null,
+	dexterity_save: 9,
+	constitution_save: 14,
+	intelligence_save: null,
+	wisdom_save: 9,
+	charisma_save: 11,
+	document: {
+		slug: "wotc-srd",
+		title: "5e Core Rules",
+		url: "http://dnd.wizards.com/articles/features/systems-reference-document-srd",
+		license: "http://open5e.com/legal",
+	},
+};
