@@ -15,24 +15,17 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { useReactToPrint } from "react-to-print";
-import { useCallback, useRef } from "react";
+
 import { useCreaturesStore } from "@/store/zustand";
 import CopyButton from "../copy-button";
+import UseReactToPrintHookReturn from "react-to-print";
 
-export default function ExportOptions() {
+interface ExportOptionsProps {
+	handlePrint: UseReactToPrintHookReturn;
+}
+
+export default function ExportOptions({ handlePrint }: ExportOptionsProps) {
 	const { creature } = useCreaturesStore();
-	const componentRef = useRef(null);
-
-	const reactToPrintContent = useCallback(() => {
-		return componentRef.current;
-	}, []);
-
-	const handlePrint = useReactToPrint({
-		content: reactToPrintContent,
-		documentTitle: `${creature?.name}`,
-		removeAfterPrint: true,
-	});
 
 	const exportData = () => {
 		const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(

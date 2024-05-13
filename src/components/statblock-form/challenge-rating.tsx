@@ -7,13 +7,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from "../ui/form";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "../ui/select";
+
 import { CHALLENGE_RATINGS } from "@/lib/constants";
 import { useWatch } from "react-hook-form";
 import { ComboBoxResponsive } from "../combo-box";
@@ -24,6 +18,7 @@ export default function ChallengeRating({ form }: IChildForm) {
 
 	useEffect(() => {
 		const rating = CHALLENGE_RATINGS.find((r) => r.label === cr);
+		console.log(rating, cr, CHALLENGE_RATINGS[1].value);
 		if (!rating) return;
 		setProfBonus(rating.prof);
 	}, [cr]);

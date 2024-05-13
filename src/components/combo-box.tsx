@@ -39,10 +39,17 @@ const ComboBoxResponsive = forwardRef<HTMLButtonElement, IComboboxProps>(
 		const isChallengeRating = options[0].hasOwnProperty("prof");
 
 		useEffect(() => {
-			const option = options.find((opt) => opt.label === value);
-			if (!option) return;
-			setSelectedOption(option);
-		}, [options, value]);
+			if (!isChallengeRating) {
+				const option = options.find((opt) => opt.label === value);
+				if (!option) return;
+				setSelectedOption(option);
+			} else {
+				console.log("test");
+				const option = options.find((opt) => opt.label === value);
+				if (!option) return;
+				setSelectedOption(option);
+			}
+		}, [isChallengeRating, options, value]);
 
 		const isDesktop = useMediaQuery("(min-width: 768px)");
 

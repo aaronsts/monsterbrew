@@ -56,7 +56,7 @@ export default function ViewStatblock() {
 							Load Local Creature
 						</Button>
 					)}
-					<ExportOptions />
+					<ExportOptions handlePrint={handlePrint} />
 				</div>
 			</div>
 			<Statblock />

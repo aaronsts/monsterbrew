@@ -36,21 +36,16 @@ import { ALL_SKILLS, CHALLENGE_RATINGS, STAT_NAMES } from "@/lib/constants";
 import { Monster5e } from "@/types/monster5e";
 import { useCreaturesStore } from "@/store/zustand";
 import { CreatureListSelect } from "../creature-list-select";
-import { Divider } from "../ui/divider";
+import { ISavingThrow, ISkill } from "@/types";
+import {
+	calculateHitPoints,
+	calculateSavingThrows,
+	calculateSkillSaves,
+} from "@/lib/calculations";
 
-// TODO:
-// - Add a fill function with existing monsters
-
-type ISavingThrow = {
-	name: string;
-	value: string;
-};
-
-type ISkill = {
-	name: string;
-	stat: string;
-	expert?: boolean;
-};
+function getProficiencyBonus(challenge_rating: string) {
+	return CHALLENGE_RATINGS.find((cr) => cr.label === challenge_rating);
+}
 
 export default function StatblockForm() {
 	const { creature, setCreature } = useCreaturesStore();
@@ -146,39 +141,16 @@ export default function StatblockForm() {
 			lair_actions: creature.lair_actions,
 		});
 
-		const proficiencyBonus = CHALLENGE_RATINGS.find(
-			(cr) => cr.label === creature.challenge_rating
-		);
+		const proficiencyBonus = getProficiencyBonus(creature.challenge_rating);
 		if (!proficiencyBonus) return;
 
 		// Saving Throws
-		const newSavingThrows: ISavingThrow[] = [];
-		STAT_NAMES.forEach((stat) => {
-			const savingThrowStat = stat.name.toLowerCase() + "_save";
-			if (creature[savingThrowStat as keyof typeof creature] === null) return;
-			newSavingThrows.push(stat);
-		});
-		setSavingThrows(newSavingThrows);
+		const savingThrows = calculateSavingThrows(creature);
+		setSavingThrows(savingThrows);
 
 		// Skill Saves
-		const newSKillList: ISkill[] = [];
-		Object.entries(creature.skills).forEach((skill) => {
-			const creatureSkills = ALL_SKILLS.find((skl) => skl.name === skill[0]);
-			if (!creatureSkills) return;
-			const skillModifier =
-				Math.floor(
-					parseInt(
-						creature[creatureSkills?.stat as keyof typeof creature] as string
-					) / 2
-				) -
-				5 +
-				proficiencyBonus.prof;
-			newSKillList.push({
-				...creatureSkills,
-				expert: skill[1] > skillModifier,
-			});
-		});
-		setSkillList(newSKillList);
+		const skillSaves = calculateSkillSaves(creature, proficiencyBonus);
+		setSkillList(skillSaves);
 
 		// Conditions
 		const conditionImmunities =
@@ -211,17 +183,14 @@ export default function StatblockForm() {
 
 	function onSubmit(values: z.infer<typeof monsterStatblockSchema>) {
 		if (!values) return;
-		const proficiencyBonus = CHALLENGE_RATINGS.find(
-			(rating) => rating.label === values.challenge_rating
-		);
+		const proficiencyBonus = getProficiencyBonus(values.challenge_rating);
 		if (!proficiencyBonus) return;
 
 		// calculate median hitpoints
-		const dice = values.hit_dice.split("d");
-		const modifier = values.hit_modifier ? parseInt(values.hit_modifier) : 0;
-		const hp =
-			parseInt(dice[0]) + Math.floor(parseInt(dice[0]) * parseInt(dice[1]));
-		values.hit_points = Math.floor(hp / 2 + modifier);
+		values.hit_points = calculateHitPoints(
+			values.hit_dice,
+			values.hit_modifier
+		);
 
 		// Add numeric modifier to saving throws
 		savingThrows.forEach((t) => {
