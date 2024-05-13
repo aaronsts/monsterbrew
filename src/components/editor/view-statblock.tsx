@@ -5,6 +5,20 @@ import { Button } from "../ui/button";
 import { useReactToPrint } from "react-to-print";
 import PdfStatblock from "../statblock/pdf-statblock";
 import { useCreaturesStore } from "@/store/zustand";
+import {
+	DropdownMenu,
+	DropdownMenuCheckboxItem,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuPortal,
+	DropdownMenuSeparator,
+	DropdownMenuSub,
+	DropdownMenuSubContent,
+	DropdownMenuSubTrigger,
+	DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import ExportOptions from "../export/export-options";
 
 export default function ViewStatblock() {
 	const { creature, setCreature } = useCreaturesStore();
@@ -36,15 +50,13 @@ export default function ViewStatblock() {
 	return (
 		<div className="w-full space-y-2">
 			<div className="bg-white md:sticky z-30 top-16">
-				<div className="flex gap-3 pb-3">
+				<div className="flex flex-col md:flex-row gap-3">
 					{localCreature && (
 						<Button variant="secondary" onClick={loadLocalCreature}>
 							Load Local Creature
 						</Button>
 					)}
-					<Button onClick={handlePrint} variant="primary">
-						Save to PDF
-					</Button>
+					<ExportOptions />
 				</div>
 			</div>
 			<Statblock />
