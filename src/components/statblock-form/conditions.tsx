@@ -171,7 +171,7 @@ export default function Conditions({
 								<button
 									onClick={removeDamage}
 									data-index={i}
-									className="group "
+									className="group"
 									type="button"
 								>
 									<Trash2 className="w-4 h-4 group-hover:text-danger-500 transition-colors" />

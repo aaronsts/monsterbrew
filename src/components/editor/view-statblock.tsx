@@ -5,6 +5,20 @@ import { Button } from "../ui/button";
 import { useReactToPrint } from "react-to-print";
 import PdfStatblock from "../statblock/pdf-statblock";
 import { useCreaturesStore } from "@/store/zustand";
+import {
+	DropdownMenu,
+	DropdownMenuCheckboxItem,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuPortal,
+	DropdownMenuSeparator,
+	DropdownMenuSub,
+	DropdownMenuSubContent,
+	DropdownMenuSubTrigger,
+	DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import ExportOptions from "../export/export-options";
 
 export default function ViewStatblock() {
 	const { creature, setCreature } = useCreaturesStore();
@@ -33,6 +47,17 @@ export default function ViewStatblock() {
 		setCreature(JSON.parse(localStorageCreature));
 	};
 
+	const exportData = () => {
+		const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
+			JSON.stringify(creature)
+		)}`;
+		const link = document.createElement("a");
+		link.href = jsonString;
+		link.download = `${creature.name}.json`;
+
+		link.click();
+	};
+
 	return (
 		<div className="w-full space-y-2">
 			<div className="bg-white md:sticky z-30 top-16">
@@ -42,9 +67,7 @@ export default function ViewStatblock() {
 							Load Local Creature
 						</Button>
 					)}
-					<Button onClick={handlePrint} variant="primary">
-						Save to PDF
-					</Button>
+					<ExportOptions />
 				</div>
 			</div>
 			<Statblock />
