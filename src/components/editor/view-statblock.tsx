@@ -47,21 +47,10 @@ export default function ViewStatblock() {
 		setCreature(JSON.parse(localStorageCreature));
 	};
 
-	const exportData = () => {
-		const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
-			JSON.stringify(creature)
-		)}`;
-		const link = document.createElement("a");
-		link.href = jsonString;
-		link.download = `${creature.name}.json`;
-
-		link.click();
-	};
-
 	return (
 		<div className="w-full space-y-2">
 			<div className="bg-white md:sticky z-30 top-16">
-				<div className="flex gap-3 pb-3">
+				<div className="flex flex-col md:flex-row gap-3">
 					{localCreature && (
 						<Button variant="secondary" onClick={loadLocalCreature}>
 							Load Local Creature
