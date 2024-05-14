@@ -42,6 +42,7 @@ import {
 	calculateSavingThrows,
 	calculateSkillSaves,
 } from "@/lib/calculations";
+import { useCreatureFormStore } from "@/store/creatureForm";
 
 function getProficiencyBonus(challenge_rating: string) {
 	return CHALLENGE_RATINGS.find((cr) => cr.label === challenge_rating);
@@ -49,12 +50,13 @@ function getProficiencyBonus(challenge_rating: string) {
 
 export default function StatblockForm() {
 	const { creature, setCreature } = useCreaturesStore();
-	const [savingThrows, setSavingThrows] = useState<ISavingThrow[]>([]);
+	const { savingThrows, setSavingThrows } = useCreatureFormStore();
+	// const [savingThrows, setSavingThrows] = useState<ISavingThrow[]>([]);
 	const [skillList, setSkillList] = useState<ISkill[]>([]);
 	const [damageList, setDamageList] = useState<string[]>([]);
 	const [conditionList, setConditionList] = useState<string[]>([]);
 
-	const [initialFormValues, setInitialFormValues] = useState<Monster5e>({
+	const initialFormValues = {
 		name: "",
 		type: "",
 		size: "",
@@ -99,7 +101,7 @@ export default function StatblockForm() {
 		charisma_save: null,
 		senses: "",
 		skills: {},
-	});
+	};
 
 	const form = useForm<z.infer<typeof monsterStatblockSchema>>({
 		mode: "onChange",
@@ -253,9 +255,9 @@ export default function StatblockForm() {
 		localStorage.setItem("monsterbrew-creature", JSON.stringify(values));
 		setCreature(values);
 
-		toast.message("Event has been created.", {
-			description: `${values.name} | ${values.armor_class}`,
-			duration: 60000,
+		toast.message("Creature has been created.", {
+			description: `${values.name} | AC: ${values.armor_class}`,
+			duration: 5000,
 		});
 	}
 	return (
@@ -269,6 +271,7 @@ export default function StatblockForm() {
 						<div className="flex gap-3  items-center">
 							<CreatureListSelect />
 							<Button
+								type="button"
 								variant="secondary"
 								className="bg-tower-500 text-white border-tower-700 hover:bg-tower-700"
 								onClick={loadCreatureValues}
@@ -327,10 +330,7 @@ export default function StatblockForm() {
 							form={form}
 						/>
 						<Skills skillList={skillList} setSkillList={setSkillList} />
-						<SavingThrows
-							statList={savingThrows}
-							setStatList={setSavingThrows}
-						/>
+						<SavingThrows />
 					</div>
 					<div className="space-y-3">
 						<SpecialAbilities form={form} />

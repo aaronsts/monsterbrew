@@ -12,15 +12,11 @@ import { useState } from "react";
 
 import { Button } from "../ui/button";
 import { Trash2 } from "lucide-react";
+import { useCreatureFormStore } from "@/store/creatureForm";
 
-interface ISavingThrows {
-	statList: { name: string; value: string }[];
-	setStatList: React.Dispatch<
-		React.SetStateAction<{ name: string; value: string }[]>
-	>;
-}
+export default function SavingThrows() {
+	const { savingThrows, setSavingThrows } = useCreatureFormStore();
 
-export default function SavingThrows({ statList, setStatList }: ISavingThrows) {
 	const [stat, setStat] = useState<string>();
 
 	const onSelectSkill = (e: string) => {
@@ -30,17 +26,17 @@ export default function SavingThrows({ statList, setStatList }: ISavingThrows) {
 	const addSavingThrow = () => {
 		const statToAdd = STAT_NAMES.find((s) => s.value === stat);
 		if (!statToAdd) return;
-		if (statList.includes(statToAdd)) {
+		if (savingThrows.includes(statToAdd)) {
 			return;
 		}
-		setStatList([...statList, statToAdd]);
+		setSavingThrows([...savingThrows, statToAdd]);
 	};
 
 	const removeSavingThrow = (event: React.MouseEvent<HTMLElement>) => {
 		if (!event.currentTarget.dataset.index) return;
 		const index = parseInt(event.currentTarget.dataset.index);
-		const newStatList = statList.filter((_, i) => i !== index);
-		setStatList(newStatList);
+		const newSavingThrows = savingThrows.filter((_, i) => i !== index);
+		setSavingThrows(newSavingThrows);
 	};
 
 	return (
@@ -72,7 +68,7 @@ export default function SavingThrows({ statList, setStatList }: ISavingThrows) {
 				</Button>
 			</div>
 			<ul className="font-short flex gap-2 pt-2 flex-wrap">
-				{statList.map((stat, i) => (
+				{savingThrows.map((stat, i) => (
 					<li
 						key={stat.value + i}
 						className="flex bg-cararra-100 border-cararra-300 gap-1 px-3 py-1 border justify-between items-center sketch-border"
