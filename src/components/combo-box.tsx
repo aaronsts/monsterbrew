@@ -44,8 +44,7 @@ const ComboBoxResponsive = forwardRef<HTMLButtonElement, IComboboxProps>(
 				if (!option) return;
 				setSelectedOption(option);
 			} else {
-				console.log("test");
-				const option = options.find((opt) => opt.label === value);
+				const option = options.find((opt) => opt.value === value);
 				if (!option) return;
 				setSelectedOption(option);
 			}

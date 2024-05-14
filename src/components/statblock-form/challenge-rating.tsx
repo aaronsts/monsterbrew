@@ -17,8 +17,7 @@ export default function ChallengeRating({ form }: IChildForm) {
 	const cr = useWatch({ control: form.control, name: "challenge_rating" });
 
 	useEffect(() => {
-		const rating = CHALLENGE_RATINGS.find((r) => r.label === cr);
-		console.log(rating, cr, CHALLENGE_RATINGS[1].value);
+		const rating = CHALLENGE_RATINGS.find((r) => r.value === cr);
 		if (!rating) return;
 		setProfBonus(rating.prof);
 	}, [cr]);

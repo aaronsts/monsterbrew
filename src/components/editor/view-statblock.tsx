@@ -30,12 +30,6 @@ export default function ViewStatblock() {
 		return componentRef.current;
 	}, []);
 
-	const handlePrint = useReactToPrint({
-		content: reactToPrintContent,
-		documentTitle: `${creature?.name}`,
-		removeAfterPrint: true,
-	});
-
 	useEffect(() => {
 		if (!localStorage.hasOwnProperty("monsterbrew-creature")) return;
 		setLocalCreature(localStorage.getItem("monsterbrew-creature") as string);
@@ -56,7 +50,7 @@ export default function ViewStatblock() {
 							Load Local Creature
 						</Button>
 					)}
-					<ExportOptions handlePrint={handlePrint} />
+					<ExportOptions content={reactToPrintContent} />
 				</div>
 			</div>
 			<Statblock />

@@ -18,14 +18,20 @@ import {
 
 import { useCreaturesStore } from "@/store/zustand";
 import CopyButton from "../copy-button";
-import UseReactToPrintHookReturn from "react-to-print";
+import UseReactToPrintHookReturn, { useReactToPrint } from "react-to-print";
 
 interface ExportOptionsProps {
-	handlePrint: UseReactToPrintHookReturn;
+	content: () => null;
 }
 
-export default function ExportOptions({ handlePrint }: ExportOptionsProps) {
+export default function ExportOptions({ content }: ExportOptionsProps) {
 	const { creature } = useCreaturesStore();
+
+	const handlePrint = useReactToPrint({
+		content: content,
+		documentTitle: `${creature?.name}`,
+		removeAfterPrint: true,
+	});
 
 	const exportData = () => {
 		const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
