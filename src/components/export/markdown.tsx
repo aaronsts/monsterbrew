@@ -13,7 +13,7 @@ export default function ExportMarkdown() {
 	};
 
 	return (
-		<Button variant="primary" onClick={handleMarkdownClick}>
+		<Button size="sm" variant="primary" onClick={handleMarkdownClick}>
 			Save Markdown
 		</Button>
 	);
