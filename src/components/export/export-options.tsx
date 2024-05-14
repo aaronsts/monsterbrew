@@ -19,6 +19,7 @@ import {
 import { useCreaturesStore } from "@/store/zustand";
 import CopyButton from "../copy-button";
 import UseReactToPrintHookReturn, { useReactToPrint } from "react-to-print";
+import ExportMarkdown from "./markdown";
 
 interface ExportOptionsProps {
 	content: () => null;
@@ -55,9 +56,10 @@ export default function ExportOptions({ content }: ExportOptionsProps) {
 					{/* <DropdownMenuItem onClick={exportData}>JSON</DropdownMenuItem> */}
 				</DropdownMenuContent>
 			</DropdownMenu>
+			<ExportMarkdown />
 			<Sheet>
 				<SheetTrigger className="font-short border-2 hover:bg-tower-800 transition-colors bg-tower-600 text-white border-tower-800 px-3 py-1 sketch-border">
-					Export Creature
+					Save JSON
 				</SheetTrigger>
 				<SheetContent className="md:max-w-lg space-y-3 h-full">
 					<SheetHeader>

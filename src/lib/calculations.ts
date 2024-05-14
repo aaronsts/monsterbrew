@@ -46,3 +46,9 @@ export function calculateHitPoints(hit_dice: string, hit_modifier?: string) {
 	const medianHp = Math.floor(hp / 2 + modifier);
 	return medianHp;
 }
+
+export function calculateStatBonus(value: number) {
+	return Math.floor(value / 2) - 5 >= 0
+		? `(+${Math.floor(value / 2) - 5})`
+		: `(${Math.floor(value / 2) - 5})`;
+}
