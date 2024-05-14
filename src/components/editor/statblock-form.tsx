@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -32,12 +32,20 @@ import {
 	Skills,
 	SpecialAbilities,
 } from "../statblock-form";
-import { CHALLENGE_RATINGS, initialFormValues } from "@/lib/constants";
+import { CHALLENGE_RATINGS } from "@/lib/constants";
+import { Monster5e } from "@/types/monster5e";
 import { useCreaturesStore } from "@/store/zustand";
 import { CreatureListSelect } from "../creature-list-select";
 import { ISavingThrow, ISkill } from "@/types";
-import { calculateHitPoints } from "@/lib/calculations";
-import { editCreature } from "@/lib/editCreature";
+import {
+	calculateHitPoints,
+	calculateSavingThrows,
+	calculateSkillSaves,
+} from "@/lib/calculations";
+
+function getProficiencyBonus(challenge_rating: string) {
+	return CHALLENGE_RATINGS.find((cr) => cr.label === challenge_rating);
+}
 
 export default function StatblockForm() {
 	const { creature, setCreature } = useCreaturesStore();
@@ -46,6 +54,53 @@ export default function StatblockForm() {
 	const [damageList, setDamageList] = useState<string[]>([]);
 	const [conditionList, setConditionList] = useState<string[]>([]);
 
+	const [initialFormValues, setInitialFormValues] = useState<Monster5e>({
+		name: "",
+		type: "",
+		size: "",
+		alignment: "",
+		armor_class: 0,
+		armor_desc: "",
+		hit_dice: "",
+		hit_modifier: "",
+		speed: {
+			walk: "30",
+			burrow: "",
+			climb: "",
+			fly: "",
+			swim: "",
+			hover: false,
+		},
+		challenge_rating: "",
+		strength: 10,
+		dexterity: 10,
+		constitution: 10,
+		intelligence: 10,
+		wisdom: 10,
+		charisma: 10,
+		languages: "",
+		special_abilities: [],
+		actions: [],
+		reactions: [],
+		legendary_desc: "",
+		legendary_actions: [],
+		lair_desc: "",
+		lair_actions: [],
+		damage_vulnerabilities: "",
+		damage_resistances: "",
+		damage_immunities: "",
+		condition_immunities: "",
+		spell_list: [],
+		strength_save: null,
+		dexterity_save: null,
+		constitution_save: null,
+		intelligence_save: null,
+		wisdom_save: null,
+		charisma_save: null,
+		senses: "",
+		skills: {},
+	});
+
 	const form = useForm<z.infer<typeof monsterStatblockSchema>>({
 		mode: "onChange",
 		resolver: zodResolver(monsterStatblockSchema),
@@ -53,16 +108,76 @@ export default function StatblockForm() {
 	});
 
 	function loadCreatureValues() {
-		const data = editCreature(form, creature);
-		if (!data) return;
+		if (!creature) return;
+		const proficiencyBonus = getProficiencyBonus(creature.challenge_rating);
+		if (!proficiencyBonus) return;
+
+		form.reset({
+			...initialFormValues,
+			name: creature.name,
+			type: creature.type,
+			size: creature.size,
+			alignment: creature.alignment,
+			armor_class: creature.armor_class,
+			armor_desc: creature.armor_desc || "",
+			hit_dice: creature.hit_dice.split("+")[0],
+			hit_modifier: creature.hit_modifier || creature.hit_dice.split("+")[1],
+			speed: {
+				...creature.speed,
+			},
+			strength: creature.strength,
+			dexterity: creature.dexterity,
+			constitution: creature.constitution,
+			intelligence: creature.intelligence,
+			wisdom: creature.wisdom,
+			charisma: creature.charisma,
+			senses: creature.senses?.split("passive Perception")[0],
+			languages: creature.languages,
+			challenge_rating: proficiencyBonus.value,
+			special_abilities: creature.special_abilities,
+			actions: creature.actions,
+			reactions: creature.reactions,
+			legendary_desc: creature.legendary_desc,
+			legendary_actions: creature.legendary_actions,
+			lair_desc: creature.lair_desc,
+			lair_actions: creature.lair_actions,
+		});
+
 		// Saving Throws
-		setSavingThrows(data?.saveThrows);
+		const savingThrows = calculateSavingThrows(creature);
+		setSavingThrows(savingThrows);
+
 		// Skill Saves
-		setSkillList(data.skillSaves);
+		const skillSaves = calculateSkillSaves(creature, proficiencyBonus);
+		setSkillList(skillSaves);
+
 		// Conditions
-		setConditionList(data.conditionImmunities);
+		const conditionImmunities =
+			creature.condition_immunities?.split(", ").filter((con) => con !== "") ||
+			[];
+		setConditionList(conditionImmunities);
+
 		// Damage conditions
-		setDamageList(data.dmgList);
+		const dmgImm =
+			creature.damage_immunities!.length > 0
+				? creature
+						.damage_immunities!?.split(", ")
+						.map((dmg) => "immune to " + dmg)
+				: [];
+		const dmgVul =
+			creature.damage_vulnerabilities!.length > 0
+				? creature
+						.damage_vulnerabilities!?.split(", ")
+						.map((dmg) => "vulnerable to " + dmg)
+				: [];
+		const dmgRes =
+			creature.damage_resistances!.length > 0
+				? creature
+						.damage_resistances!?.split(", ")
+						.map((dmg) => "resistant to " + dmg)
+				: [];
+
+		setDamageList([...dmgImm, ...dmgVul, ...dmgRes]);
 	}
 
 	function onSubmit(values: z.infer<typeof monsterStatblockSchema>) {
@@ -153,7 +268,13 @@ export default function StatblockForm() {
 					<div className="bg-white z-20 sticky space-y-3 pb-1 top-16 ">
 						<div className="flex gap-3  items-center">
 							<CreatureListSelect />
-							<Button onClick={loadCreatureValues}>tets</Button>
+							<Button
+								variant="secondary"
+								className="bg-tower-500 text-white border-tower-700 hover:bg-tower-700"
+								onClick={loadCreatureValues}
+							>
+								Use Preset
+							</Button>
 						</div>
 						<div className="flex gap-3 items-center justify-between">
 							<h2>Create Creature</h2>

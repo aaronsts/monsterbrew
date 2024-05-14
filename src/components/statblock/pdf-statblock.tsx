@@ -4,14 +4,13 @@ import { CHALLENGE_RATINGS } from "@/lib/constants";
 import SavingThrows from "./saving-throws";
 import { Monster5e } from "@/types/monster5e";
 import { forwardRef } from "react";
-import { useCreaturesStore } from "@/store/zustand";
 
-interface PdfStatblockProps {}
+interface IPdfStatblock {
+	creature: Monster5e;
+}
 
-const PdfStatblock = forwardRef<HTMLDivElement, PdfStatblockProps>(
-	(_props, ref) => {
-		const { creature } = useCreaturesStore();
-
+const PdfStatblock = forwardRef<HTMLDivElement, IPdfStatblock>(
+	({ creature }, ref) => {
 		const skills = Object.entries(creature.skills);
 		const movement = Object.entries(creature.speed);
 		const exp = CHALLENGE_RATINGS.find(
