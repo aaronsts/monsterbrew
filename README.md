@@ -7,5 +7,5 @@
 
 ## Bugs
 - [ ] Search does not work with spaces
-- [ ] CR 0 and 1/8 are not working
+- [x] CR 0 and 1/8 are not working
 - [ ] 
