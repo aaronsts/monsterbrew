@@ -32,7 +32,7 @@ import {
 	Skills,
 	SpecialAbilities,
 } from "../statblock-form";
-import { ALL_SKILLS, CHALLENGE_RATINGS, STAT_NAMES } from "@/lib/constants";
+import { CHALLENGE_RATINGS } from "@/lib/constants";
 import { Monster5e } from "@/types/monster5e";
 import { useCreaturesStore } from "@/store/zustand";
 import { CreatureListSelect } from "../creature-list-select";
@@ -109,7 +109,9 @@ export default function StatblockForm() {
 
 	function loadCreatureValues() {
 		if (!creature) return;
-		setInitialFormValues(creature);
+		const proficiencyBonus = getProficiencyBonus(creature.challenge_rating);
+		if (!proficiencyBonus) return;
+
 		form.reset({
 			...initialFormValues,
 			name: creature.name,
@@ -131,7 +133,7 @@ export default function StatblockForm() {
 			charisma: creature.charisma,
 			senses: creature.senses?.split("passive Perception")[0],
 			languages: creature.languages,
-			challenge_rating: creature.challenge_rating,
+			challenge_rating: proficiencyBonus.value,
 			special_abilities: creature.special_abilities,
 			actions: creature.actions,
 			reactions: creature.reactions,
@@ -140,9 +142,6 @@ export default function StatblockForm() {
 			lair_desc: creature.lair_desc,
 			lair_actions: creature.lair_actions,
 		});
-
-		const proficiencyBonus = getProficiencyBonus(creature.challenge_rating);
-		if (!proficiencyBonus) return;
 
 		// Saving Throws
 		const savingThrows = calculateSavingThrows(creature);
@@ -183,9 +182,11 @@ export default function StatblockForm() {
 
 	function onSubmit(values: z.infer<typeof monsterStatblockSchema>) {
 		if (!values) return;
-		const proficiencyBonus = getProficiencyBonus(values.challenge_rating);
+		const proficiencyBonus = CHALLENGE_RATINGS.find(
+			(cr) => cr.value === values.challenge_rating
+		);
 		if (!proficiencyBonus) return;
-
+		values.challenge_rating = proficiencyBonus.label;
 		// calculate median hitpoints
 		values.hit_points = calculateHitPoints(
 			values.hit_dice,
