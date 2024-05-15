@@ -48,7 +48,6 @@ export default function Skills() {
 		const sortedSkillList = [...newSkillList, skill].sort((a, b) =>
 			a.name.localeCompare(b.name)
 		);
-		console.log(sortedSkillList);
 		setSkillList(sortedSkillList);
 	};
 

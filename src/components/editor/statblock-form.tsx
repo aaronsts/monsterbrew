@@ -137,7 +137,7 @@ export default function StatblockForm() {
 			wisdom: creature.wisdom,
 			charisma: creature.charisma,
 			senses: creature.senses?.split("passive Perception")[0],
-			languages: creature.languages,
+			languages: creature.languages!.length > 0 ? creature.languages : "--",
 			challenge_rating: proficiencyBonus.value,
 			special_abilities: creature.special_abilities,
 			actions: creature.actions,
@@ -148,6 +148,7 @@ export default function StatblockForm() {
 			lair_actions: creature.lair_actions,
 		});
 
+		console.log(creature);
 		// Saving Throws
 		const savingThrows = calculateSavingThrows(creature);
 		setSavingThrows(savingThrows);
@@ -185,6 +186,7 @@ export default function StatblockForm() {
 		setDamageList([...dmgImm, ...dmgVul, ...dmgRes]);
 	}
 
+	// On Submit
 	function onSubmit(values: z.infer<typeof monsterStatblockSchema>) {
 		if (!values) return;
 		const proficiencyBonus = CHALLENGE_RATINGS.find(
@@ -254,8 +256,10 @@ export default function StatblockForm() {
 			: 10 + Math.floor(values.wisdom / 2) - 5;
 
 		values.senses = values.senses + ` passive Perception ${passivePerception}`;
+		if (values.languages!.length === 0) {
+			values.languages = "--";
+		}
 
-		localStorage.setItem("monsterbrew-creature", JSON.stringify(values));
 		setCreature(values);
 
 		toast.message("Creature has been created.", {

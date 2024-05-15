@@ -21,7 +21,6 @@ function generateMarkdown(creature: Monster5e) {
 		if (s[0] === "walk") return `${s[1]}ft.`;
 		return `${s[0]} ${s[1]}ft.`;
 	});
-	console.log(speed);
 
 	markdownLines.push(`{{monster,frame,wide`);
 	markdownLines.push(
