@@ -24,12 +24,16 @@ import {
 	Skills,
 	SpecialAbilities,
 } from "../statblock-form";
+import { UseFormReturn } from "react-hook-form";
+import { Monster5e } from "@/types/monster5e";
 import { CreatureListSelect } from "../creature-list-select";
-import { useCreatureForm } from "@/hooks/use-creature-form";
 
-export default function StatblockForm() {
-	const { form, loadCreatureValues, onSubmit } = useCreatureForm();
+interface StatblockFormProps {
+	form: UseFormReturn<Monster5e>;
+	onSubmit: (values: Monster5e) => void;
+}
 
+export default function StatblockForm({ form, onSubmit }: StatblockFormProps) {
 	return (
 		<div className="md:w-full">
 			<Form {...form}>
@@ -37,24 +41,13 @@ export default function StatblockForm() {
 					onSubmit={form.handleSubmit(onSubmit)}
 					className="flex flex-col relative gap-3 w-full"
 				>
-					<div className="bg-white z-20 sticky space-y-3 pb-1 top-16 ">
-						<div className="flex gap-3  items-center">
-							<CreatureListSelect />
-							<Button
-								type="button"
-								variant="secondary"
-								className="bg-tower-500 text-white border-tower-700 hover:bg-tower-700"
-								onClick={loadCreatureValues}
-							>
-								Edit
-							</Button>
-						</div>
-						<div className="flex gap-3 items-center justify-between">
-							<h2>Create Creature</h2>
-							<Button variant="primary" type="submit">
-								Create Creature
-							</Button>
-						</div>
+					<div className="flex sticky top-16 bg-white pb-3 justify-between">
+						<h2>Create Creature</h2>
+						<CreatureListSelect />
+
+						<Button type="submit" variant="primary">
+							Save
+						</Button>
 					</div>
 					<BaseCreatureInfo form={form} />
 					<Movement form={form} />

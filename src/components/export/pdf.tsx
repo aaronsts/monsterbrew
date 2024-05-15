@@ -19,7 +19,7 @@ export default function ExportPdf() {
 	});
 	return (
 		<>
-			<Button size="sm" variant="primary" onClick={handlePrint}>
+			<Button variant="outline" onClick={handlePrint}>
 				Save PDF
 			</Button>
 			<div className="hidden">

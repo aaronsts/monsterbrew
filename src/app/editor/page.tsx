@@ -1,4 +1,4 @@
-import EditStatblock from "@/components/editor/edit-statblock";
+import ClientEditor from "@/components/editor/client-editor";
 import { getAllCreatures } from "@/services/creatures";
 import {
 	HydrationBoundary,
@@ -15,7 +15,7 @@ export default async function Editor() {
 	});
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
-			<EditStatblock />
+			<ClientEditor />
 		</HydrationBoundary>
 	);
 }

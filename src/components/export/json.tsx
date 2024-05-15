@@ -25,7 +25,7 @@ export default function ExportJson() {
 
 	return (
 		<Sheet>
-			<SheetTrigger className="font-short border-2 h-8 text-xs hover:bg-cararra-800 transition-colors bg-cararra-600 text-white border-cararra-800 px-3 py-1 sketch-border">
+			<SheetTrigger className="bg-transparent px-3 h-9 font-short border-cararra-600 border  text-cararra-950 hover:bg-cararra-200 sketch-border transition-colors">
 				Save JSON
 			</SheetTrigger>
 			<SheetContent className="md:max-w-lg space-y-3 h-full">
