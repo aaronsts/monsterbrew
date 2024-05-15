@@ -16,7 +16,6 @@ import { useCreatureFormStore } from "@/store/creatureForm";
 
 export default function SavingThrows() {
 	const { savingThrows, setSavingThrows } = useCreatureFormStore();
-
 	const [stat, setStat] = useState<string>();
 
 	const onSelectSkill = (e: string) => {

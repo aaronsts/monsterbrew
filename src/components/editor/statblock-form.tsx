@@ -50,9 +50,9 @@ function getProficiencyBonus(challenge_rating: string) {
 
 export default function StatblockForm() {
 	const { creature, setCreature } = useCreaturesStore();
-	const { savingThrows, setSavingThrows } = useCreatureFormStore();
-	// const [savingThrows, setSavingThrows] = useState<ISavingThrow[]>([]);
-	const [skillList, setSkillList] = useState<ISkill[]>([]);
+	const { savingThrows, setSavingThrows, skillList, setSkillList } =
+		useCreatureFormStore();
+
 	const [damageList, setDamageList] = useState<string[]>([]);
 	const [conditionList, setConditionList] = useState<string[]>([]);
 
@@ -329,7 +329,7 @@ export default function StatblockForm() {
 							setDamageList={setDamageList}
 							form={form}
 						/>
-						<Skills skillList={skillList} setSkillList={setSkillList} />
+						<Skills />
 						<SavingThrows />
 					</div>
 					<div className="space-y-3">
