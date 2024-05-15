@@ -9,29 +9,22 @@ import {
 	SelectValue,
 } from "../ui/select";
 import { IChildForm } from "./ability-scores";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "../ui/button";
 import { Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useCreatureFormStore } from "@/store/creatureForm";
 
-interface IConditions extends IChildForm {
-	damageList: string[];
-	setDamageList: Dispatch<SetStateAction<string[]>>;
-	conditionList: string[];
-	setConditionList: Dispatch<SetStateAction<string[]>>;
-}
+export default function Conditions({ form }: IChildForm) {
+	const { damageList, setDamageList, conditionList, setConditionList } =
+		useCreatureFormStore();
 
-export default function Conditions({
-	form,
-	setDamageList,
-	damageList,
-	conditionList,
-	setConditionList,
-}: IConditions) {
 	const [damage, setDamage] = useState<string>();
 	const [condition, setCondition] = useState<string>();
+
 	const { setValue } = form;
+
 	const onSelectDamage = (e: string) => {
 		setDamage(e);
 	};
@@ -104,7 +97,7 @@ export default function Conditions({
 		<>
 			<FormItem className="space-y-2">
 				<FormLabel>Damage Types</FormLabel>
-				<div className="flex flex-wrap md:flex-nowrap gap-2 items-center">
+				<div className="flex flex-wrap lg:flex-nowrap gap-2 items-center">
 					<Button
 						variant="secondary"
 						className="bg-norway-400  border-norway-400 text-norway-50 hover:bg-norway-300"

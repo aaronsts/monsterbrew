@@ -40,7 +40,7 @@ export const monsterStatblockSchema = z.object({
 	damage_resistances: z.string().optional(),
 	damage_immunities: z.string().optional(),
 	condition_immunities: z.string().optional(),
-	languages: z.string().min(2, { message: "Please fill in a language" }),
+	languages: z.string().optional(),
 	actions: z
 		.array(
 			z.object({

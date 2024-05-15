@@ -2,15 +2,14 @@ import Statistic from "./statistic";
 import { Divider } from "../ui/divider";
 import { CHALLENGE_RATINGS } from "@/lib/constants";
 import SavingThrows from "./saving-throws";
-import { Monster5e } from "@/types/monster5e";
 import { forwardRef } from "react";
+import { useCreaturesStore } from "@/store/zustand";
 
-interface IPdfStatblock {
-	creature: Monster5e;
-}
+interface IPdfStatblock {}
 
 const PdfStatblock = forwardRef<HTMLDivElement, IPdfStatblock>(
-	({ creature }, ref) => {
+	(_props, ref) => {
+		const { creature } = useCreaturesStore();
 		const skills = Object.entries(creature.skills);
 		const movement = Object.entries(creature.speed);
 		const exp = CHALLENGE_RATINGS.find(

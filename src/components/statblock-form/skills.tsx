@@ -13,18 +13,11 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useCreatureFormStore } from "@/store/creatureForm";
+import { toast } from "sonner";
 
-type IskillList = {
-	name: string;
-	stat: string;
-	expert?: boolean;
-};
-interface ISkills {
-	skillList: IskillList[];
-	setSkillList: React.Dispatch<React.SetStateAction<IskillList[]>>;
-}
-
-export default function Skills({ skillList, setSkillList }: ISkills) {
+export default function Skills() {
+	const { skillList, setSkillList } = useCreatureFormStore();
 	const [selectedSkill, setSelectedSkill] = useState<string>();
 
 	const onSelectSkill = (e: string) => {
@@ -32,16 +25,30 @@ export default function Skills({ skillList, setSkillList }: ISkills) {
 	};
 
 	const addSkill = (event: React.MouseEvent<HTMLElement>) => {
+		// get skill and stat modifier
 		const skill = ALL_SKILLS.find((s) => s.name === selectedSkill);
-		if (!skill) return;
-		skill.expert = event.currentTarget.dataset.expert === "true";
-		if (skillList.includes(skill)) {
-			const newSkillList = [...skillList];
-			setSkillList(newSkillList);
+		if (!skill) {
+			toast.error("No Skill found");
 			return;
 		}
-		const newSkillList = [...skillList, skill];
-		setSkillList(newSkillList);
+
+		skill.expert = event.currentTarget.dataset.expert === "true";
+
+		// if skill exists, replace it, otherwise add it
+		const indexOfSkill = skillList.findIndex((skl) => skl.name === skill.name);
+		if (indexOfSkill === -1) {
+			const sortedSkillList = [...skillList, skill].sort((a, b) =>
+				a.name.localeCompare(b.name)
+			);
+			setSkillList(sortedSkillList);
+			return;
+		}
+		const newSkillList = skillList;
+		newSkillList.splice(indexOfSkill, 1);
+		const sortedSkillList = [...newSkillList, skill].sort((a, b) =>
+			a.name.localeCompare(b.name)
+		);
+		setSkillList(sortedSkillList);
 	};
 
 	const removeSkill = (event: React.MouseEvent<HTMLElement>) => {
