@@ -37,12 +37,19 @@ export default function Skills() {
 		// if skill exists, replace it, otherwise add it
 		const indexOfSkill = skillList.findIndex((skl) => skl.name === skill.name);
 		if (indexOfSkill === -1) {
-			setSkillList([...skillList, skill]);
+			const sortedSkillList = [...skillList, skill].sort((a, b) =>
+				a.name.localeCompare(b.name)
+			);
+			setSkillList(sortedSkillList);
 			return;
 		}
 		const newSkillList = skillList;
 		newSkillList.splice(indexOfSkill, 1);
-		setSkillList([...newSkillList, skill]);
+		const sortedSkillList = [...newSkillList, skill].sort((a, b) =>
+			a.name.localeCompare(b.name)
+		);
+		console.log(sortedSkillList);
+		setSkillList(sortedSkillList);
 	};
 
 	const removeSkill = (event: React.MouseEvent<HTMLElement>) => {

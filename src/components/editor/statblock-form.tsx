@@ -55,14 +55,9 @@ export default function StatblockForm() {
 		setSavingThrows,
 		skillList,
 		setSkillList,
-		damageList,
 		setDamageList,
-		conditionList,
 		setConditionList,
 	} = useCreatureFormStore();
-
-	// const [damageList, setDamageList] = useState<string[]>([]);
-	// const [conditionList, setConditionList] = useState<string[]>([]);
 
 	const initialFormValues = {
 		name: "",
