@@ -6,8 +6,13 @@ import { useCreaturesStore } from "@/store/zustand";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getCreature } from "@/services/creatures";
 import { useEffect } from "react";
+import { Button } from "../ui/button";
 
-const Statblock = () => {
+interface StatblockProps {
+	loadCreatureValues: () => void;
+}
+
+const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 	const { selectedCreature, setCreature, creature } = useCreaturesStore();
 	const { data, isLoading, error } = useQuery({
 		queryKey: ["creature", selectedCreature],
@@ -32,10 +37,22 @@ const Statblock = () => {
 	return (
 		<div className="w-full text-cararra-950 space-y-3">
 			<div>
-				<h2>{creature.name}</h2>
-				<p className="italic capitalize pb-3">
-					{creature.size} {creature.type}, {creature.alignment}
-				</p>
+				<div className="flex justify-between">
+					<div>
+						<h2>{creature.name}</h2>
+						<p className="italic capitalize pb-3">
+							{creature.size} {creature.type}, {creature.alignment}
+						</p>
+					</div>
+					<Button
+						type="button"
+						variant="secondary"
+						className="bg-tower-500 text-white border-tower-700 hover:bg-tower-700"
+						onClick={loadCreatureValues}
+					>
+						Edit
+					</Button>
+				</div>
 				<Divider />
 				<div className="flex gap-2">
 					<h4>Armor Class</h4>

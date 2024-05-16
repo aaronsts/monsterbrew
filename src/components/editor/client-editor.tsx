@@ -29,18 +29,12 @@ export default function ClientEditor() {
 		<div className="grid md:grid-cols-2 gap-6">
 			<StatblockForm form={form} onSubmit={onSubmit} />
 			<div className="flex flex-col relative gap-3">
-				<div className="flex sticky top-16 bg-white pb-3 gap-3 justify-between">
-					<Button
-						type="button"
-						variant="secondary"
-						className="bg-tower-500 text-white border-tower-700 hover:bg-tower-700"
-						onClick={loadCreatureValues}
-					>
-						Edit
-					</Button>
+				<div className="flex items-center justify-between sticky top-16 bg-white pb-3 gap-3 md:justify-end">
+					<h3>Save as:</h3>
+
 					<ExportOptions />
 				</div>
-				<Statblock />
+				<Statblock loadCreatureValues={loadCreatureValues} />
 			</div>
 		</div>
 	);

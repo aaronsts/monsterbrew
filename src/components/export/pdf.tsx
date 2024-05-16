@@ -20,7 +20,7 @@ export default function ExportPdf() {
 	return (
 		<>
 			<Button variant="outline" onClick={handlePrint}>
-				Save PDF
+				PDF
 			</Button>
 			<div className="hidden">
 				<PdfStatblock ref={componentRef} />

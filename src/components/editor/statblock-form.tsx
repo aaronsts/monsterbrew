@@ -41,10 +41,9 @@ export default function StatblockForm({ form, onSubmit }: StatblockFormProps) {
 					onSubmit={form.handleSubmit(onSubmit)}
 					className="flex flex-col relative gap-3 w-full"
 				>
-					<div className="flex sticky top-16 bg-white pb-3 justify-between">
+					<div className="flex flex-col gap-2 sm:flex-row sticky z-30 top-16 bg-white justify-between">
 						<h2>Create Creature</h2>
 						<CreatureListSelect />
-
 						<Button type="submit" variant="primary">
 							Save
 						</Button>

@@ -14,7 +14,7 @@ export default function ExportMarkdown() {
 
 	return (
 		<Button variant="outline" onClick={handleMarkdownClick}>
-			Save Markdown
+			Markdown
 		</Button>
 	);
 }
