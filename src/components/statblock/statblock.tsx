@@ -46,23 +46,23 @@ const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 
 	return (
 		<div className="w-full text-cararra-950 space-y-3">
-			<div>
-				<div className="flex justify-between">
-					<div>
-						<h2>{creature.name}</h2>
-						<p className="italic capitalize pb-3">
-							{creature.size} {creature.type}, {creature.alignment}
-						</p>
-					</div>
-					<Button
-						type="button"
-						variant="secondary"
-						className="bg-tower-500 text-white border-tower-700 hover:bg-tower-700"
-						onClick={loadCreatureValues}
-					>
-						Edit
-					</Button>
+			<div className="flex justify-between">
+				<div>
+					<h2 className="leading-none">{creature.name}</h2>
+					<p className="italic capitalize">
+						{creature.size} {creature.type}, {creature.alignment}
+					</p>
 				</div>
+				<Button
+					type="button"
+					variant="secondary"
+					className="bg-tower-500 text-white border-tower-700 hover:bg-tower-700"
+					onClick={loadCreatureValues}
+				>
+					Edit
+				</Button>
+			</div>
+			<div className="space-y-1">
 				<Divider />
 				<div className="flex gap-2">
 					<h4>Armor Class</h4>
