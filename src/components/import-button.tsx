@@ -16,6 +16,7 @@ import { useCreaturesStore } from "@/store/zustand";
 import { Input } from "./ui/input";
 import { toast } from "sonner";
 import { Monster5e } from "@/types/monster5e";
+import { tetraToOpen5e } from "@/lib/converter";
 
 export default function ImportButton() {
 	const { setCreature } = useCreaturesStore();
@@ -25,24 +26,36 @@ export default function ImportButton() {
 
 	const handleClick = () => {
 		if (!importedStatblock) return;
-		console.log(importedStatblock);
-		// setCreature(importedStatblock);
+		setCreature(importedStatblock);
 	};
 
 	const handleOnChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-		const importedJson: Monster5e = JSON.parse(event.currentTarget.value);
+		const importedJson = JSON.parse(event.currentTarget.value);
 		setImportedStatblock(importedJson);
 	};
 
 	const readFileOnUpload = (e: ChangeEvent<HTMLInputElement>) => {
 		if (!e.target.files) return;
 		const uploadedFile = e.target.files[0];
+		const extension = uploadedFile.name.split(".")[1];
 		const fileReader = new FileReader();
 		fileReader.onloadend = () => {
 			try {
-				setImportedStatblock(JSON.parse(fileReader.result as string));
+				if (extension === "json") {
+					setImportedStatblock(JSON.parse(fileReader.result as string));
+				} else if (extension === "monster") {
+					const statblock = tetraToOpen5e(
+						JSON.parse(fileReader.result as string)
+					);
+					setImportedStatblock(statblock);
+					toast.info("Tetra-cube is not yet supported");
+				} else {
+					// Remove File from filelist if not json format
+					e.target.value = "";
+					throw Error;
+				}
 			} catch (e) {
-				toast.error("Not a valid JSON file");
+				toast.error("Only JSON files are supported");
 			}
 		};
 		if (uploadedFile !== undefined) fileReader.readAsText(uploadedFile);
