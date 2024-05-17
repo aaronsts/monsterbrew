@@ -45,12 +45,12 @@ export const initialFormValues = {
 	skills: {},
 };
 export const monster_sizes = [
-	{ label: "Gargantuan", value: "gargantuan" },
-	{ label: "Huge", value: "huge" },
-	{ label: "Large", value: "large" },
-	{ label: "Medium", value: "medium" },
-	{ label: "Small", value: "small" },
-	{ label: "Tiny", value: "tiny" },
+	{ label: "Gargantuan", value: "gargantuan", hit_die: 20 },
+	{ label: "Huge", value: "huge", hit_die: 12 },
+	{ label: "Large", value: "large", hit_die: 10 },
+	{ label: "Medium", value: "medium", hit_die: 8 },
+	{ label: "Small", value: "small", hit_die: 6 },
+	{ label: "Tiny", value: "tiny", hit_die: 4 },
 ];
 
 export const monster_types = [

@@ -6,8 +6,14 @@ import { useCreaturesStore } from "@/store/zustand";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getCreature } from "@/services/creatures";
 import { useEffect } from "react";
+import { Button } from "../ui/button";
+import { capitalize } from "@/lib/utils";
 
-const Statblock = () => {
+interface StatblockProps {
+	loadCreatureValues: () => void;
+}
+
+const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 	const { selectedCreature, setCreature, creature } = useCreaturesStore();
 	const { data, isLoading, error } = useQuery({
 		queryKey: ["creature", selectedCreature],
@@ -23,19 +29,40 @@ const Statblock = () => {
 	if (isLoading) return <div className="font-yatra">Loading</div>;
 	if (error) return <div>{error.message}</div>;
 
-	const skills = Object.entries(creature.skills);
-	const movement = Object.entries(creature.speed);
+	const skills = Object.entries(creature.skills)
+		.map((skl) => `${capitalize(skl[0])} +${skl[1]}`)
+		.join(", ");
+
+	const movement = Object.entries(creature.speed)
+		.map((move) => {
+			if (move[0] === "walk") return `${move[1]} ft.`;
+			return `${move[0]} ${move[1]} ft.`;
+		})
+		.join(", ");
+
 	const exp = CHALLENGE_RATINGS.find(
 		(rating) => rating.label === creature.challenge_rating
 	);
 
 	return (
 		<div className="w-full text-cararra-950 space-y-3">
-			<div>
-				<h2>{creature.name}</h2>
-				<p className="italic capitalize pb-3">
-					{creature.size} {creature.type}, {creature.alignment}
-				</p>
+			<div className="flex justify-between">
+				<div>
+					<h2 className="leading-none">{creature.name}</h2>
+					<p className="italic capitalize">
+						{creature.size} {creature.type}, {creature.alignment}
+					</p>
+				</div>
+				<Button
+					type="button"
+					variant="secondary"
+					className="bg-tower-500 text-white border-tower-700 hover:bg-tower-700"
+					onClick={loadCreatureValues}
+				>
+					Edit
+				</Button>
+			</div>
+			<div className="space-y-1">
 				<Divider />
 				<div className="flex gap-2">
 					<h4>Armor Class</h4>
@@ -54,18 +81,9 @@ const Statblock = () => {
 							: `${creature.hit_points} (${creature.hit_dice})`}
 					</p>
 				</div>
-				<div className="flex gap-2">
-					<h4>Speed</h4>
-					<p>
-						{movement.map((move, i) => {
-							if (i === movement.length - 1 && move[0] === "walk")
-								return `${move[1]} ft.`;
-							if (i === movement.length - 1) return `${move[0]} ${move[1]} ft.`;
-							if (move[0] === "walk") return `${move[1]} ft., `;
-							return `${move[0]} ${move[1]} ft., `;
-						})}
-					</p>
-				</div>
+				<p className="font-yatra">
+					Speed <span className="font-sans">{movement}</span>
+				</p>
 			</div>
 			<Divider />
 			<div className="grid grid-cols-6 w-fit gap-6 ">
@@ -87,49 +105,40 @@ const Statblock = () => {
 					charisma_save={creature.charisma_save}
 				/>
 				{skills.length > 0 && (
-					<div className="flex gap-1">
-						<h4>Skills</h4>
-						<p>
-							{skills.map((skill) => (
-								<span key={skill[0]}>{`${skill[0]} +${skill[1]}, `}</span>
-							))}
-						</p>
-					</div>
+					<p className="font-yatra">
+						Skills <span className="font-sans">{skills}</span>
+					</p>
 				)}
 				{creature.condition_immunities !== "" && (
-					<div className="flex gap-2">
-						<h4>Condition Immunities</h4>
-						<p className="capitalize">{creature.condition_immunities}</p>
-					</div>
+					<p className="capitalize font-yatra">
+						Condition Immunities{" "}
+						<span className="font-sans">{creature.condition_immunities}</span>
+					</p>
 				)}
 				{creature.damage_vulnerabilities !== "" && (
-					<div className="flex gap-2">
-						<h4>Damage Vulnerabilties</h4>
-						<p className="capitalize">{creature.damage_vulnerabilities}</p>
-					</div>
+					<p className="capitalize font-yatra">
+						Damage Vulnerabilities{" "}
+						<span className="font-sans">{creature.damage_vulnerabilities}</span>
+					</p>
 				)}
 				{creature.damage_resistances !== "" && (
-					<div className="flex gap-2">
-						<h4>Damage Resistances</h4>
-						<p className="capitalize">{creature.damage_resistances}</p>
-					</div>
+					<p className="capitalize font-yatra">
+						Damage Resistances{" "}
+						<span className="font-sans">{creature.damage_resistances}</span>
+					</p>
 				)}
 				{creature.damage_immunities !== "" && (
-					<div className="flex gap-2">
-						<h4>Damage Immunities</h4>
-						<p className="capitalize">{creature.damage_immunities}</p>
-					</div>
+					<p className="capitalize font-yatra">
+						Damage Immunities{" "}
+						<span className="font-sans">{creature.damage_immunities}</span>
+					</p>
 				)}
-				<div className="flex gap-2">
-					<h4>Senses</h4>
-					<p className="lowercase">{creature.senses}</p>
-				</div>
-				{creature.languages && (
-					<div className="flex gap-2">
-						<h4>Languages</h4>
-						<p>{creature.languages}</p>
-					</div>
-				)}
+				<p className="capitalize font-yatra">
+					Senses <span className="font-sans">{creature.senses}</span>
+				</p>
+				<p className="capitalize font-yatra">
+					Languages <span className="font-sans">{creature.languages}</span>
+				</p>
 				<div className="flex justify-between">
 					<div className="flex gap-2">
 						<h4>Challenge Rating</h4>

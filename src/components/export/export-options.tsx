@@ -6,7 +6,7 @@ import ExportJson from "./json";
 
 export default function ExportOptions() {
 	return (
-		<div className="flex flex-col md:flex-row gap-3">
+		<div className="flex items-center md:self-end gap-3">
 			<ExportPdf />
 			<ExportMarkdown />
 			<ExportJson />

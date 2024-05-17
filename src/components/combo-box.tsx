@@ -125,7 +125,7 @@ const ComboBoxResponsive = forwardRef<HTMLButtonElement, IComboboxProps>(
 					) : (
 						<Button
 							variant="secondary"
-							className="text-pewter-500 border font-short border-cararra-300   hover:bg-cararra-100 flex w-full justify-between text-sm font-normal"
+							className="text-pewter-500 border font-short border-cararra-300  hover:bg-cararra-100 flex w-full justify-between text-sm font-normal"
 						>
 							Select type ...
 							<ChevronDown strokeWidth={1} />

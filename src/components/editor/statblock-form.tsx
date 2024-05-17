@@ -27,6 +27,7 @@ import {
 import { UseFormReturn } from "react-hook-form";
 import { Monster5e } from "@/types/monster5e";
 import { CreatureListSelect } from "../creature-list-select";
+import ImportButton from "../import-button";
 
 interface StatblockFormProps {
 	form: UseFormReturn<Monster5e>;
@@ -41,10 +42,8 @@ export default function StatblockForm({ form, onSubmit }: StatblockFormProps) {
 					onSubmit={form.handleSubmit(onSubmit)}
 					className="flex flex-col relative gap-3 w-full"
 				>
-					<div className="flex sticky top-16 bg-white pb-3 justify-between">
+					<div className="flex flex-col pb-3 gap-2 sm:flex-row sticky z-30 top-16 bg-white justify-between">
 						<h2>Create Creature</h2>
-						<CreatureListSelect />
-
 						<Button type="submit" variant="primary">
 							Save
 						</Button>
