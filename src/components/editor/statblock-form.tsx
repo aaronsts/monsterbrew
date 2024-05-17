@@ -44,12 +44,10 @@ export default function StatblockForm({ form, onSubmit }: StatblockFormProps) {
 				>
 					<div className="flex flex-col pb-3 gap-2 sm:flex-row sticky z-30 top-16 bg-white justify-between">
 						<h2>Create Creature</h2>
-						<CreatureListSelect />
 						<Button type="submit" variant="primary">
 							Save
 						</Button>
 					</div>
-					<ImportButton />
 					<BaseCreatureInfo form={form} />
 					<Movement form={form} />
 					<AbilityScores form={form} />

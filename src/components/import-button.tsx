@@ -25,7 +25,8 @@ export default function ImportButton() {
 
 	const handleClick = () => {
 		if (!importedStatblock) return;
-		setCreature(importedStatblock);
+		console.log(importedStatblock);
+		// setCreature(importedStatblock);
 	};
 
 	const handleOnChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -61,20 +62,27 @@ export default function ImportButton() {
 						Upload a file or paste a JSON string below.
 					</SheetDescription>
 				</SheetHeader>
-				<div className="py-3">
+				<div className="py-3 space-y-3">
 					<div>
 						<Label htmlFor="json-input">JSON</Label>
 						<Textarea
-							className="h-80"
+							className="h-80 sketch-border-reset text-cararra-950 focus-visible:ring-cararra-600 bg-cararra-200 border-0 rounded-md"
 							onChange={(e) => handleOnChange(e)}
 							id="json-input"
 						/>
 					</div>
-					<Input type="file" onChange={(e) => readFileOnUpload(e)} />
+					<div>
+						<Label htmlFor="file-upload">File upload</Label>
+						<Input
+							id="file-upload"
+							type="file"
+							onChange={(e) => readFileOnUpload(e)}
+						/>
+					</div>
 				</div>
 				<SheetFooter>
 					<SheetClose asChild>
-						<Button onClick={handleClick} type="submit">
+						<Button variant="primary" onClick={handleClick} type="submit">
 							Save changes
 						</Button>
 					</SheetClose>

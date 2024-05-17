@@ -30,6 +30,13 @@
 	border-bottom-left-radius: 15px 255px;
 }
 
+.sketch-border-reset {
+	border-top-left-radius: 6px 6px;
+	border-top-right-radius: 6px 6px;
+	border-bottom-right-radius: 6px 6px;
+	border-bottom-left-radius: 6px 6px;
+}
+
 /* Firefox */
 input[type="number"] {
 	-moz-appearance: textfield;
