@@ -48,7 +48,6 @@ export default function ImportButton() {
 						JSON.parse(fileReader.result as string)
 					);
 					setImportedStatblock(statblock);
-					toast.info("Tetra-cube is not yet supported");
 				} else {
 					// Remove File from filelist if not json format
 					e.target.value = "";
@@ -91,6 +90,18 @@ export default function ImportButton() {
 							type="file"
 							onChange={(e) => readFileOnUpload(e)}
 						/>
+						<span className="italic text-zinc-600 text-sm">
+							.monster files (
+							<a
+								className="underline hover:text-zinc-950"
+								href="https://tetra-cube.com/dnd/dnd-statblock.html"
+								rel="noopener noreferrer"
+								target="_blank"
+							>
+								tetra-cube
+							</a>
+							) are still in beta.
+						</span>
 					</div>
 				</div>
 				<SheetFooter>
