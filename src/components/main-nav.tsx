@@ -31,6 +31,13 @@ export function MainNavigation() {
 							</NavigationMenuLink>
 						</Link>
 					</NavigationMenuItem>
+					<NavigationMenuItem>
+						<Link href="/changelog" legacyBehavior passHref>
+							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+								Changelog
+							</NavigationMenuLink>
+						</Link>
+					</NavigationMenuItem>
 				</NavigationMenuList>
 			</NavigationMenu>
 		</div>
