@@ -303,6 +303,7 @@ export const initialCreature = {
 			desc: "The dragon beats its wings. Each creature within 15 ft. of the dragon must succeed on a DC 23 Dexterity saving throw or take 15 (2d6 + 8) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed.",
 		},
 	],
+	lair_actions: [],
 	special_abilities: [
 		{
 			name: "Amphibious",
@@ -327,10 +328,11 @@ export const initialCreature = {
 	intelligence_save: null,
 	wisdom_save: 9,
 	charisma_save: 11,
-	document: {
-		slug: "wotc-srd",
-		title: "5e Core Rules",
-		url: "http://dnd.wizards.com/articles/features/systems-reference-document-srd",
-		license: "http://open5e.com/legal",
-	},
+	environments: [],
+	img_main: "",
+	document__slug: "wotc-srd",
+	document__title: "5e Core Rules",
+	document__url:
+		"http://dnd.wizards.com/articles/features/systems-reference-document-srd",
+	document__license: "http://open5e.com/legal",
 };

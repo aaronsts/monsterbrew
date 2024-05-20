@@ -63,9 +63,17 @@ export function useCreatureForm() {
 			actions: creature.actions,
 			reactions: creature.reactions,
 			legendary_desc: creature.legendary_desc,
-			legendary_actions: creature.legendary_actions,
+			legendary_actions: creature.legendary_actions || [],
 			lair_desc: creature.lair_desc,
-			lair_actions: creature.lair_actions,
+			lair_actions: creature.lair_actions || null,
+			environments: creature.environments,
+			img_main: creature.img_main,
+			page_no: creature.page_no,
+			spell_list: creature.spell_list,
+			document__license_url: creature.document__license_url,
+			document__slug: creature.document__slug,
+			document__title: creature.document__title,
+			document__url: creature.document__url,
 		});
 
 		// Saving Throws

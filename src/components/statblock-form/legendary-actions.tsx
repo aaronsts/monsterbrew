@@ -36,7 +36,10 @@ export default function LegendaryActions({ form }: IChildForm) {
 	useEffect(() => {
 		if (legendaryDesc?.length === 0) return;
 		setIsLegendary(true);
-	}, [legendaryDesc]);
+		return () => {
+			setIsLegendary(false);
+		};
+	}, [isLegendary, legendaryDesc]);
 
 	return (
 		<div className="w-full">
