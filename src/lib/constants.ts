@@ -303,6 +303,7 @@ export const initialCreature = {
 			desc: "The dragon beats its wings. Each creature within 15 ft. of the dragon must succeed on a DC 23 Dexterity saving throw or take 15 (2d6 + 8) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed.",
 		},
 	],
+	lair_actions: [],
 	special_abilities: [
 		{
 			name: "Amphibious",
