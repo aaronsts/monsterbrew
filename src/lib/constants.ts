@@ -327,10 +327,11 @@ export const initialCreature = {
 	intelligence_save: null,
 	wisdom_save: 9,
 	charisma_save: 11,
-	document: {
-		slug: "wotc-srd",
-		title: "5e Core Rules",
-		url: "http://dnd.wizards.com/articles/features/systems-reference-document-srd",
-		license: "http://open5e.com/legal",
-	},
+	environments: [],
+	img_main: "",
+	document__slug: "wotc-srd",
+	document__title: "5e Core Rules",
+	document__url:
+		"http://dnd.wizards.com/articles/features/systems-reference-document-srd",
+	document__license: "http://open5e.com/legal",
 };
