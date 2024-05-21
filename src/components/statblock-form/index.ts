@@ -10,6 +10,7 @@ import LegendaryActions from "./legendary-actions";
 import LairActions from "./lair-actions";
 import SavingThrows from "./saving-throws";
 import BaseCreatureInfo from "./base-info";
+import RegionalActions from "./regional-actions";
 
 export {
 	Movement,
@@ -24,4 +25,5 @@ export {
 	LairActions,
 	SavingThrows,
 	BaseCreatureInfo,
+	RegionalActions,
 };

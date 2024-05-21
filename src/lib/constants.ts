@@ -30,6 +30,8 @@ export const initialFormValues = {
 	legendary_actions: [],
 	lair_desc: "",
 	lair_actions: [],
+	regional_desc: "",
+	regional_actions: [],
 	damage_vulnerabilities: "",
 	damage_resistances: "",
 	damage_immunities: "",

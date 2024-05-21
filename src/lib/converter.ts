@@ -4,7 +4,6 @@ import { capitalize } from "./utils";
 import { calculateHitPoints } from "./calculations";
 
 export function tetraToOpen5e(statblock: MonsterTetraCube) {
-	console.log("uploaded", statblock);
 	const savingThrows: any = {};
 	const monsterSize = monster_sizes.find(
 		(size) => size.value.toLowerCase() === statblock.size.toLowerCase()
