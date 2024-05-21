@@ -4,6 +4,23 @@ export default async function Changelog() {
 	return (
 		<div className="prose prose-zinc prose-h3:mb-0 prose-h3:leading-tight prose-p:my-3">
 			<h2>Changelog</h2>
+			<Divider />
+			<div>
+				<h3>V1.3.0</h3>
+				<p>
+					General bugfixes, tetra-cube monster files are better supported when
+					uploading. Added a changelog page to keep track of updates and
+					changes. Added Mythic Actions and Regional effects to the creature
+					form.
+				</p>
+				<ul>
+					<li>fix: sync open5e format</li>
+					<li>feat: add changelog page</li>
+					<li>fix: tetra converter</li>
+					<li>feat: add print styles</li>
+					<li>feat: Mythic and regionals</li>
+				</ul>
+			</div>
 			<div>
 				<Divider />
 				<h3>V1.2.0</h3>
