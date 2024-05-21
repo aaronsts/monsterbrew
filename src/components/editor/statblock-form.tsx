@@ -23,11 +23,11 @@ import {
 	SavingThrows,
 	Skills,
 	SpecialAbilities,
+	RegionalActions,
+	MythicActions,
 } from "../statblock-form";
 import { UseFormReturn } from "react-hook-form";
 import { Monster5e } from "@/types/monster5e";
-import { CreatureListSelect } from "../creature-list-select";
-import ImportButton from "../import-button";
 
 interface StatblockFormProps {
 	form: UseFormReturn<Monster5e>;
@@ -36,7 +36,7 @@ interface StatblockFormProps {
 
 export default function StatblockForm({ form, onSubmit }: StatblockFormProps) {
 	return (
-		<div className="md:w-full">
+		<div className="md:w-full print:hidden">
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
@@ -94,6 +94,8 @@ export default function StatblockForm({ form, onSubmit }: StatblockFormProps) {
 						<Reactions form={form} />
 						<LegendaryActions form={form} />
 						<LairActions form={form} />
+						<RegionalActions form={form} />
+						<MythicActions form={form} />
 					</div>
 					<Button variant="primary" type="submit">
 						Create Creature

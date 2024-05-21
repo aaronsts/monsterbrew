@@ -24,17 +24,19 @@ export default function LairActions({ form }: IChildForm) {
 		control,
 	});
 
-	const lairDesc = useWatch({ control: control, name: "lair_desc" });
+	const lairActions = useWatch({ control: control, name: "lair_actions" });
 
 	const toggleHasLair = () => {
 		setHasLair(!hasLair);
 	};
 
 	useEffect(() => {
-		if (!lairDesc) return;
-		if (lairDesc?.length === 0) return;
+		if (lairActions?.length === 0) return;
 		setHasLair(true);
-	}, [lairDesc]);
+		return () => {
+			setHasLair(false);
+		};
+	}, [lairActions]);
 
 	return (
 		<div className="w-full">
@@ -131,7 +133,7 @@ export default function LairActions({ form }: IChildForm) {
 						}}
 					>
 						<Plus className="w-4 h-4 mr-1" />
-						Add L. Action
+						Add Lair Action
 					</Button>
 				</div>
 			)}

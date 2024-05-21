@@ -5,6 +5,7 @@ import {
 } from "@/lib/calculations";
 import { CHALLENGE_RATINGS, initialFormValues } from "@/lib/constants";
 import { monsterStatblockSchema } from "@/lib/formSchemas";
+import { capitalize } from "@/lib/utils";
 import { useCreatureFormStore } from "@/store/creatureForm";
 import { useCreaturesStore } from "@/store/zustand";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,6 +30,7 @@ export function useCreatureForm() {
 	});
 
 	function loadCreatureValues() {
+		console.log(creature.size, creature.type);
 		const proficiencyBonus = CHALLENGE_RATINGS.find(
 			(cr) => cr.label === creature.challenge_rating
 		);
@@ -40,8 +42,8 @@ export function useCreatureForm() {
 		form.reset({
 			...initialFormValues,
 			name: creature.name,
-			type: creature.type,
-			size: creature.size,
+			type: capitalize(creature.type),
+			size: capitalize(creature.size),
 			alignment: creature.alignment,
 			armor_class: creature.armor_class,
 			armor_desc: creature.armor_desc || "",
@@ -62,10 +64,22 @@ export function useCreatureForm() {
 			special_abilities: creature.special_abilities,
 			actions: creature.actions,
 			reactions: creature.reactions,
-			legendary_desc: creature.legendary_desc,
-			legendary_actions: creature.legendary_actions,
-			lair_desc: creature.lair_desc,
-			lair_actions: creature.lair_actions,
+			legendary_desc: creature.legendary_desc || "",
+			legendary_actions: creature.legendary_actions || [],
+			lair_desc: creature.lair_desc || "",
+			lair_actions: creature.lair_actions || null,
+			regional_desc: creature.regional_desc || "",
+			regional_actions: creature.regional_actions || null,
+			mythic_desc: creature.regional_desc || "",
+			mythic_actions: creature.regional_actions || null,
+			environments: creature.environments,
+			img_main: creature.img_main,
+			page_no: creature.page_no,
+			spell_list: creature.spell_list,
+			document__license_url: creature.document__license_url,
+			document__slug: creature.document__slug,
+			document__title: creature.document__title,
+			document__url: creature.document__url,
 		});
 
 		// Saving Throws

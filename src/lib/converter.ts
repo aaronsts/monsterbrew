@@ -4,6 +4,7 @@ import { capitalize } from "./utils";
 import { calculateHitPoints } from "./calculations";
 
 export function tetraToOpen5e(statblock: MonsterTetraCube) {
+	console.log(statblock);
 	const savingThrows: any = {};
 	const monsterSize = monster_sizes.find(
 		(size) => size.value.toLowerCase() === statblock.size.toLowerCase()
@@ -71,18 +72,20 @@ export function tetraToOpen5e(statblock: MonsterTetraCube) {
 	});
 
 	const sensesObj = {
-		blindSight: statblock.blindsight,
+		blindSight: (statblock.blindsight as number) * 1,
 		// blind: statblock.blind,
-		darkVision: statblock.darkvision,
-		tremorSense: statblock.tremorsense,
-		trueSight: statblock.truesight,
-		telepathy: statblock.telepathy,
+		darkVision: (statblock.darkvision as number) * 1,
+		tremorSense: (statblock.tremorsense as number) * 1,
+		trueSight: (statblock.truesight as number) * 1,
+		telepathy: (statblock.telepathy as number) * 1,
 	};
 
 	const senses = Object.entries(sensesObj)
 		.filter((sense) => sense[1] !== 0)
 		.map((sense) => `${sense[0].toLowerCase()} ${sense[1]}ft.`)
 		.join(", ");
+
+	const languages = statblock.languages.map((lang) => lang.name).join(", ");
 
 	const conditions = statblock.conditions
 		.map((cdn: { name: string }) => capitalize(cdn.name))
@@ -121,6 +124,7 @@ export function tetraToOpen5e(statblock: MonsterTetraCube) {
 		wisdom: statblock.wisPoints,
 		charisma: statblock.chaPoints,
 		challenge_rating: statblock.cr,
+		languages: languages || "--",
 		senses: senses,
 		skills: skills,
 		condition_immunities: conditions,
@@ -134,6 +138,10 @@ export function tetraToOpen5e(statblock: MonsterTetraCube) {
 		legendary_actions: [...statblock.legendaries],
 		lair_desc: statblock.lairDescription,
 		lair_actions: [...statblock.lairs],
+		regional_desc: statblock.regionalDescription,
+		regional_actions: statblock.regionals,
+		mythic_desc: statblock.mythicDescription,
+		mythic_actions: statblock.mythics,
 		...savingThrows,
 	};
 

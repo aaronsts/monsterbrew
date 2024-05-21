@@ -14,7 +14,7 @@ import {
 
 export function MainNavigation() {
 	return (
-		<div className="max-w-7xl mx-auto flex sticky top-0 bg-white z-20 justify-start h-16 px-3">
+		<div className="print:hidden max-w-7xl mx-auto flex sticky top-0 bg-white z-20 justify-start h-16 px-3">
 			<NavigationMenu>
 				<NavigationMenuList>
 					<NavigationMenuItem>
@@ -28,6 +28,13 @@ export function MainNavigation() {
 						<Link href="/editor" legacyBehavior passHref>
 							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
 								Editor
+							</NavigationMenuLink>
+						</Link>
+					</NavigationMenuItem>
+					<NavigationMenuItem>
+						<Link href="/changelog" legacyBehavior passHref>
+							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+								Changelog
 							</NavigationMenuLink>
 						</Link>
 					</NavigationMenuItem>

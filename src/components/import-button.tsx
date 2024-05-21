@@ -47,6 +47,7 @@ export default function ImportButton() {
 					const statblock = tetraToOpen5e(
 						JSON.parse(fileReader.result as string)
 					);
+
 					setImportedStatblock(statblock);
 				} else {
 					// Remove File from filelist if not json format
@@ -63,7 +64,7 @@ export default function ImportButton() {
 	return (
 		<Sheet>
 			<SheetTrigger asChild>
-				<Button className="w-fit" variant="primary">
+				<Button className="w-fit print:hidden" variant="primary">
 					Import Creature
 				</Button>
 			</SheetTrigger>

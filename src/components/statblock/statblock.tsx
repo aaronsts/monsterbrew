@@ -45,7 +45,7 @@ const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 	);
 
 	return (
-		<div className="w-full text-cararra-950 space-y-3">
+		<div className="w-full print:columns-2 text-cararra-950 space-y-3">
 			<div className="flex justify-between">
 				<div>
 					<h2 className="leading-none">{creature.name}</h2>
@@ -56,7 +56,7 @@ const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 				<Button
 					type="button"
 					variant="secondary"
-					className="bg-tower-500 text-white border-tower-700 hover:bg-tower-700"
+					className="bg-tower-500 print:hidden text-white border-tower-700 hover:bg-tower-700"
 					onClick={loadCreatureValues}
 				>
 					Edit
@@ -191,6 +191,34 @@ const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 						))}
 					</div>
 				)}
+			{creature.regional_actions && creature.regional_actions.length !== 0 && (
+				<div className="space-y-2">
+					<h2 className="border-b border-zinc-700">Regional Effects</h2>
+					<p>{creature.regional_desc}</p>
+					{creature.regional_actions.map((ability) => (
+						<div className="flex gap-2" key={ability.name}>
+							<p>
+								<span className="font-bold">{ability.name}.</span>{" "}
+								{ability.desc}
+							</p>
+						</div>
+					))}
+				</div>
+			)}
+			{creature.mythic_actions && creature.mythic_actions.length !== 0 && (
+				<div className="space-y-2">
+					<h2 className="border-b border-zinc-700">Mythical Actions</h2>
+					<p>{creature.mythic_desc}</p>
+					{creature.mythic_actions.map((ability) => (
+						<div className="flex gap-2" key={ability.name}>
+							<p>
+								<span className="font-bold">{ability.name}.</span>{" "}
+								{ability.desc}
+							</p>
+						</div>
+					))}
+				</div>
+			)}
 		</div>
 	);
 };
