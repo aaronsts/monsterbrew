@@ -4,6 +4,7 @@ import { capitalize } from "./utils";
 import { calculateHitPoints } from "./calculations";
 
 export function tetraToOpen5e(statblock: MonsterTetraCube) {
+	console.log(statblock);
 	const savingThrows: any = {};
 	const monsterSize = monster_sizes.find(
 		(size) => size.value.toLowerCase() === statblock.size.toLowerCase()
@@ -137,6 +138,10 @@ export function tetraToOpen5e(statblock: MonsterTetraCube) {
 		legendary_actions: [...statblock.legendaries],
 		lair_desc: statblock.lairDescription,
 		lair_actions: [...statblock.lairs],
+		regional_desc: statblock.regionalDescription,
+		regional_actions: statblock.regionals,
+		mythic_desc: statblock.mythicDescription,
+		mythic_actions: statblock.mythics,
 		...savingThrows,
 	};
 
