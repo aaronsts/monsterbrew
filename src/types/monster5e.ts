@@ -30,12 +30,12 @@ export type MonsterTetraCube = {
 	intPoints: number;
 	wisPoints: number;
 	chaPoints: number;
-	blindsight: number;
+	blindsight: number | string;
 	blind: boolean;
-	darkvision: number;
-	tremorsense: number;
-	truesight: number;
-	telepathy: number;
+	darkvision: number | string;
+	tremorsense: number | string;
+	truesight: number | string;
+	telepathy: number | string;
 	cr: string;
 	customCr: string;
 	customProf: number;

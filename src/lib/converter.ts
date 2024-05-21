@@ -4,6 +4,7 @@ import { capitalize } from "./utils";
 import { calculateHitPoints } from "./calculations";
 
 export function tetraToOpen5e(statblock: MonsterTetraCube) {
+	console.log("uploaded", statblock);
 	const savingThrows: any = {};
 	const monsterSize = monster_sizes.find(
 		(size) => size.value.toLowerCase() === statblock.size.toLowerCase()
@@ -71,18 +72,20 @@ export function tetraToOpen5e(statblock: MonsterTetraCube) {
 	});
 
 	const sensesObj = {
-		blindSight: statblock.blindsight,
+		blindSight: (statblock.blindsight as number) * 1,
 		// blind: statblock.blind,
-		darkVision: statblock.darkvision,
-		tremorSense: statblock.tremorsense,
-		trueSight: statblock.truesight,
-		telepathy: statblock.telepathy,
+		darkVision: (statblock.darkvision as number) * 1,
+		tremorSense: (statblock.tremorsense as number) * 1,
+		trueSight: (statblock.truesight as number) * 1,
+		telepathy: (statblock.telepathy as number) * 1,
 	};
 
 	const senses = Object.entries(sensesObj)
 		.filter((sense) => sense[1] !== 0)
 		.map((sense) => `${sense[0].toLowerCase()} ${sense[1]}ft.`)
 		.join(", ");
+
+	console.log(sensesObj, senses);
 
 	const conditions = statblock.conditions
 		.map((cdn: { name: string }) => capitalize(cdn.name))
