@@ -5,6 +5,7 @@ import {
 } from "@/lib/calculations";
 import { CHALLENGE_RATINGS, initialFormValues } from "@/lib/constants";
 import { monsterStatblockSchema } from "@/lib/formSchemas";
+import { capitalize } from "@/lib/utils";
 import { useCreatureFormStore } from "@/store/creatureForm";
 import { useCreaturesStore } from "@/store/zustand";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,6 +30,7 @@ export function useCreatureForm() {
 	});
 
 	function loadCreatureValues() {
+		console.log(creature.size, creature.type);
 		const proficiencyBonus = CHALLENGE_RATINGS.find(
 			(cr) => cr.label === creature.challenge_rating
 		);
@@ -40,8 +42,8 @@ export function useCreatureForm() {
 		form.reset({
 			...initialFormValues,
 			name: creature.name,
-			type: creature.type,
-			size: creature.size,
+			type: capitalize(creature.type),
+			size: capitalize(creature.size),
 			alignment: creature.alignment,
 			armor_class: creature.armor_class,
 			armor_desc: creature.armor_desc || "",

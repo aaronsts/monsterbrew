@@ -24,9 +24,9 @@ export default function MythicActions({ form }: IChildForm) {
 		control,
 	});
 
-	const mythicDesc = useWatch({
+	const mythicActions = useWatch({
 		control: control,
-		name: "mythic_desc",
+		name: "mythic_actions",
 	});
 
 	const toggleMythic = () => {
@@ -34,12 +34,12 @@ export default function MythicActions({ form }: IChildForm) {
 	};
 
 	useEffect(() => {
-		if (mythicDesc?.length === 0) return;
+		if (mythicActions?.length === 0) return;
 		setIsMythic(true);
 		return () => {
 			setIsMythic(false);
 		};
-	}, [isMythic, mythicDesc]);
+	}, [isMythic, mythicActions]);
 
 	return (
 		<div className="w-full">

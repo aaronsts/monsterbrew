@@ -24,9 +24,9 @@ export default function RegionalActions({ form }: IChildForm) {
 		control,
 	});
 
-	const regionalDesc = useWatch({
+	const regionalActions = useWatch({
 		control: control,
-		name: "regional_desc",
+		name: "regional_actions",
 	});
 
 	const toggleRegional = () => {
@@ -34,12 +34,12 @@ export default function RegionalActions({ form }: IChildForm) {
 	};
 
 	useEffect(() => {
-		if (regionalDesc?.length === 0) return;
+		if (regionalActions?.length === 0) return;
 		setIsRegional(true);
 		return () => {
 			setIsRegional(false);
 		};
-	}, [isRegional, regionalDesc]);
+	}, [regionalActions]);
 
 	return (
 		<div className="w-full">

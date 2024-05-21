@@ -24,9 +24,9 @@ export default function LegendaryActions({ form }: IChildForm) {
 		control,
 	});
 
-	const legendaryDesc = useWatch({
+	const legendaryActions = useWatch({
 		control: control,
-		name: "legendary_desc",
+		name: "legendary_actions",
 	});
 
 	const toggleLegendary = () => {
@@ -34,12 +34,12 @@ export default function LegendaryActions({ form }: IChildForm) {
 	};
 
 	useEffect(() => {
-		if (legendaryDesc?.length === 0) return;
+		if (legendaryActions?.length === 0) return;
 		setIsLegendary(true);
 		return () => {
 			setIsLegendary(false);
 		};
-	}, [isLegendary, legendaryDesc]);
+	}, [isLegendary, legendaryActions]);
 
 	return (
 		<div className="w-full">
