@@ -85,7 +85,7 @@ export function tetraToOpen5e(statblock: MonsterTetraCube) {
 		.map((sense) => `${sense[0].toLowerCase()} ${sense[1]}ft.`)
 		.join(", ");
 
-	console.log(sensesObj, senses);
+	const languages = statblock.languages.map((lang) => lang.name).join(", ");
 
 	const conditions = statblock.conditions
 		.map((cdn: { name: string }) => capitalize(cdn.name))
@@ -124,6 +124,7 @@ export function tetraToOpen5e(statblock: MonsterTetraCube) {
 		wisdom: statblock.wisPoints,
 		charisma: statblock.chaPoints,
 		challenge_rating: statblock.cr,
+		languages: languages || "--",
 		senses: senses,
 		skills: skills,
 		condition_immunities: conditions,
