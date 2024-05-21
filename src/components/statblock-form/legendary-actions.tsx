@@ -136,7 +136,7 @@ export default function LegendaryActions({ form }: IChildForm) {
 						}}
 					>
 						<Plus className="w-4 h-4 mr-1" />
-						Add L. Action
+						Add Legendary Action
 					</Button>
 				</div>
 			)}
