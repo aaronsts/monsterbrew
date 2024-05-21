@@ -37,10 +37,8 @@ export default function ClientEditor() {
 			<div className="flex flex-col relative gap-3">
 				<div className="print:hidden flex items-center justify-between sticky top-16 bg-white pb-3 gap-3">
 					<CreatureListSelect />
-					<div className="flex gap-2 items-center">
-						<h3>Save as:</h3>
-						<ExportOptions />
-					</div>
+
+					<ExportOptions />
 				</div>
 				<Statblock loadCreatureValues={loadCreatureValues} />
 			</div>

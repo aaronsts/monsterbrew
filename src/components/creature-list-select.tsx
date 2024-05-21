@@ -22,6 +22,7 @@ import { useCreaturesStore } from "@/store/zustand";
 import { useQuery } from "@tanstack/react-query";
 import { getCreature } from "@/services/creatures";
 import { Monster5e } from "@/types/monster5e";
+import LoadingSpinner from "./ui/loading-spinner";
 
 type Option = {
 	slug: string;
@@ -40,7 +41,7 @@ export function CreatureListSelect() {
 		setSelectedCreature(selectedStatus.slug);
 	}, [selectedStatus, setSelectedCreature]);
 
-	const { data } = useQuery({
+	const { data, isLoading } = useQuery({
 		queryKey: ["creature", selectedCreature],
 		queryFn: () => getCreature(selectedCreature),
 	});
@@ -51,21 +52,27 @@ export function CreatureListSelect() {
 
 	if (isDesktop) {
 		return (
-			<Popover open={open} onOpenChange={setOpen}>
-				<PopoverTrigger asChild>
-					<Button variant="secondary" className="w-56 flex justify-between">
-						{selectedStatus ? (
-							<span>{selectedStatus.name}</span>
-						) : (
-							<span>Search Creatures...</span>
-						)}
-						<CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-					</Button>
-				</PopoverTrigger>
-				<PopoverContent className="w-[200px] p-0" align="start">
-					<StatusList setOpen={setOpen} setSelectedStatus={setSelectedStatus} />
-				</PopoverContent>
-			</Popover>
+			<div className="flex items-center gap-3">
+				<Popover open={open} onOpenChange={setOpen}>
+					<PopoverTrigger asChild>
+						<Button variant="secondary" className="w-56 flex justify-between">
+							{selectedStatus ? (
+								<span>{selectedStatus.name}</span>
+							) : (
+								<span>Search Creatures...</span>
+							)}
+							<CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+						</Button>
+					</PopoverTrigger>
+					<PopoverContent className="w-[200px] p-0" align="start">
+						<StatusList
+							setOpen={setOpen}
+							setSelectedStatus={setSelectedStatus}
+						/>
+					</PopoverContent>
+				</Popover>
+				{isLoading && <LoadingSpinner />}
+			</div>
 		);
 	}
 
