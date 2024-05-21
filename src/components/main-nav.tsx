@@ -14,7 +14,7 @@ import {
 
 export function MainNavigation() {
 	return (
-		<div className="max-w-7xl mx-auto flex sticky top-0 bg-white z-20 justify-start h-16 px-3">
+		<div className="print:hidden max-w-7xl mx-auto flex sticky top-0 bg-white z-20 justify-start h-16 px-3">
 			<NavigationMenu>
 				<NavigationMenuList>
 					<NavigationMenuItem>

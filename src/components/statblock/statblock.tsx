@@ -45,7 +45,7 @@ const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 	);
 
 	return (
-		<div className="w-full text-cararra-950 space-y-3">
+		<div className="w-full print:columns-2 text-cararra-950 space-y-3">
 			<div className="flex justify-between">
 				<div>
 					<h2 className="leading-none">{creature.name}</h2>
@@ -56,7 +56,7 @@ const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 				<Button
 					type="button"
 					variant="secondary"
-					className="bg-tower-500 text-white border-tower-700 hover:bg-tower-700"
+					className="bg-tower-500 print:hidden text-white border-tower-700 hover:bg-tower-700"
 					onClick={loadCreatureValues}
 				>
 					Edit

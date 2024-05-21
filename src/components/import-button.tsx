@@ -64,7 +64,7 @@ export default function ImportButton() {
 	return (
 		<Sheet>
 			<SheetTrigger asChild>
-				<Button className="w-fit" variant="primary">
+				<Button className="w-fit print:hidden" variant="primary">
 					Import Creature
 				</Button>
 			</SheetTrigger>

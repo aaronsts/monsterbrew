@@ -36,7 +36,7 @@ interface StatblockFormProps {
 
 export default function StatblockForm({ form, onSubmit }: StatblockFormProps) {
 	return (
-		<div className="md:w-full">
+		<div className="md:w-full print:hidden">
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
