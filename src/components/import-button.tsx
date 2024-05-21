@@ -47,6 +47,7 @@ export default function ImportButton() {
 					const statblock = tetraToOpen5e(
 						JSON.parse(fileReader.result as string)
 					);
+
 					setImportedStatblock(statblock);
 				} else {
 					// Remove File from filelist if not json format
