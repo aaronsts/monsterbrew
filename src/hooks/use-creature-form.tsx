@@ -68,6 +68,8 @@ export function useCreatureForm() {
 			lair_actions: creature.lair_actions || null,
 			regional_desc: creature.regional_desc || "",
 			regional_actions: creature.regional_actions || null,
+			mythic_desc: creature.regional_desc || "",
+			mythic_actions: creature.regional_actions || null,
 			environments: creature.environments,
 			img_main: creature.img_main,
 			page_no: creature.page_no,

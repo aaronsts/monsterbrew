@@ -24,6 +24,7 @@ import {
 	Skills,
 	SpecialAbilities,
 	RegionalActions,
+	MythicActions,
 } from "../statblock-form";
 import { UseFormReturn } from "react-hook-form";
 import { Monster5e } from "@/types/monster5e";
@@ -94,6 +95,7 @@ export default function StatblockForm({ form, onSubmit }: StatblockFormProps) {
 						<LegendaryActions form={form} />
 						<LairActions form={form} />
 						<RegionalActions form={form} />
+						<MythicActions form={form} />
 					</div>
 					<Button variant="primary" type="submit">
 						Create Creature

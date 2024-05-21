@@ -32,6 +32,8 @@ export const initialFormValues = {
 	lair_actions: [],
 	regional_desc: "",
 	regional_actions: [],
+	mythic_desc: "",
+	mythic_actions: [],
 	damage_vulnerabilities: "",
 	damage_resistances: "",
 	damage_immunities: "",

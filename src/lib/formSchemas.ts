@@ -96,6 +96,17 @@ export const monsterStatblockSchema = z.object({
 			})
 		)
 		.nullable(),
+	mythic_desc: z.string().optional(),
+	mythic_actions: z
+		.array(
+			z.object({
+				name: z.string(),
+				desc: z.string(),
+				damage_dice: z.string().optional(),
+				attack_bonus: z.string().optional(),
+			})
+		)
+		.nullable(),
 	special_abilities: z
 		.array(
 			z.object({
