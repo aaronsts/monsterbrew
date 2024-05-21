@@ -34,6 +34,9 @@ export default function LairActions({ form }: IChildForm) {
 		if (!lairDesc) return;
 		if (lairDesc?.length === 0) return;
 		setHasLair(true);
+		return () => {
+			setHasLair(false);
+		};
 	}, [lairDesc]);
 
 	return (
@@ -131,7 +134,7 @@ export default function LairActions({ form }: IChildForm) {
 						}}
 					>
 						<Plus className="w-4 h-4 mr-1" />
-						Add L. Action
+						Add Lair Action
 					</Button>
 				</div>
 			)}

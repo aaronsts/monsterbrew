@@ -16,54 +16,54 @@ import { Plus, Trash2 } from "lucide-react";
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
 
-export default function LegendaryActions({ form }: IChildForm) {
-	const [isLegendary, setIsLegendary] = useState(false);
+export default function MythicActions({ form }: IChildForm) {
+	const [isMythic, setIsMythic] = useState(false);
 	const { control } = form;
 	const { fields, append, remove } = useFieldArray({
-		name: "legendary_actions",
+		name: "mythic_actions",
 		control,
 	});
 
-	const legendaryDesc = useWatch({
+	const mythicDesc = useWatch({
 		control: control,
-		name: "legendary_desc",
+		name: "mythic_desc",
 	});
 
-	const toggleLegendary = () => {
-		setIsLegendary(!isLegendary);
+	const toggleMythic = () => {
+		setIsMythic(!isMythic);
 	};
 
 	useEffect(() => {
-		if (legendaryDesc?.length === 0) return;
-		setIsLegendary(true);
+		if (mythicDesc?.length === 0) return;
+		setIsMythic(true);
 		return () => {
-			setIsLegendary(false);
+			setIsMythic(false);
 		};
-	}, [isLegendary, legendaryDesc]);
+	}, [isMythic, mythicDesc]);
 
 	return (
 		<div className="w-full">
 			<div className="flex items-center border-cararra-700 mb-2 pb-2 justify-between border-b">
-				<h3>Legendary Actions</h3>
+				<h3>Mythical Actions</h3>
 				<div className="space-x-2 flex items-center">
 					<Checkbox
-						id="legendary-actions"
-						checked={isLegendary}
-						onCheckedChange={toggleLegendary}
+						id="mythic-actions"
+						checked={isMythic}
+						onCheckedChange={toggleMythic}
 					/>
 					<Label
-						htmlFor="legendary-actions"
+						htmlFor="mythic-actions"
 						className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 					>
-						Legendary Creature
+						Mythic Creature
 					</Label>
 				</div>
 			</div>
-			{isLegendary && (
+			{isMythic && (
 				<div className="flex flex-col gap-2">
 					<FormField
 						control={form.control}
-						name="legendary_desc"
+						name="mythic_desc"
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Description</FormLabel>
@@ -82,10 +82,10 @@ export default function LegendaryActions({ form }: IChildForm) {
 							<FormField
 								key={field.id}
 								control={form.control}
-								name={`legendary_actions.${index}.name`}
+								name={`mythic_actions.${index}.name`}
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Legendary Action Name</FormLabel>
+										<FormLabel>Mythic Action Name</FormLabel>
 										<div className="flex justify-between gap-2 items-center">
 											<FormControl>
 												<Input
@@ -110,7 +110,7 @@ export default function LegendaryActions({ form }: IChildForm) {
 							/>
 							<FormField
 								control={form.control}
-								name={`legendary_actions.${index}.desc`}
+								name={`mythic_actions.${index}.desc`}
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Description</FormLabel>
@@ -136,7 +136,7 @@ export default function LegendaryActions({ form }: IChildForm) {
 						}}
 					>
 						<Plus className="w-4 h-4 mr-1" />
-						Add Legendary Action
+						Add Mythic Effect
 					</Button>
 				</div>
 			)}
