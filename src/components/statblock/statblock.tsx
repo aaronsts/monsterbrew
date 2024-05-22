@@ -8,7 +8,7 @@ import { getCreature } from "@/services/creatures";
 import { useEffect } from "react";
 import { Button } from "../ui/button";
 import { capitalize } from "@/lib/utils";
-import { toggleMd } from "@/lib/markdownConverter";
+import { addMarkdown } from "@/lib/markdownConverter";
 import { Monster5e } from "@/types/monster5e";
 import Actions from "./actions";
 
@@ -28,9 +28,13 @@ const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 		if (!data) return;
 		const modifiedData: Monster5e = {
 			...data,
-			actions: toggleMd(data.actions),
-			special_abilities: toggleMd(data.special_abilities),
-			legendary_actions: toggleMd(data.legendary_actions),
+			actions: addMarkdown(data.actions),
+			reactions: addMarkdown(data.reactions),
+			special_abilities: addMarkdown(data.special_abilities),
+			legendary_actions: addMarkdown(data.legendary_actions),
+			mythic_actions: addMarkdown(data.mythic_actions),
+			regional_actions: addMarkdown(data.regional_actions),
+			lair_actions: addMarkdown(data.lair_actions),
 		};
 		setCreature(modifiedData);
 	}, [data, setCreature]);

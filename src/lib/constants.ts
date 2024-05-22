@@ -344,3 +344,12 @@ export const initialCreature = {
 		"http://dnd.wizards.com/articles/features/systems-reference-document-srd",
 	document__license: "http://open5e.com/legal",
 };
+
+export const ATTACK_TYPES = [
+	"Melee or Ranged Weapon Attack:",
+	"Melee or Ranged Spell Attack:",
+	"Melee Weapon Attack:",
+	"Melee Spell Attack:",
+	"Ranged Weapon Attack:",
+	"Ranged Spell Attack:",
+];
