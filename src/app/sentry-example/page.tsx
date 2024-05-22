@@ -1,17 +1,10 @@
+import SentryTest from "@/components/sentry-test";
 import React from "react";
 
 export default async function SentryExample() {
 	return (
 		<div>
-			<button
-				type="button"
-				onClick={() => {
-					throw new Error("Sentry Frontend Error");
-				}}
-			>
-				Throw error
-			</button>
-			;
+			<SentryTest />
 		</div>
 	);
 }
