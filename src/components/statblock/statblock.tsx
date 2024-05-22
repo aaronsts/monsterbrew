@@ -27,7 +27,12 @@ const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 	}, [data, setCreature]);
 
 	if (isLoading) return <div className="font-yatra">Loading</div>;
-	if (error) return <div>{error.message}</div>;
+	if (error)
+		return (
+			<div className="font-yatra">
+				Something went wrong: could not load creature, please try again.
+			</div>
+		);
 
 	const skills = Object.entries(creature.skills)
 		.map((skl) => `${capitalize(skl[0])} +${skl[1]}`)
