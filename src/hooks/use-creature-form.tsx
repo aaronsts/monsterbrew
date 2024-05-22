@@ -5,6 +5,7 @@ import {
 } from "@/lib/calculations";
 import { CHALLENGE_RATINGS, initialFormValues } from "@/lib/constants";
 import { monsterStatblockSchema } from "@/lib/formSchemas";
+import { toggleMd } from "@/lib/markdownConverter";
 import { capitalize } from "@/lib/utils";
 import { useCreatureFormStore } from "@/store/creatureForm";
 import { useCreaturesStore } from "@/store/zustand";
@@ -30,7 +31,6 @@ export function useCreatureForm() {
 	});
 
 	function loadCreatureValues() {
-		console.log(creature.size, creature.type);
 		const proficiencyBonus = CHALLENGE_RATINGS.find(
 			(cr) => cr.label === creature.challenge_rating
 		);
@@ -38,6 +38,18 @@ export function useCreatureForm() {
 			toast.error("No Proficiency Bonus Found");
 			return;
 		}
+
+		const specialAbilities = toggleMd(creature.special_abilities);
+
+		const actions = creature.actions!.map((action) => {
+			const name = action.name.replace(/\*/g, "");
+			return {
+				name: name,
+				desc: action.desc,
+				damage_dice: action.damage_dice,
+				attack_bonus: action.attack_bonus,
+			};
+		});
 
 		form.reset({
 			...initialFormValues,
@@ -61,8 +73,8 @@ export function useCreatureForm() {
 			senses: creature.senses?.split("passive Perception")[0],
 			languages: creature.languages!.length > 0 ? creature.languages : "--",
 			challenge_rating: proficiencyBonus.value,
-			special_abilities: creature.special_abilities,
-			actions: creature.actions,
+			special_abilities: specialAbilities,
+			actions: actions,
 			reactions: creature.reactions,
 			legendary_desc: creature.legendary_desc || "",
 			legendary_actions: creature.legendary_actions || [],
@@ -191,6 +203,18 @@ export function useCreatureForm() {
 		if (values.languages!.length === 0) {
 			values.languages = "--";
 		}
+		console.log(values.special_abilities);
+		values.special_abilities = values.special_abilities
+			? values.special_abilities.map((ability) => ({
+					name: `***${ability.name}***`,
+					desc: ability.desc,
+			  }))
+			: null;
+
+		values.actions = values.actions!.map((action) => ({
+			name: `***${action.name}***`,
+			desc: action.desc,
+		}));
 
 		setCreature(values);
 

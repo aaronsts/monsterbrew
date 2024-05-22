@@ -52,7 +52,7 @@ export const monsterStatblockSchema = z.object({
 				attack_bonus: z.coerce.number().optional(),
 			})
 		)
-		.optional(),
+		.nullable(),
 	reactions: z
 		.array(
 			z.object({
@@ -113,7 +113,7 @@ export const monsterStatblockSchema = z.object({
 				name: z.string(),
 				desc: z.string(),
 				damage_dice: z.string().optional(),
-				attack_bonus: z.string().optional(),
+				attack_bonus: z.coerce.number().optional(),
 			})
 		)
 		.nullable(),

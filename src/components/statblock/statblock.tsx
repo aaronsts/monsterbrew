@@ -8,6 +8,7 @@ import { getCreature } from "@/services/creatures";
 import { useEffect } from "react";
 import { Button } from "../ui/button";
 import { capitalize } from "@/lib/utils";
+import Markdown from "react-markdown";
 
 interface StatblockProps {
 	loadCreatureValues: () => void;
@@ -153,27 +154,22 @@ const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 				</div>
 			</div>
 			<Divider />
-			<div className="py-1 space-y-1.5">
-				{creature.special_abilities &&
-					creature.special_abilities.map((ability) => (
-						<div className="flex gap-2" key={ability.name}>
-							<p>
-								<span className="font-bold">{ability.name}.</span>{" "}
-								{ability.desc}
-							</p>
-						</div>
+			{creature.special_abilities && (
+				<div className="py-1">
+					{creature.special_abilities.map((ability, i) => (
+						<Markdown key={ability.name + i}>
+							{ability.name + ". " + ability.desc}
+						</Markdown>
 					))}
-			</div>
+				</div>
+			)}
 			{creature.actions && (
 				<div className="space-y-2">
-					<h2 className="border-b border-zinc-700">Actions</h2>
-					{creature.actions.map((ability) => (
-						<div className="flex gap-2" key={ability.name}>
-							<p>
-								<span className="font-bold">{ability.name}.</span>{" "}
-								{ability.desc}
-							</p>
-						</div>
+					<h2 className="border-b border-danger-800">Actions</h2>
+					{creature.actions.map((ability, i) => (
+						<Markdown key={ability.name + i}>
+							{ability.name + ". " + ability.desc}
+						</Markdown>
 					))}
 				</div>
 			)}
