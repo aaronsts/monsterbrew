@@ -34,7 +34,7 @@ export default function RegionalActions({ form }: IChildForm) {
 	};
 
 	useEffect(() => {
-		if (regionalActions?.length === 0) return;
+		if (regionalActions?.length === 0 || regionalActions === null) return;
 		setIsRegional(true);
 		return () => {
 			setIsRegional(false);

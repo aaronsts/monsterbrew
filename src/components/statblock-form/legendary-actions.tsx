@@ -34,7 +34,7 @@ export default function LegendaryActions({ form }: IChildForm) {
 	};
 
 	useEffect(() => {
-		if (legendaryActions?.length === 0) return;
+		if (legendaryActions?.length === 0 || legendaryActions === null) return;
 		setIsLegendary(true);
 		return () => {
 			setIsLegendary(false);

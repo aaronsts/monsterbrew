@@ -30,7 +30,6 @@ export function useCreatureForm() {
 	});
 
 	function loadCreatureValues() {
-		console.log(creature.size, creature.type);
 		const proficiencyBonus = CHALLENGE_RATINGS.find(
 			(cr) => cr.label === creature.challenge_rating
 		);
@@ -67,11 +66,11 @@ export function useCreatureForm() {
 			legendary_desc: creature.legendary_desc || "",
 			legendary_actions: creature.legendary_actions || [],
 			lair_desc: creature.lair_desc || "",
-			lair_actions: creature.lair_actions || null,
+			lair_actions: creature.lair_actions || [],
 			regional_desc: creature.regional_desc || "",
-			regional_actions: creature.regional_actions || null,
+			regional_actions: creature.regional_actions || [],
 			mythic_desc: creature.regional_desc || "",
-			mythic_actions: creature.regional_actions || null,
+			mythic_actions: creature.regional_actions || [],
 			environments: creature.environments,
 			img_main: creature.img_main,
 			page_no: creature.page_no,

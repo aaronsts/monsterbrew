@@ -142,6 +142,9 @@ export function tetraToOpen5e(statblock: MonsterTetraCube) {
 		regional_actions: statblock.regionals,
 		mythic_desc: statblock.mythicDescription,
 		mythic_actions: statblock.mythics,
+		img_main: "",
+		environments: [],
+		spell_list: [],
 		...savingThrows,
 	};
 

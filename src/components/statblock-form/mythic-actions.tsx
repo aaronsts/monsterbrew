@@ -34,7 +34,7 @@ export default function MythicActions({ form }: IChildForm) {
 	};
 
 	useEffect(() => {
-		if (mythicActions?.length === 0) return;
+		if (mythicActions?.length === 0 || mythicActions === null) return;
 		setIsMythic(true);
 		return () => {
 			setIsMythic(false);
