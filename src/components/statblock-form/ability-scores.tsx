@@ -7,7 +7,7 @@ import {
 	FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { monsterStatblockSchema } from "@/lib/formSchemas";
+import { monsterStatblockSchema } from "@/lib/schemas";
 import { UseFormReturn } from "react-hook-form";
 import { Divider } from "../ui/divider";
 

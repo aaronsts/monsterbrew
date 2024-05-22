@@ -4,7 +4,7 @@ import {
 	calculateSkillSaves,
 } from "@/lib/calculations";
 import { CHALLENGE_RATINGS, initialFormValues } from "@/lib/constants";
-import { monsterStatblockSchema } from "@/lib/formSchemas";
+import { monsterStatblockSchema } from "@/lib/schemas";
 import { toggleMd } from "@/lib/markdownConverter";
 import { capitalize } from "@/lib/utils";
 import { useCreatureFormStore } from "@/store/creatureForm";

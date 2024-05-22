@@ -8,7 +8,9 @@ import { getCreature } from "@/services/creatures";
 import { useEffect } from "react";
 import { Button } from "../ui/button";
 import { capitalize } from "@/lib/utils";
-import Markdown from "react-markdown";
+import { toggleMd } from "@/lib/markdownConverter";
+import { Monster5e } from "@/types/monster5e";
+import Actions from "./actions";
 
 interface StatblockProps {
 	loadCreatureValues: () => void;
@@ -24,7 +26,13 @@ const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 
 	useEffect(() => {
 		if (!data) return;
-		setCreature(data);
+		const modifiedData: Monster5e = {
+			...data,
+			actions: toggleMd(data.actions),
+			special_abilities: toggleMd(data.special_abilities),
+			legendary_actions: toggleMd(data.legendary_actions),
+		};
+		setCreature(modifiedData);
 	}, [data, setCreature]);
 
 	if (isLoading) return <div className="font-yatra">Loading</div>;
@@ -159,81 +167,14 @@ const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 				</div>
 			</div>
 			<Divider />
-			{creature.special_abilities && (
-				<div className="py-1">
-					{creature.special_abilities.map((ability, i) => (
-						<Markdown key={ability.name + i}>
-							{ability.name + ". " + ability.desc}
-						</Markdown>
-					))}
-				</div>
-			)}
-			{creature.actions && (
-				<div className="space-y-2">
-					<h2 className="border-b border-danger-800">Actions</h2>
-					{creature.actions.map((ability, i) => (
-						<Markdown key={ability.name + i}>
-							{ability.name + ". " + ability.desc}
-						</Markdown>
-					))}
-				</div>
-			)}
-			{creature.reactions && (
-				<div className="space-y-2">
-					<h2 className="border-b border-zinc-700">Reactions</h2>
-					{creature.reactions.map((ability) => (
-						<div className="flex gap-2" key={ability.name}>
-							<p>
-								<span className="font-bold">{ability.name}.</span>{" "}
-								{ability.desc}
-							</p>
-						</div>
-					))}
-				</div>
-			)}
-			{creature.legendary_actions &&
-				creature.legendary_actions.length !== 0 && (
-					<div className="space-y-2">
-						<h2 className="border-b border-zinc-700">Legendary Actions</h2>
-						<p>{creature.legendary_desc}</p>
-						{creature.legendary_actions.map((ability) => (
-							<div className="flex gap-2" key={ability.name}>
-								<p>
-									<span className="font-bold">{ability.name}.</span>{" "}
-									{ability.desc}
-								</p>
-							</div>
-						))}
-					</div>
-				)}
-			{creature.regional_actions && creature.regional_actions.length !== 0 && (
-				<div className="space-y-2">
-					<h2 className="border-b border-zinc-700">Regional Effects</h2>
-					<p>{creature.regional_desc}</p>
-					{creature.regional_actions.map((ability) => (
-						<div className="flex gap-2" key={ability.name}>
-							<p>
-								<span className="font-bold">{ability.name}.</span>{" "}
-								{ability.desc}
-							</p>
-						</div>
-					))}
-				</div>
-			)}
-			{creature.mythic_actions && creature.mythic_actions.length !== 0 && (
-				<div className="space-y-2">
-					<h2 className="border-b border-zinc-700">Mythical Actions</h2>
-					<p>{creature.mythic_desc}</p>
-					{creature.mythic_actions.map((ability) => (
-						<div className="flex gap-2" key={ability.name}>
-							<p>
-								<span className="font-bold">{ability.name}.</span>{" "}
-								{ability.desc}
-							</p>
-						</div>
-					))}
-				</div>
-			)}
+			<div className="space-y-3">
+				<Actions type="special_abilities" />
+				<Actions title="Actions" type="actions" />
+				<Actions title="Reactions" type="reactions" />
+				<Actions title="Legendary Actions" type="legendary_actions" />
+				<Actions title="Mythical Actions" type="mythic_actions" />
+				<Actions title="Regional Effects" type="regional_actions" />
+			</div>
 		</div>
 	);
 };
