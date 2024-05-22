@@ -6,7 +6,7 @@ export default function Home() {
 		<main className="flex min-h-screen flex-col items-center justify-between p-24">
 			<div className="flex flex-col gap-3">
 				<h1 className="font-yatra capitalize">
-					Unique creatures <br /> for your D&D advendures
+					Unique creatures <br /> for your D&D adventures
 				</h1>
 				<p className="font-short max-w-xl pb-3">
 					Start from scratch or select a preset creature and bring it to life.

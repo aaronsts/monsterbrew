@@ -164,10 +164,10 @@ const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 						</div>
 					))}
 			</div>
-			<div className="space-y-2">
-				<h2 className="border-b border-zinc-700">Actions</h2>
-				{creature.actions &&
-					creature.actions.map((ability) => (
+			{creature.actions && (
+				<div className="space-y-2">
+					<h2 className="border-b border-zinc-700">Actions</h2>
+					{creature.actions.map((ability) => (
 						<div className="flex gap-2" key={ability.name}>
 							<p>
 								<span className="font-bold">{ability.name}.</span>{" "}
@@ -175,7 +175,21 @@ const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 							</p>
 						</div>
 					))}
-			</div>
+				</div>
+			)}
+			{creature.reactions && (
+				<div className="space-y-2">
+					<h2 className="border-b border-zinc-700">Reactions</h2>
+					{creature.reactions.map((ability) => (
+						<div className="flex gap-2" key={ability.name}>
+							<p>
+								<span className="font-bold">{ability.name}.</span>{" "}
+								{ability.desc}
+							</p>
+						</div>
+					))}
+				</div>
+			)}
 			{creature.legendary_actions &&
 				creature.legendary_actions.length !== 0 && (
 					<div className="space-y-2">
