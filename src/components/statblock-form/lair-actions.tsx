@@ -31,7 +31,7 @@ export default function LairActions({ form }: IChildForm) {
 	};
 
 	useEffect(() => {
-		if (lairActions?.length === 0) return;
+		if (lairActions?.length === 0 || lairActions === null) return;
 		setHasLair(true);
 		return () => {
 			setHasLair(false);
