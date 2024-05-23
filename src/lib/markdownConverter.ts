@@ -24,12 +24,15 @@ export function addMarkdown(actions: Monster5e["actions"]) {
 
 export function toggleBoldItalic(string: string) {
 	if (string.includes("***")) {
-		return string.replace(/\*/g, "");
+		return string.replaceAll("*", "");
 	}
 	return `***${string}***`;
 }
 
 export function addItalic(string: string, subString: string) {
+	if (string.includes("_")) {
+		return string.replaceAll("_", "*");
+	}
 	if (string.includes("*")) {
 		return string;
 	}

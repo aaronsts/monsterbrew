@@ -2,6 +2,7 @@ import { Monster5e, MonsterTetraCube } from "@/types/monster5e";
 import { monster_sizes } from "./constants";
 import { capitalize } from "./utils";
 import { calculateHitPoints } from "./calculations";
+import { addMarkdown } from "./markdownConverter";
 
 export function tetraToOpen5e(statblock: MonsterTetraCube) {
 	console.log(statblock);
@@ -111,7 +112,7 @@ export function tetraToOpen5e(statblock: MonsterTetraCube) {
 		type: statblock.type,
 		size: statblock.size,
 		alignment: statblock.alignment,
-		hit_points: calculateHitPoints(hitDice, hitModifier.toString()),
+		hit_points: calculateHitPoints(hitDice, hitModifier),
 		hit_dice: hitDice,
 		hit_modifier: hitModifier,
 		armor_class: parseInt(statblock.otherArmorDesc.split(" ")[0]),
@@ -131,17 +132,17 @@ export function tetraToOpen5e(statblock: MonsterTetraCube) {
 		damage_resistances: resistances,
 		damage_immunities: immunities,
 		damage_vulnerabilities: vulnerabilities,
-		special_abilities: [...statblock.abilities],
-		actions: [...statblock.actions],
-		reactions: [...statblock.reactions],
+		special_abilities: addMarkdown(statblock.abilities),
+		actions: addMarkdown(statblock.actions),
+		reactions: addMarkdown(statblock.reactions),
 		legendary_desc: statblock.legendariesDescription,
-		legendary_actions: [...statblock.legendaries],
+		legendary_actions: addMarkdown(statblock.legendaries),
 		lair_desc: statblock.lairDescription,
-		lair_actions: [...statblock.lairs],
+		lair_actions: addMarkdown(statblock.lairs),
 		regional_desc: statblock.regionalDescription,
-		regional_actions: statblock.regionals,
+		regional_actions: addMarkdown(statblock.regionals),
 		mythic_desc: statblock.mythicDescription,
-		mythic_actions: statblock.mythics,
+		mythic_actions: addMarkdown(statblock.mythics),
 		img_main: "",
 		environments: [],
 		spell_list: [],
