@@ -2,14 +2,16 @@ import { Monster5e, MonsterTetraCube } from "@/types/monster5e";
 import { monster_sizes } from "./constants";
 import { capitalize } from "./utils";
 import { calculateHitPoints } from "./calculations";
+import { addMarkdown } from "./markdownConverter";
 
 export function tetraToOpen5e(statblock: MonsterTetraCube) {
-	console.log(statblock);
+	if (process.env.NODE_ENV === "development")
+		console.log("statblock", statblock);
+
 	const savingThrows: any = {};
 	const monsterSize = monster_sizes.find(
 		(size) => size.value.toLowerCase() === statblock.size.toLowerCase()
 	);
-
 	statblock.sthrows.forEach((t) => {
 		switch (t.name) {
 			case "str":
@@ -82,8 +84,12 @@ export function tetraToOpen5e(statblock: MonsterTetraCube) {
 
 	const senses = Object.entries(sensesObj)
 		.filter((sense) => sense[1] !== 0)
-		.map((sense) => `${sense[0].toLowerCase()} ${sense[1]}ft.`)
+		.map((sense) => `${sense[0].toLowerCase()} ${sense[1]} ft.`)
 		.join(", ");
+
+	const passivePerception = skills.hasOwnProperty("perception")
+		? 10 + skills.perception
+		: 10 + Math.floor(statblock.wisPoints / 2) - 5;
 
 	const languages = statblock.languages.map((lang) => lang.name).join(", ");
 
@@ -111,7 +117,7 @@ export function tetraToOpen5e(statblock: MonsterTetraCube) {
 		type: statblock.type,
 		size: statblock.size,
 		alignment: statblock.alignment,
-		hit_points: calculateHitPoints(hitDice, hitModifier.toString()),
+		hit_points: calculateHitPoints(hitDice, hitModifier),
 		hit_dice: hitDice,
 		hit_modifier: hitModifier,
 		armor_class: parseInt(statblock.otherArmorDesc.split(" ")[0]),
@@ -123,25 +129,31 @@ export function tetraToOpen5e(statblock: MonsterTetraCube) {
 		intelligence: statblock.intPoints,
 		wisdom: statblock.wisPoints,
 		charisma: statblock.chaPoints,
+		strength_save: null,
+		dexterity_save: null,
+		constitution_save: null,
+		intelligence_save: null,
+		wisdom_save: null,
+		charisma_save: null,
 		challenge_rating: statblock.cr,
 		languages: languages || "--",
-		senses: senses,
+		senses: [senses, `passive Perception ${passivePerception}`].join(", "),
 		skills: skills,
 		condition_immunities: conditions,
 		damage_resistances: resistances,
 		damage_immunities: immunities,
 		damage_vulnerabilities: vulnerabilities,
-		special_abilities: [...statblock.abilities],
-		actions: [...statblock.actions],
-		reactions: [...statblock.reactions],
+		special_abilities: addMarkdown(statblock.abilities),
+		actions: addMarkdown(statblock.actions),
+		reactions: addMarkdown(statblock.reactions),
 		legendary_desc: statblock.legendariesDescription,
-		legendary_actions: [...statblock.legendaries],
+		legendary_actions: addMarkdown(statblock.legendaries),
 		lair_desc: statblock.lairDescription,
-		lair_actions: [...statblock.lairs],
+		lair_actions: addMarkdown(statblock.lairs),
 		regional_desc: statblock.regionalDescription,
-		regional_actions: statblock.regionals,
+		regional_actions: addMarkdown(statblock.regionals),
 		mythic_desc: statblock.mythicDescription,
-		mythic_actions: statblock.mythics,
+		mythic_actions: addMarkdown(statblock.mythics),
 		img_main: "",
 		environments: [],
 		spell_list: [],

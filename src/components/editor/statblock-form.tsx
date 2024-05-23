@@ -28,6 +28,7 @@ import {
 } from "../statblock-form";
 import { UseFormReturn } from "react-hook-form";
 import { Monster5e } from "@/types/monster5e";
+import { Textarea } from "../ui/textarea";
 
 interface StatblockFormProps {
 	form: UseFormReturn<Monster5e>;
@@ -96,6 +97,21 @@ export default function StatblockForm({ form, onSubmit }: StatblockFormProps) {
 						<LairActions form={form} />
 						<RegionalActions form={form} />
 						<MythicActions form={form} />
+					</div>
+					<div>
+						<FormField
+							control={form.control}
+							name="desc"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Description</FormLabel>
+									<FormControl>
+										<Textarea {...field} />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
 					</div>
 					<Button variant="primary" type="submit">
 						Create Creature

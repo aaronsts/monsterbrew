@@ -23,7 +23,7 @@ export const monsterStatblockSchema = z.object({
 	hit_dice: z.string().regex(new RegExp(/(\d*)d(4|6|8|10|12|20)/gm), {
 		message: "Please use a format like 2d20",
 	}),
-	hit_modifier: z.string().optional(),
+	hit_modifier: z.coerce.number(),
 	speed: z.object({
 		walk: z.coerce.string().optional(),
 		swim: z.coerce.string().optional(),
@@ -52,14 +52,14 @@ export const monsterStatblockSchema = z.object({
 				attack_bonus: z.coerce.number().optional(),
 			})
 		)
-		.optional(),
+		.nullable(),
 	reactions: z
 		.array(
 			z.object({
 				name: z.string(),
 				desc: z.string(),
 				damage_dice: z.string().optional(),
-				attack_bonus: z.string().optional(),
+				attack_bonus: z.coerce.number().optional(),
 			})
 		)
 		.nullable(),
@@ -70,7 +70,7 @@ export const monsterStatblockSchema = z.object({
 				name: z.string(),
 				desc: z.string(),
 				damage_dice: z.string().optional(),
-				attack_bonus: z.string().optional(),
+				attack_bonus: z.coerce.number().optional(),
 			})
 		)
 		.nullable(),
@@ -81,7 +81,7 @@ export const monsterStatblockSchema = z.object({
 				name: z.string(),
 				desc: z.string(),
 				damage_dice: z.string().optional(),
-				attack_bonus: z.string().optional(),
+				attack_bonus: z.coerce.number().optional(),
 			})
 		)
 		.nullable(),
@@ -92,7 +92,7 @@ export const monsterStatblockSchema = z.object({
 				name: z.string(),
 				desc: z.string(),
 				damage_dice: z.string().optional(),
-				attack_bonus: z.string().optional(),
+				attack_bonus: z.coerce.number().optional(),
 			})
 		)
 		.nullable(),
@@ -103,7 +103,7 @@ export const monsterStatblockSchema = z.object({
 				name: z.string(),
 				desc: z.string(),
 				damage_dice: z.string().optional(),
-				attack_bonus: z.string().optional(),
+				attack_bonus: z.coerce.number().optional(),
 			})
 		)
 		.nullable(),
@@ -113,7 +113,7 @@ export const monsterStatblockSchema = z.object({
 				name: z.string(),
 				desc: z.string(),
 				damage_dice: z.string().optional(),
-				attack_bonus: z.string().optional(),
+				attack_bonus: z.coerce.number().optional(),
 			})
 		)
 		.nullable(),

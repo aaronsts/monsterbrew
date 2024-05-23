@@ -16,12 +16,11 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { useCreaturesStore } from "@/store/zustand";
 import { useQuery } from "@tanstack/react-query";
 import { getCreature } from "@/services/creatures";
-import { Monster5e } from "@/types/monster5e";
 import LoadingSpinner from "./ui/loading-spinner";
 
 type Option = {
@@ -31,8 +30,7 @@ type Option = {
 
 export function CreatureListSelect() {
 	const [open, setOpen] = useState(false);
-	const { setCreature, setSelectedCreature, selectedCreature } =
-		useCreaturesStore();
+	const { setSelectedCreature, selectedCreature } = useCreaturesStore();
 	const isDesktop = useMediaQuery("(min-width: 768px)");
 	const [selectedStatus, setSelectedStatus] = useState<Option | null>(null);
 
@@ -41,14 +39,10 @@ export function CreatureListSelect() {
 		setSelectedCreature(selectedStatus.slug);
 	}, [selectedStatus, setSelectedCreature]);
 
-	const { data, isLoading } = useQuery({
+	const { isLoading } = useQuery({
 		queryKey: ["creature", selectedCreature],
 		queryFn: () => getCreature(selectedCreature),
 	});
-
-	useEffect(() => {
-		setCreature(data as Monster5e);
-	}, [data, setCreature]);
 
 	if (isDesktop) {
 		return (

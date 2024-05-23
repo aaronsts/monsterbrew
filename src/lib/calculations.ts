@@ -37,10 +37,10 @@ export function calculateSkillSaves(
 	return newSKillList;
 }
 
-export function calculateHitPoints(hit_dice: string, hit_modifier?: string) {
+export function calculateHitPoints(hit_dice: string, hit_modifier?: number) {
 	// hit_dice: 12d8
 	const dice = hit_dice.split("d");
-	const modifier = hit_modifier ? parseInt(hit_modifier) : 0;
+	const modifier = hit_modifier ? hit_modifier : 0;
 	const hp =
 		parseInt(dice[0]) + Math.floor(parseInt(dice[0]) * parseInt(dice[1]));
 	const medianHp = Math.floor(hp / 2 + modifier);
