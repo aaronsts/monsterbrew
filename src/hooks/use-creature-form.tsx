@@ -48,8 +48,7 @@ export function useCreatureForm() {
 			armor_class: creature.armor_class,
 			armor_desc: creature.armor_desc || "",
 			hit_dice: creature.hit_dice.split("+")[0],
-			hit_modifier:
-				creature.hit_modifier || parseInt(creature.hit_dice.split("+")[1]),
+			hit_modifier: creature.hit_modifier,
 			speed: {
 				...creature.speed,
 			},

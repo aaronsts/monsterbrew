@@ -81,7 +81,7 @@ export function tetraToOpen5e(statblock: MonsterTetraCube) {
 
 	const senses = Object.entries(sensesObj)
 		.filter((sense) => sense[1] !== 0)
-		.map((sense) => `${sense[0].toLowerCase()} ${sense[1]} Ft.`)
+		.map((sense) => `${sense[0].toLowerCase()} ${sense[1]} ft.`)
 		.join(", ");
 
 	const passivePerception = skills.hasOwnProperty("perception")

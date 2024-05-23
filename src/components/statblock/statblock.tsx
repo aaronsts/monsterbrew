@@ -26,10 +26,13 @@ const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 
 	useEffect(() => {
 		if (!data) return;
+		const hitPointsFormula = data.hit_dice.split("+");
 		const modifiedData: Monster5e = {
 			...data,
 			actions: addMarkdown(data.actions),
 			reactions: addMarkdown(data.reactions),
+			hit_dice: hitPointsFormula[0],
+			hit_modifier: hitPointsFormula[1] ? parseInt(hitPointsFormula[1]) : 0,
 			special_abilities: addMarkdown(data.special_abilities),
 			legendary_actions: addMarkdown(data.legendary_actions),
 			mythic_actions: addMarkdown(data.mythic_actions),
@@ -151,7 +154,7 @@ const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 						<span className="font-sans">{creature.damage_immunities}</span>
 					</p>
 				)}
-				<p className="capitalize font-yatra">
+				<p className="font-yatra">
 					Senses <span className="font-sans">{creature.senses}</span>
 				</p>
 				<p className="capitalize font-yatra">
