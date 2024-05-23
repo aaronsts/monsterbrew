@@ -243,6 +243,7 @@ export const initialCreature = {
 	armor_desc: "natural armor",
 	hit_points: 367,
 	hit_dice: "21d20+147",
+	hit_modifier: 147,
 	speed: {
 		walk: "40",
 		swim: "40",
