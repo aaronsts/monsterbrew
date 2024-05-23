@@ -75,6 +75,7 @@ export function useCreatureForm() {
 			environments: creature.environments,
 			img_main: creature.img_main,
 			page_no: creature.page_no,
+			desc: creature.desc,
 			spell_list: creature.spell_list,
 			document__license_url: creature.document__license_url,
 			document__slug: creature.document__slug,
