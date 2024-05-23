@@ -11,6 +11,7 @@ import { capitalize } from "@/lib/utils";
 import { addMarkdown } from "@/lib/markdownConverter";
 import { Monster5e } from "@/types/monster5e";
 import Actions from "./actions";
+import Markdown from "react-markdown";
 
 interface StatblockProps {
 	loadCreatureValues: () => void;
@@ -182,6 +183,12 @@ const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 				<Actions title="Mythical Actions" type="mythic_actions" />
 				<Actions title="Regional Effects" type="regional_actions" />
 			</div>
+			{creature.desc && creature.desc?.length > 0 && (
+				<div className="space-y-2">
+					<h2 className="border-b border-zinc-700">Description</h2>
+					<Markdown>{creature.desc}</Markdown>
+				</div>
+			)}
 		</div>
 	);
 };

@@ -1,6 +1,7 @@
 export const initialFormValues = {
 	name: "",
 	type: "",
+	desc: "",
 	size: "",
 	alignment: "",
 	armor_class: 0,
@@ -338,6 +339,7 @@ export const initialCreature = {
 	wisdom_save: 9,
 	charisma_save: 11,
 	environments: [],
+	description: "",
 	img_main: "",
 	document__slug: "wotc-srd",
 	document__title: "5e Core Rules",
