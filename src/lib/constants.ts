@@ -6,7 +6,7 @@ export const initialFormValues = {
 	armor_class: 0,
 	armor_desc: "",
 	hit_dice: "",
-	hit_modifier: "",
+	hit_modifier: 0,
 	speed: {
 		walk: "30",
 		burrow: "",
