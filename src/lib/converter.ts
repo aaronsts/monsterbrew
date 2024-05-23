@@ -5,6 +5,9 @@ import { calculateHitPoints } from "./calculations";
 import { addMarkdown } from "./markdownConverter";
 
 export function tetraToOpen5e(statblock: MonsterTetraCube) {
+	if (process.env.NODE_ENV === "development")
+		console.log("statblock", statblock);
+
 	const savingThrows: any = {};
 	const monsterSize = monster_sizes.find(
 		(size) => size.value.toLowerCase() === statblock.size.toLowerCase()
