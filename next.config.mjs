@@ -13,6 +13,7 @@ export default withSentryConfig(nextConfig, {
 
 	silent: false,
 	widenClientFileUpload: true,
+	telemetry: false,
 
 	// Transpiles SDK to be compatible with IE11 (increases bundle size)
 	transpileClientSDK: true,

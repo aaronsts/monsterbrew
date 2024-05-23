@@ -4,7 +4,8 @@ import {
 	calculateSkillSaves,
 } from "@/lib/calculations";
 import { CHALLENGE_RATINGS, initialFormValues } from "@/lib/constants";
-import { monsterStatblockSchema } from "@/lib/formSchemas";
+import { addMarkdown } from "@/lib/markdownConverter";
+import { monsterStatblockSchema } from "@/lib/schemas";
 import { capitalize } from "@/lib/utils";
 import { useCreatureFormStore } from "@/store/creatureForm";
 import { useCreaturesStore } from "@/store/zustand";
@@ -47,7 +48,7 @@ export function useCreatureForm() {
 			armor_class: creature.armor_class,
 			armor_desc: creature.armor_desc || "",
 			hit_dice: creature.hit_dice.split("+")[0],
-			hit_modifier: creature.hit_modifier || creature.hit_dice.split("+")[1],
+			hit_modifier: creature.hit_modifier,
 			speed: {
 				...creature.speed,
 			},
@@ -60,17 +61,17 @@ export function useCreatureForm() {
 			senses: creature.senses?.split("passive Perception")[0],
 			languages: creature.languages!.length > 0 ? creature.languages : "--",
 			challenge_rating: proficiencyBonus.value,
-			special_abilities: creature.special_abilities,
-			actions: creature.actions,
+			special_abilities: addMarkdown(creature.special_abilities) || [],
+			actions: addMarkdown(creature.actions),
 			reactions: creature.reactions,
 			legendary_desc: creature.legendary_desc || "",
-			legendary_actions: creature.legendary_actions || [],
+			legendary_actions: addMarkdown(creature.legendary_actions) || [],
 			lair_desc: creature.lair_desc || "",
-			lair_actions: creature.lair_actions || [],
+			lair_actions: addMarkdown(creature.lair_actions) || [],
 			regional_desc: creature.regional_desc || "",
-			regional_actions: creature.regional_actions || [],
+			regional_actions: addMarkdown(creature.regional_actions) || [],
 			mythic_desc: creature.regional_desc || "",
-			mythic_actions: creature.regional_actions || [],
+			mythic_actions: addMarkdown(creature.regional_actions) || [],
 			environments: creature.environments,
 			img_main: creature.img_main,
 			page_no: creature.page_no,
@@ -190,6 +191,14 @@ export function useCreatureForm() {
 		if (values.languages!.length === 0) {
 			values.languages = "--";
 		}
+
+		values.actions = addMarkdown(values.actions);
+		values.reactions = addMarkdown(values.reactions);
+		values.special_abilities = addMarkdown(values.special_abilities);
+		values.legendary_actions = addMarkdown(values.legendary_actions);
+		values.mythic_actions = addMarkdown(values.mythic_actions);
+		values.lair_actions = addMarkdown(values.lair_actions);
+		values.regional_actions = addMarkdown(values.regional_actions);
 
 		setCreature(values);
 

@@ -6,7 +6,7 @@ export const initialFormValues = {
 	armor_class: 0,
 	armor_desc: "",
 	hit_dice: "",
-	hit_modifier: "",
+	hit_modifier: 0,
 	speed: {
 		walk: "30",
 		burrow: "",
@@ -23,17 +23,17 @@ export const initialFormValues = {
 	wisdom: 10,
 	charisma: 10,
 	languages: "",
-	special_abilities: [],
-	actions: [],
-	reactions: [],
+	special_abilities: null,
+	actions: null,
+	reactions: null,
 	legendary_desc: "",
 	legendary_actions: [],
 	lair_desc: "",
 	lair_actions: [],
 	regional_desc: "",
-	regional_actions: [],
+	regional_actions: null,
 	mythic_desc: "",
-	mythic_actions: [],
+	mythic_actions: null,
 	damage_vulnerabilities: "",
 	damage_resistances: "",
 	damage_immunities: "",
@@ -243,6 +243,7 @@ export const initialCreature = {
 	armor_desc: "natural armor",
 	hit_points: 367,
 	hit_dice: "21d20+147",
+	hit_modifier: 147,
 	speed: {
 		walk: "40",
 		swim: "40",
@@ -344,3 +345,12 @@ export const initialCreature = {
 		"http://dnd.wizards.com/articles/features/systems-reference-document-srd",
 	document__license: "http://open5e.com/legal",
 };
+
+export const ATTACK_TYPES = [
+	"Melee or Ranged Weapon Attack:",
+	"Melee or Ranged Spell Attack:",
+	"Melee Weapon Attack:",
+	"Melee Spell Attack:",
+	"Ranged Weapon Attack:",
+	"Ranged Spell Attack:",
+];
