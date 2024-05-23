@@ -1,5 +1,5 @@
 import { useCreaturesStore } from "@/store/zustand";
-import React from "react";
+import React, { useEffect } from "react";
 import Markdown from "react-markdown";
 
 interface ActionProps {
@@ -17,7 +17,7 @@ interface ActionProps {
 export default function Actions({ type, title }: ActionProps) {
 	const { creature } = useCreaturesStore();
 
-	if (!creature[type]) return <></>;
+	if (!creature[type] || creature[type]?.length === 0) return <></>;
 	return (
 		<div className="space-y-2">
 			{title && <h2 className="border-b border-zinc-700">{title}</h2>}
