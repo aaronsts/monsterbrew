@@ -5,12 +5,10 @@ import { calculateHitPoints } from "./calculations";
 import { addMarkdown } from "./markdownConverter";
 
 export function tetraToOpen5e(statblock: MonsterTetraCube) {
-	console.log(statblock);
 	const savingThrows: any = {};
 	const monsterSize = monster_sizes.find(
 		(size) => size.value.toLowerCase() === statblock.size.toLowerCase()
 	);
-
 	statblock.sthrows.forEach((t) => {
 		switch (t.name) {
 			case "str":
@@ -83,8 +81,12 @@ export function tetraToOpen5e(statblock: MonsterTetraCube) {
 
 	const senses = Object.entries(sensesObj)
 		.filter((sense) => sense[1] !== 0)
-		.map((sense) => `${sense[0].toLowerCase()} ${sense[1]}ft.`)
+		.map((sense) => `${sense[0].toLowerCase()} ${sense[1]} Ft.`)
 		.join(", ");
+
+	const passivePerception = skills.hasOwnProperty("perception")
+		? 10 + skills.perception
+		: 10 + Math.floor(statblock.wisPoints / 2) - 5;
 
 	const languages = statblock.languages.map((lang) => lang.name).join(", ");
 
@@ -124,9 +126,15 @@ export function tetraToOpen5e(statblock: MonsterTetraCube) {
 		intelligence: statblock.intPoints,
 		wisdom: statblock.wisPoints,
 		charisma: statblock.chaPoints,
+		strength_save: null,
+		dexterity_save: null,
+		constitution_save: null,
+		intelligence_save: null,
+		wisdom_save: null,
+		charisma_save: null,
 		challenge_rating: statblock.cr,
 		languages: languages || "--",
-		senses: senses,
+		senses: [senses, `passive Perception ${passivePerception}`].join(", "),
 		skills: skills,
 		condition_immunities: conditions,
 		damage_resistances: resistances,
