@@ -1,10 +1,5 @@
-    What does this project do?
-    Why is this project useful?
-    How do I get started?
-    Where can I get more help, if I need it?
 # Monsterbrew
 
-> [!info]
 > This tool is still in early stages, there might still be issues and bugs. I'm working hard to make it bug free.
 
 ## What is it?
