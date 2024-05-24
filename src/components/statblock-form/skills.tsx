@@ -59,7 +59,7 @@ export default function Skills() {
 	};
 
 	return (
-		<FormItem className="space-y-2">
+		<FormItem>
 			<FormLabel>Skills</FormLabel>
 			<div className="flex gap-2 items-center">
 				<Button
@@ -101,31 +101,33 @@ export default function Skills() {
 					</SelectContent>
 				</Select>
 			</div>
-			<ul className="font-short gap-2 pt-2 flex flex-wrap">
-				{skillList.map((skill, i) => (
-					<li
-						key={skill.name + i}
-						className={cn(
-							"flex gap-1 px-3 py-1 border justify-between items-center sketch-border ",
-							skill.expert
-								? "bg-norway-100 border-norway-300 text-norway-950"
-								: "bg-tower-100 border-tower-300 text-tower-950"
-						)}
-					>
-						<p className="capitalize">
-							{skill.name} {skill.expert && "(expert)"}
-						</p>
-						<button
-							onClick={removeSkill}
-							data-index={i}
-							className="group border-2 p-1.5 sketch-border border-transparent transition-colors hover:border-danger-300"
-							type="button"
+			{skillList.length > 0 && (
+				<ul className="font-short pt-2 gap-2 flex flex-wrap">
+					{skillList.map((skill, i) => (
+						<li
+							key={skill.name + i}
+							className={cn(
+								"flex gap-1 px-3 py-1 border justify-between items-center sketch-border ",
+								skill.expert
+									? "bg-norway-100 border-norway-300 text-norway-950"
+									: "bg-tower-100 border-tower-300 text-tower-950"
+							)}
 						>
-							<Trash2 className="w-4 h-4 group-hover:text-danger-400 transition-colors" />
-						</button>
-					</li>
-				))}
-			</ul>
+							<p className="capitalize">
+								{skill.name} {skill.expert && "(expert)"}
+							</p>
+							<button
+								onClick={removeSkill}
+								data-index={i}
+								className="group border-2 p-1.5 sketch-border border-transparent transition-colors hover:border-danger-300"
+								type="button"
+							>
+								<Trash2 className="w-4 h-4 group-hover:text-danger-400 transition-colors" />
+							</button>
+						</li>
+					))}
+				</ul>
+			)}
 		</FormItem>
 	);
 }

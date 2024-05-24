@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const Footer = () => {
 	return (
-		<footer className="print:hidden bg-cararra-950 text-white ">
+		<footer className="print:hidden mt-6 bg-cararra-950 text-white ">
 			<div className="py-6 max-w-7xl h-full mx-auto px-3 flex flex-col gap-6 justify-between items-center">
 				<div className="flex flex-col items-center justify-center gap-3">
 					<h2>Monsterbrew</h2>

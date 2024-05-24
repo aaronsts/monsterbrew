@@ -102,7 +102,7 @@ export default function Movement({ form }: IChildForm) {
 					</FormItem>
 				)}
 			/>
-			<FormField
+			{/* <FormField
 				control={form.control}
 				name="speed.hover"
 				render={({ field }) => (
@@ -116,7 +116,7 @@ export default function Movement({ form }: IChildForm) {
 						<FormLabel>Hover</FormLabel>
 					</FormItem>
 				)}
-			/>
+			/> */}
 		</div>
 	);
 }
