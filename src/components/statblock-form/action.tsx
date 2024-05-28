@@ -24,23 +24,37 @@ import { monsterStatblockSchema } from "@/lib/schemas";
 import * as z from "zod";
 
 interface ActionProps {
+	inputName:
+		| "actions"
+		| "special_abilities"
+		| "legendary_actions"
+		| "lair_actions"
+		| "regional_actions"
+		| "mythic_actions";
 	field: FieldArrayWithId<z.infer<typeof monsterStatblockSchema>>;
 	form: UseFormReturn<z.infer<typeof monsterStatblockSchema>>;
 	remove: UseFieldArrayRemove;
 	index: number;
 }
-export default function Action({ field, form, remove, index }: ActionProps) {
+
+export default function Action({
+	inputName,
+	field,
+	form,
+	remove,
+	index,
+}: ActionProps) {
 	const { control } = form;
 	const [actionName, setActionName] = useState("New Action");
 	const [descriptionName, setDescriptionName] = useState("");
 
 	const actionValue = useWatch({
 		control: control,
-		name: `actions.${index}.name`,
+		name: `${inputName}.${index}.name`,
 	});
 	const descValue = useWatch({
 		control: control,
-		name: `actions.${index}.desc`,
+		name: `${inputName}.${index}.desc`,
 	});
 
 	useEffect(() => {
@@ -59,7 +73,7 @@ export default function Action({ field, form, remove, index }: ActionProps) {
 				<div className="truncate text-cararra-900 space-x-2">
 					<span>{actionName}</span>
 					<span>-</span>
-					<span className="text-cararra-400">{descValue}</span>
+					<span className="text-cararra-400">{descriptionName}</span>
 				</div>
 			</AccordionTrigger>
 			<AccordionContent>
@@ -67,17 +81,13 @@ export default function Action({ field, form, remove, index }: ActionProps) {
 					<FormField
 						key={field.id}
 						control={form.control}
-						name={`actions.${index}.name`}
+						name={`${inputName}.${index}.name`}
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Ability Name</FormLabel>
 								<div className="flex justify-between gap-2 items-center">
 									<FormControl>
-										<Input
-											placeholder="ex. Amphibious"
-											className="resize-none"
-											{...field}
-										/>
+										<Input className="resize-none" {...field} />
 									</FormControl>
 									<button
 										type="button"
@@ -95,15 +105,12 @@ export default function Action({ field, form, remove, index }: ActionProps) {
 					/>
 					<FormField
 						control={form.control}
-						name={`actions.${index}.desc`}
+						name={`${inputName}.${index}.desc`}
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Description</FormLabel>
 								<FormControl>
-									<Textarea
-										placeholder="ex. The dragon can breathe air and water."
-										{...field}
-									/>
+									<Textarea {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>

@@ -15,6 +15,8 @@ import { Button } from "../ui/button";
 import { Plus, Trash2 } from "lucide-react";
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
+import { Accordion } from "../ui/accordion";
+import Action from "./action";
 
 export default function MythicActions({ form }: IChildForm) {
 	const [isMythic, setIsMythic] = useState(false);
@@ -77,55 +79,18 @@ export default function MythicActions({ form }: IChildForm) {
 							</FormItem>
 						)}
 					/>
-					{fields.map((field, index) => (
-						<div key={field.id}>
-							<FormField
+					<Accordion type="multiple" className="w-full space-y-2">
+						{fields.map((field, index) => (
+							<Action
+								inputName="mythic_actions"
+								field={field}
+								index={index}
 								key={field.id}
-								control={form.control}
-								name={`mythic_actions.${index}.name`}
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Mythic Action Name</FormLabel>
-										<div className="flex justify-between gap-2 items-center">
-											<FormControl>
-												<Input
-													placeholder="ex. Amphibious"
-													className="resize-none"
-													{...field}
-												/>
-											</FormControl>
-											<button
-												type="button"
-												className="group border-2 p-1.5 sketch-border border-transparent transition-colors hover:border-danger-300"
-												onClick={() => {
-													remove(index);
-												}}
-											>
-												<Trash2 className="w-5 h-5 text-danger-600 group-hover:text-danger-400 transition-colors" />
-											</button>
-										</div>
-										<FormMessage />
-									</FormItem>
-								)}
+								form={form}
+								remove={remove}
 							/>
-							<FormField
-								control={form.control}
-								name={`mythic_actions.${index}.desc`}
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Description</FormLabel>
-										<FormControl>
-											<Textarea
-												placeholder="ex. The dragon can breathe air and water."
-												{...field}
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</div>
-					))}
+						))}
+					</Accordion>
 					<Button
 						variant="secondary"
 						size="sm"

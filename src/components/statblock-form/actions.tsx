@@ -33,6 +33,7 @@ export default function Actions({ form }: IChildForm) {
 				<Accordion type="multiple" className="w-full space-y-2">
 					{fields.map((field, index) => (
 						<Action
+							inputName="actions"
 							field={field}
 							index={index}
 							key={field.id}
