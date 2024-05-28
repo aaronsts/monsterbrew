@@ -39,7 +39,7 @@ export default function SavingThrows() {
 	};
 
 	return (
-		<FormItem className="space-y-2">
+		<FormItem>
 			<FormLabel>Saving Throws</FormLabel>
 			<div className="flex gap-2 items-center">
 				<Select onValueChange={onSelectSkill}>
@@ -58,7 +58,7 @@ export default function SavingThrows() {
 					</SelectContent>
 				</Select>
 				<Button
-					variant="primary"
+					variant="secondary"
 					data-testid="saving-throw-button"
 					type="button"
 					onClick={addSavingThrow}
@@ -66,24 +66,26 @@ export default function SavingThrows() {
 					Add
 				</Button>
 			</div>
-			<ul className="font-short flex gap-2 pt-2 flex-wrap">
-				{savingThrows.map((stat, i) => (
-					<li
-						key={stat.value + i}
-						className="flex bg-cararra-100 border-cararra-300 gap-1 px-3 py-1 border justify-between items-center sketch-border"
-					>
-						<p className="capitalize">{stat.name}</p>
-						<button
-							onClick={removeSavingThrow}
-							data-index={i}
-							className="group border-2 p-1.5 sketch-border border-transparent transition-colors hover:border-danger-300"
-							type="button"
+			{savingThrows.length > 0 && (
+				<ul className="font-short flex gap-2 pt-2 flex-wrap">
+					{savingThrows.map((stat, i) => (
+						<li
+							key={stat.value + i}
+							className="flex bg-cararra-100 border-cararra-300 gap-1 px-3 py-1 border justify-between items-center sketch-border"
 						>
-							<Trash2 className="w-4 h-4 group-hover:text-danger-400 transition-colors" />
-						</button>
-					</li>
-				))}
-			</ul>
+							<p className="capitalize">{stat.name}</p>
+							<button
+								onClick={removeSavingThrow}
+								data-index={i}
+								className="group border-2 p-1.5 sketch-border border-transparent transition-colors hover:border-danger-300"
+								type="button"
+							>
+								<Trash2 className="w-4 h-4 group-hover:text-danger-400 transition-colors" />
+							</button>
+						</li>
+					))}
+				</ul>
+			)}
 		</FormItem>
 	);
 }

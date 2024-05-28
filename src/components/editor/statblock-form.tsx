@@ -84,12 +84,12 @@ export default function StatblockForm({ form, onSubmit }: StatblockFormProps) {
 						/>
 						<ChallengeRating form={form} />
 					</div>
-					<div className="space-y-3">
-						<Conditions form={form} />
-						<Skills />
+					<div className="space-y-2">
 						<SavingThrows />
+						<Skills />
+						<Conditions form={form} />
 					</div>
-					<div className="space-y-3">
+					<div className="space-y-3 pt-3">
 						<SpecialAbilities form={form} />
 						<Actions form={form} />
 						<Reactions form={form} />
@@ -114,7 +114,7 @@ export default function StatblockForm({ form, onSubmit }: StatblockFormProps) {
 						/>
 					</div>
 					<Button variant="primary" type="submit">
-						Create Creature
+						Save
 					</Button>
 				</form>
 			</Form>

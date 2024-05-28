@@ -95,7 +95,7 @@ export default function Conditions({ form }: IChildForm) {
 
 	return (
 		<>
-			<FormItem className="space-y-2">
+			<FormItem>
 				<FormLabel>Damage Types</FormLabel>
 				<div className="flex flex-wrap lg:flex-nowrap gap-2 items-center">
 					<Button
@@ -174,7 +174,7 @@ export default function Conditions({ form }: IChildForm) {
 					</ul>
 				</div>
 			</FormItem>
-			<FormItem className="space-y-2">
+			<FormItem>
 				<FormLabel>Condition Immunities</FormLabel>
 				<div className="flex gap-2  items-center">
 					<Select onValueChange={onSelectCondition}>
@@ -192,7 +192,7 @@ export default function Conditions({ form }: IChildForm) {
 							))}
 						</SelectContent>
 					</Select>
-					<Button type="button" variant="primary" onClick={addCondition}>
+					<Button type="button" variant="secondary" onClick={addCondition}>
 						Add
 					</Button>
 				</div>
