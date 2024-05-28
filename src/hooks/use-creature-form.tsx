@@ -201,6 +201,11 @@ export function useCreatureForm() {
 		values.lair_actions = addMarkdown(values.lair_actions);
 		values.regional_actions = addMarkdown(values.regional_actions);
 
+		values.document__license_url = "";
+		values.document__slug = "monsterbrew";
+		values.document__url = "";
+		values.document__title = `Monsterbrew - ${values.name}`;
+
 		setCreature(values);
 
 		toast.message("Creature has been created.", {

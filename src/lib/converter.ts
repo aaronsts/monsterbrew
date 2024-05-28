@@ -1,13 +1,52 @@
-import { Monster5e, MonsterTetraCube } from "@/types/monster5e";
+import {
+	Monster5e,
+	MonsterImprovedInitiative,
+	MonsterTetraCube,
+	tetraCubeKeys,
+} from "@/types/monster5e";
 import { monster_sizes } from "./constants";
 import { capitalize } from "./utils";
 import { calculateHitPoints } from "./calculations";
 import { addMarkdown } from "./markdownConverter";
+import { toast } from "sonner";
+
+export function convertToOpen5e(statblock: any) {
+	const objKeys = Object.keys(statblock).sort();
+	const open5eKeys = [
+		"document__slug",
+		"document__title",
+		"document__url",
+		"document__license_url",
+	];
+
+	const isOpen5e = objKeys.some((key) => open5eKeys.includes(key));
+
+	console.log(objKeys);
+	const isTetraCube =
+		JSON.stringify(objKeys) === JSON.stringify(tetraCubeKeys.sort());
+
+	// Tetra Cube
+	if (isTetraCube) {
+		return tetraToOpen5e(statblock);
+	}
+	// Improved Initiative
+	else if (objKeys.includes("Creatures")) {
+		const slug = statblock.Creatures;
+		const creature = statblock[`Creatures.${slug[0]}`];
+		return improvedInitiativeToOpen5e(creature);
+	}
+	// Open5e
+	else if (isOpen5e) {
+		return statblock as Monster5e;
+	}
+	// Error
+	else {
+		toast.error("Format not supported");
+		throw Error("Format not supported");
+	}
+}
 
 export function tetraToOpen5e(statblock: MonsterTetraCube) {
-	if (process.env.NODE_ENV === "development")
-		console.log("statblock", statblock);
-
 	const savingThrows: any = {};
 	const monsterSize = monster_sizes.find(
 		(size) => size.value.toLowerCase() === statblock.size.toLowerCase()
@@ -161,4 +200,109 @@ export function tetraToOpen5e(statblock: MonsterTetraCube) {
 	};
 
 	return monster5eFormat;
+}
+
+export function improvedInitiativeToOpen5e(
+	statblock: MonsterImprovedInitiative
+) {
+	const mapActions = (actions: { Name: string; Content: string }[]) => {
+		return actions.map((action) => ({
+			name: action.Name,
+			desc: action.Content,
+		}));
+	};
+
+	const hitDice = statblock.HP.Notes.replace(/\(|\)/gm, "").split("+"); // "Notes": "(18d10+36)"
+
+	const movement = statblock.Speed.reduce((prev, val) => {
+		const mov = val.split(" ");
+		return {
+			...prev,
+			[mov[0]]: mov[1],
+		};
+	}, {});
+
+	const perceptionSense = statblock.Senses.find((sense) =>
+		sense.includes("passive Perception")
+	)!.match(/\d+/);
+
+	const passivePerception = perceptionSense ? parseInt(perceptionSense[0]) : 0;
+
+	const skills: Record<string, number> = {};
+	statblock.Skills.forEach(
+		(skl) => (skills[skl.Name.toLowerCase()] = skl.Modifier)
+	);
+
+	const savingThrows: any = {};
+	statblock.Saves.forEach((save) => {
+		switch (save.Name.toLowerCase()) {
+			case "str":
+				savingThrows.strength_save = save.Modifier;
+				break;
+			case "dex":
+				savingThrows.dexterity_save = save.Modifier;
+				break;
+			case "con":
+				savingThrows.constitution_save = save.Modifier;
+				break;
+			case "wis":
+				savingThrows.wisdom_save = save.Modifier;
+				break;
+			case "int":
+				savingThrows.intelligence_save = save.Modifier;
+				break;
+			case "cha":
+				savingThrows.charisma_save = save.Modifier;
+				break;
+			default:
+				break;
+		}
+	});
+
+	const open5eFormat: Monster5e = {
+		slug: "",
+		name: statblock.Name,
+		desc: statblock.Description,
+		type: statblock.Type.split(" ")[1].replace(",", "").toLowerCase(),
+		size: statblock.Type.split(" ")[0].toLowerCase(), // Type: 'Gargantuan Dragon, chaotic evil'
+		alignment: statblock.Type.split(",")[1].trim(),
+		armor_class: statblock.AC.Value,
+		armor_desc: statblock.AC.Notes.replace(/\(|\)/gm, ""),
+		hit_points: statblock.HP.Value,
+		hit_dice: hitDice[0],
+		hit_modifier: hitDice[1] ? parseInt(hitDice[1]) : 0,
+		strength: statblock.Abilities.Str,
+		dexterity: statblock.Abilities.Dex,
+		constitution: statblock.Abilities.Con,
+		intelligence: statblock.Abilities.Int,
+		wisdom: statblock.Abilities.Wis,
+		charisma: statblock.Abilities.Cha,
+		speed: movement,
+		challenge_rating: statblock.Challenge,
+		perception: passivePerception,
+		skills: skills,
+		senses: statblock.Senses.join(", "),
+		languages: statblock.Languages.join(", "),
+		damage_vulnerabilities: statblock.DamageVulnerabilities.join(", "),
+		damage_immunities: statblock.DamageImmunities.join(", "),
+		damage_resistances: statblock.DamageResistances.join(", "),
+		condition_immunities: statblock.ConditionImmunities.join(", "),
+		special_abilities: addMarkdown(mapActions(statblock.Traits)),
+		actions: addMarkdown(mapActions(statblock.Actions)),
+		reactions: addMarkdown(mapActions(statblock.Reactions)),
+		legendary_desc: "",
+		legendary_actions: addMarkdown(mapActions(statblock.LegendaryActions)),
+		mythic_actions: addMarkdown(mapActions(statblock.MythicActions)),
+		strength_save: null,
+		dexterity_save: null,
+		constitution_save: null,
+		intelligence_save: null,
+		wisdom_save: null,
+		charisma_save: null,
+		img_main: "",
+		environments: [],
+		spell_list: [],
+		...savingThrows,
+	};
+	return open5eFormat;
 }
