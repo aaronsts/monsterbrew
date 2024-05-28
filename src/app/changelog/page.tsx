@@ -7,18 +7,19 @@ export default async function Changelog() {
 			<div>
 				<Divider />
 				<h3>V1.4.0</h3>
+				<span className="font-short">Tuesday - 28/05/2024</span>
 				<p>
 					More bugfixes, added Error monitoring from Sentry. Markdown is now
 					supported in action and ability components.
 				</p>
 				<ul>
-					<li>* Update styling for navigation</li>
-					<li>* fix: Add reactions to statblock </li>
-					<li>* fix: Add error message when creature is undefined </li>
-					<li>* Add Sentry for Error Monitoring </li>
-					<li>* Support Markdown in action & abilitiy components </li>
-					<li>* Add description to form </li>
-					<li>* updated README </li>
+					<li>Update styling for navigation</li>
+					<li>fix: Add reactions to statblock </li>
+					<li>fix: Add error message when creature is undefined </li>
+					<li>Add Sentry for Error Monitoring </li>
+					<li>Support Markdown in action & abilitiy components </li>
+					<li>Add description to form </li>
+					<li>updated README </li>
 				</ul>
 			</div>
 			<div>
