@@ -30,7 +30,8 @@ interface ActionProps {
 		| "legendary_actions"
 		| "lair_actions"
 		| "regional_actions"
-		| "mythic_actions";
+		| "mythic_actions"
+		| "reactions";
 	field: FieldArrayWithId<z.infer<typeof monsterStatblockSchema>>;
 	form: UseFormReturn<z.infer<typeof monsterStatblockSchema>>;
 	remove: UseFieldArrayRemove;
