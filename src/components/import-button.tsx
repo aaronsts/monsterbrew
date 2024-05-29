@@ -45,7 +45,6 @@ export default function ImportButton() {
 					const statblock = convertToOpen5e(
 						JSON.parse(fileReader.result as string)
 					);
-					console.log(statblock);
 					setImportedStatblock(statblock);
 				} else {
 					// Remove File from filelist if not json format
@@ -115,7 +114,7 @@ export default function ImportButton() {
 								target="_blank"
 							>
 								tetra-cube
-							</a>
+							</a>{" "}
 							and{" "}
 							<a
 								className="underline hover:text-zinc-950"

@@ -20,8 +20,6 @@ export function convertToOpen5e(statblock: any) {
 	];
 
 	const isOpen5e = objKeys.some((key) => open5eKeys.includes(key));
-
-	console.log(objKeys);
 	const isTetraCube =
 		JSON.stringify(objKeys) === JSON.stringify(tetraCubeKeys.sort());
 
