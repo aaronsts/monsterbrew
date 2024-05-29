@@ -28,16 +28,11 @@ export default function ClientEditor() {
 
 	return (
 		<div className="grid md:grid-cols-2 gap-6">
-			<div className="space-y-3">
-				<div className="flex justify-between gap-2 pb-3">
-					<ImportButton />
-				</div>
-				<StatblockForm form={form} onSubmit={onSubmit} />
-			</div>
-			<div className="flex flex-col relative gap-3">
-				<div className="print:hidden flex items-center justify-between sticky top-16 bg-white pb-3 gap-3">
-					<CreatureListSelect />
+			<StatblockForm form={form} onSubmit={onSubmit} />
 
+			<div className="flex flex-col relative gap-3">
+				<div className="print:hidden flex items-center justify-between sticky top-16 bg-white py-3 gap-3">
+					<CreatureListSelect />
 					<ExportOptions />
 				</div>
 				<Statblock loadCreatureValues={loadCreatureValues} />
