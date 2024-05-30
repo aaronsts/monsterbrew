@@ -63,7 +63,7 @@ export function useCreatureForm() {
 			challenge_rating: proficiencyBonus.value,
 			special_abilities: addMarkdown(creature.special_abilities) || [],
 			actions: addMarkdown(creature.actions),
-			reactions: creature.reactions,
+			reactions: addMarkdown(creature.reactions),
 			legendary_desc: creature.legendary_desc || "",
 			legendary_actions: addMarkdown(creature.legendary_actions) || [],
 			lair_desc: creature.lair_desc || "",

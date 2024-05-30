@@ -59,12 +59,12 @@ export default function Action({
 	});
 
 	useEffect(() => {
-		if (actionValue.length === 0) return;
+		if (!actionValue && actionValue.length === 0) return;
 		setActionName(actionValue);
 	}, [actionValue]);
 
 	useEffect(() => {
-		if (descValue.length === 0) return;
+		if (!descValue && descValue.length === 0) return;
 		setDescriptionName(descValue);
 	}, [descValue]);
 
