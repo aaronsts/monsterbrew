@@ -1,18 +1,8 @@
 import React from "react";
 import { IChildForm } from "./ability-scores";
-import {
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "../ui/form";
-
-import { Textarea } from "../ui/textarea";
-import { Input } from "../ui/input";
 import { useFieldArray } from "react-hook-form";
 import { Button } from "../ui/button";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Accordion } from "../ui/accordion";
 import Action from "./action";
 
@@ -25,7 +15,7 @@ export default function Reactions({ form }: IChildForm) {
 	return (
 		<div>
 			<div className="flex border-cararra-700 pb-2 items-end mb-2 justify-between border-b">
-				<h3 className="self-end">Reactions</h3>
+				<h3>Reactions</h3>
 				<Button
 					variant="secondary"
 					size="sm"
