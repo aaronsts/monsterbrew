@@ -7,8 +7,9 @@ import {
 import { monster_sizes } from "./constants";
 import { capitalize } from "./utils";
 import { calculateHitPoints } from "./calculations";
-import { addMarkdown } from "./markdownConverter";
+import { addMarkdown, toggleBoldItalic } from "./markdownConverter";
 import { toast } from "sonner";
+import { ImprovedInitiativeStatblock } from "@/types/improvedInitiative";
 
 export function convertToOpen5e(statblock: any) {
 	const objKeys = Object.keys(statblock).sort();
@@ -300,7 +301,104 @@ export function improvedInitiativeToOpen5e(
 		img_main: "",
 		environments: [],
 		spell_list: [],
+		document__slug: "monsterbrew",
+		document__title: `Monsterbrew - ${statblock.Name}`,
+		document__url: "",
+		document__license_url: "",
 		...savingThrows,
 	};
 	return open5eFormat;
+}
+
+export function exportConverter(creature: Monster5e) {
+	const movement = Object.entries(creature.speed).map(
+		(move) => `${move[0]} ${move[1]} ft.`
+	);
+
+	const savingThrows = [
+		{ Name: "Str", Modifier: creature.strength_save },
+		{ Name: "Dex", Modifier: creature.dexterity_save },
+		{ Name: "Con", Modifier: creature.constitution_save },
+		{ Name: "Int", Modifier: creature.intelligence_save },
+		{ Name: "Wis", Modifier: creature.wisdom_save },
+		{ Name: "Cha", Modifier: creature.charisma_save },
+	].filter((save) => save.Modifier !== null);
+
+	const skillSaves = Object.entries(creature.skills).map((save) => ({
+		Name: capitalize(save[0]),
+		Modifier: save[1],
+	}));
+
+	const formattedStatblock = {
+		Source: "Monsterbrew",
+		Type: `${capitalize(creature.size)} ${capitalize(creature.type)}, ${
+			creature.alignment
+		} `,
+		HP: {
+			Value: creature.hit_points as number,
+			Notes: `${creature.hit_dice}+${creature.hit_modifier}`,
+		},
+		AC: {
+			Value: creature.armor_class,
+			Notes: creature.armor_desc || "",
+		},
+		InitiativeModifier: Math.floor(creature.dexterity / 2) - 5,
+		InitiativeAdvantage: false,
+		Speed: movement,
+		Abilities: {
+			Str: creature.strength,
+			Dex: creature.dexterity,
+			Con: creature.constitution,
+			Int: creature.intelligence,
+			Wis: creature.wisdom,
+			Cha: creature.charisma,
+		},
+		DamageVulnerabilities:
+			creature.damage_vulnerabilities?.split(", ").filter((el) => el !== "") ||
+			[],
+		DamageResistances:
+			creature.damage_resistances?.split(", ").filter((el) => el !== "") || [],
+		DamageImmunities:
+			creature.damage_immunities?.split(", ").filter((el) => el !== "") || [],
+		ConditionImmunities:
+			creature.condition_immunities?.split(", ").filter((el) => el !== "") ||
+			[],
+		Saves: savingThrows as ImprovedInitiativeStatblock["Saves"],
+		Skills: skillSaves,
+		Senses: creature.senses?.split(", ") || [],
+		Languages: creature.languages?.split(", ") || [],
+		Challenge: creature.challenge_rating,
+		Traits:
+			creature.special_abilities?.map((trait) => ({
+				Name: toggleBoldItalic(trait.name),
+				Content: trait.desc,
+			})) || [],
+		Actions:
+			creature.actions?.map((trait) => ({
+				Name: toggleBoldItalic(trait.name),
+				Content: trait.desc,
+			})) || [],
+		BonusActions: [],
+		Reactions:
+			creature.reactions?.map((trait) => ({
+				Name: toggleBoldItalic(trait.name),
+				Content: trait.desc,
+			})) || [],
+		LegendaryActions:
+			creature.legendary_actions?.map((trait) => ({
+				Name: toggleBoldItalic(trait.name),
+				Content: trait.desc,
+			})) || [],
+		MythicActions:
+			creature.mythic_actions?.map((trait) => ({
+				Name: toggleBoldItalic(trait.name),
+				Content: trait.desc,
+			})) || [],
+		Description: creature.desc || "",
+		Player: "",
+		Version: "",
+		ImageURL: "",
+	};
+
+	return formattedStatblock;
 }
