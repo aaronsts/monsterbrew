@@ -1,13 +1,51 @@
-import { Monster5e, MonsterTetraCube } from "@/types/monster5e";
+import {
+	Monster5e,
+	MonsterImprovedInitiative,
+	MonsterTetraCube,
+	tetraCubeKeys,
+} from "@/types/monster5e";
 import { monster_sizes } from "./constants";
 import { capitalize } from "./utils";
 import { calculateHitPoints } from "./calculations";
-import { addMarkdown } from "./markdownConverter";
+import { addMarkdown, toggleBoldItalic } from "./markdownConverter";
+import { toast } from "sonner";
+import { ImprovedInitiativeStatblock } from "@/types/improvedInitiative";
+
+export function convertToOpen5e(statblock: any) {
+	const objKeys = Object.keys(statblock).sort();
+	const open5eKeys = [
+		"document__slug",
+		"document__title",
+		"document__url",
+		"document__license_url",
+	];
+
+	const isOpen5e = objKeys.some((key) => open5eKeys.includes(key));
+	const isTetraCube =
+		JSON.stringify(objKeys) === JSON.stringify(tetraCubeKeys.sort());
+
+	// Tetra Cube
+	if (isTetraCube) {
+		return tetraToOpen5e(statblock);
+	}
+	// Improved Initiative
+	else if (objKeys.includes("Creatures")) {
+		const slug = statblock.Creatures;
+		const creature = statblock[`Creatures.${slug[0]}`];
+		return improvedInitiativeToOpen5e(creature);
+	}
+	// Open5e
+	else if (isOpen5e) {
+		return statblock as Monster5e;
+	}
+	// Error
+	else {
+		toast.error("Format not supported");
+		throw Error("Format not supported");
+	}
+}
 
 export function tetraToOpen5e(statblock: MonsterTetraCube) {
-	if (process.env.NODE_ENV === "development")
-		console.log("statblock", statblock);
-
 	const savingThrows: any = {};
 	const monsterSize = monster_sizes.find(
 		(size) => size.value.toLowerCase() === statblock.size.toLowerCase()
@@ -161,4 +199,206 @@ export function tetraToOpen5e(statblock: MonsterTetraCube) {
 	};
 
 	return monster5eFormat;
+}
+
+export function improvedInitiativeToOpen5e(
+	statblock: MonsterImprovedInitiative
+) {
+	const mapActions = (actions: { Name: string; Content: string }[]) => {
+		return actions.map((action) => ({
+			name: action.Name,
+			desc: action.Content,
+		}));
+	};
+
+	const hitDice = statblock.HP.Notes.replace(/\(|\)/gm, "").split("+"); // "Notes": "(18d10+36)"
+
+	const movement = statblock.Speed.reduce((prev, val) => {
+		const mov = val.split(" ");
+		return {
+			...prev,
+			[mov[0]]: mov[1],
+		};
+	}, {});
+
+	const perceptionSense = statblock.Senses.find((sense) =>
+		sense.includes("passive Perception")
+	)!.match(/\d+/);
+
+	const passivePerception = perceptionSense ? parseInt(perceptionSense[0]) : 0;
+
+	const skills: Record<string, number> = {};
+	statblock.Skills.forEach(
+		(skl) => (skills[skl.Name.toLowerCase()] = skl.Modifier)
+	);
+
+	const savingThrows: any = {};
+	statblock.Saves.forEach((save) => {
+		switch (save.Name.toLowerCase()) {
+			case "str":
+				savingThrows.strength_save = save.Modifier;
+				break;
+			case "dex":
+				savingThrows.dexterity_save = save.Modifier;
+				break;
+			case "con":
+				savingThrows.constitution_save = save.Modifier;
+				break;
+			case "wis":
+				savingThrows.wisdom_save = save.Modifier;
+				break;
+			case "int":
+				savingThrows.intelligence_save = save.Modifier;
+				break;
+			case "cha":
+				savingThrows.charisma_save = save.Modifier;
+				break;
+			default:
+				break;
+		}
+	});
+
+	const open5eFormat: Monster5e = {
+		slug: "",
+		name: statblock.Name,
+		desc: statblock.Description,
+		type: statblock.Type.split(" ")[1].replace(",", "").toLowerCase(),
+		size: statblock.Type.split(" ")[0].toLowerCase(), // Type: 'Gargantuan Dragon, chaotic evil'
+		alignment: statblock.Type.split(",")[1].trim(),
+		armor_class: statblock.AC.Value,
+		armor_desc: statblock.AC.Notes.replace(/\(|\)/gm, ""),
+		hit_points: statblock.HP.Value,
+		hit_dice: hitDice[0],
+		hit_modifier: hitDice[1] ? parseInt(hitDice[1]) : 0,
+		strength: statblock.Abilities.Str,
+		dexterity: statblock.Abilities.Dex,
+		constitution: statblock.Abilities.Con,
+		intelligence: statblock.Abilities.Int,
+		wisdom: statblock.Abilities.Wis,
+		charisma: statblock.Abilities.Cha,
+		speed: movement,
+		challenge_rating: statblock.Challenge,
+		perception: passivePerception,
+		skills: skills,
+		senses: statblock.Senses.join(", "),
+		languages: statblock.Languages.join(", "),
+		damage_vulnerabilities: statblock.DamageVulnerabilities.join(", "),
+		damage_immunities: statblock.DamageImmunities.join(", "),
+		damage_resistances: statblock.DamageResistances.join(", "),
+		condition_immunities: statblock.ConditionImmunities.join(", "),
+		special_abilities: addMarkdown(mapActions(statblock.Traits)),
+		actions: addMarkdown(mapActions(statblock.Actions)),
+		reactions: addMarkdown(mapActions(statblock.Reactions)),
+		legendary_desc: "",
+		legendary_actions: addMarkdown(mapActions(statblock.LegendaryActions)),
+		mythic_actions: addMarkdown(mapActions(statblock.MythicActions)),
+		strength_save: null,
+		dexterity_save: null,
+		constitution_save: null,
+		intelligence_save: null,
+		wisdom_save: null,
+		charisma_save: null,
+		img_main: "",
+		environments: [],
+		spell_list: [],
+		document__slug: "monsterbrew",
+		document__title: `Monsterbrew - ${statblock.Name}`,
+		document__url: "",
+		document__license_url: "",
+		...savingThrows,
+	};
+	return open5eFormat;
+}
+
+export function exportConverter(creature: Monster5e) {
+	const movement = Object.entries(creature.speed).map(
+		(move) => `${move[0]} ${move[1]} ft.`
+	);
+
+	const savingThrows = [
+		{ Name: "Str", Modifier: creature.strength_save },
+		{ Name: "Dex", Modifier: creature.dexterity_save },
+		{ Name: "Con", Modifier: creature.constitution_save },
+		{ Name: "Int", Modifier: creature.intelligence_save },
+		{ Name: "Wis", Modifier: creature.wisdom_save },
+		{ Name: "Cha", Modifier: creature.charisma_save },
+	].filter((save) => save.Modifier !== null);
+
+	const skillSaves = Object.entries(creature.skills).map((save) => ({
+		Name: capitalize(save[0]),
+		Modifier: save[1],
+	}));
+
+	const formattedStatblock = {
+		Source: "Monsterbrew",
+		Type: `${capitalize(creature.size)} ${capitalize(creature.type)}, ${
+			creature.alignment
+		} `,
+		HP: {
+			Value: creature.hit_points as number,
+			Notes: `${creature.hit_dice}+${creature.hit_modifier}`,
+		},
+		AC: {
+			Value: creature.armor_class,
+			Notes: creature.armor_desc || "",
+		},
+		InitiativeModifier: Math.floor(creature.dexterity / 2) - 5,
+		InitiativeAdvantage: false,
+		Speed: movement,
+		Abilities: {
+			Str: creature.strength,
+			Dex: creature.dexterity,
+			Con: creature.constitution,
+			Int: creature.intelligence,
+			Wis: creature.wisdom,
+			Cha: creature.charisma,
+		},
+		DamageVulnerabilities:
+			creature.damage_vulnerabilities?.split(", ").filter((el) => el !== "") ||
+			[],
+		DamageResistances:
+			creature.damage_resistances?.split(", ").filter((el) => el !== "") || [],
+		DamageImmunities:
+			creature.damage_immunities?.split(", ").filter((el) => el !== "") || [],
+		ConditionImmunities:
+			creature.condition_immunities?.split(", ").filter((el) => el !== "") ||
+			[],
+		Saves: savingThrows as ImprovedInitiativeStatblock["Saves"],
+		Skills: skillSaves,
+		Senses: creature.senses?.split(", ") || [],
+		Languages: creature.languages?.split(", ") || [],
+		Challenge: creature.challenge_rating,
+		Traits:
+			creature.special_abilities?.map((trait) => ({
+				Name: toggleBoldItalic(trait.name),
+				Content: trait.desc,
+			})) || [],
+		Actions:
+			creature.actions?.map((trait) => ({
+				Name: toggleBoldItalic(trait.name),
+				Content: trait.desc,
+			})) || [],
+		BonusActions: [],
+		Reactions:
+			creature.reactions?.map((trait) => ({
+				Name: toggleBoldItalic(trait.name),
+				Content: trait.desc,
+			})) || [],
+		LegendaryActions:
+			creature.legendary_actions?.map((trait) => ({
+				Name: toggleBoldItalic(trait.name),
+				Content: trait.desc,
+			})) || [],
+		MythicActions:
+			creature.mythic_actions?.map((trait) => ({
+				Name: toggleBoldItalic(trait.name),
+				Content: trait.desc,
+			})) || [],
+		Description: creature.desc || "",
+		Player: "",
+		Version: "",
+		ImageURL: "",
+	};
+
+	return formattedStatblock;
 }

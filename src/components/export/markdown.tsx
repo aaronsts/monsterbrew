@@ -4,6 +4,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import { useCreaturesStore } from "@/store/zustand";
 import { createMarkdownPage } from "@/lib/generateMarkdown";
+import { DropdownMenuItem } from "../ui/dropdown-menu";
 
 export default function ExportMarkdown() {
 	const { creature } = useCreaturesStore();
@@ -13,8 +14,6 @@ export default function ExportMarkdown() {
 	};
 
 	return (
-		<Button variant="outline" onClick={handleMarkdownClick}>
-			Markdown
-		</Button>
+		<DropdownMenuItem onClick={handleMarkdownClick}>Markdown</DropdownMenuItem>
 	);
 }

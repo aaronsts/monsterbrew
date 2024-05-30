@@ -49,6 +49,7 @@ export const initialFormValues = {
 	senses: "",
 	skills: {},
 };
+
 export const monster_sizes = [
 	{ label: "Gargantuan", value: "gargantuan", hit_die: 20 },
 	{ label: "Huge", value: "huge", hit_die: 12 },
@@ -292,6 +293,7 @@ export const initialCreature = {
 			desc: "The dragon exhales acid in a 90-foot line that is 10 feet wide. Each creature in that line must make a DC 22 Dexterity saving throw, taking 67 (15d8) acid damage on a failed save, or half as much damage on a successful one.",
 		},
 	],
+	bonus_actions: [],
 	reactions: [],
 	legendary_desc:
 		"The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The dragon regains spent legendary actions at the start of its turn.",
@@ -339,13 +341,12 @@ export const initialCreature = {
 	wisdom_save: 9,
 	charisma_save: 11,
 	environments: [],
-	description: "",
 	img_main: "",
 	document__slug: "wotc-srd",
 	document__title: "5e Core Rules",
 	document__url:
 		"http://dnd.wizards.com/articles/features/systems-reference-document-srd",
-	document__license: "http://open5e.com/legal",
+	document__license_url: "http://open5e.com/legal",
 };
 
 export const ATTACK_TYPES = [

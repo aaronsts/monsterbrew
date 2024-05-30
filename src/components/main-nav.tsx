@@ -11,10 +11,15 @@ import {
 	NavigationMenuList,
 	navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import MonsterbrewLogo from "./monsterbrew-logo";
 
 export function MainNavigation() {
 	return (
-		<div className="print:hidden max-w-7xl mx-auto flex sticky top-0 bg-white z-20 justify-start h-16 px-3">
+		<div className="print:hidden max-w-7xl  mb-3 mx-auto flex py-3 sticky top-0 bg-white z-20 items-center justify-between  px-3">
+			<Link href="/" className="fill-cararra-950 flex gap-2 items-center">
+				<MonsterbrewLogo />
+				<p className="hidden md:block font-yatra text-3xl">Monsterbrew</p>
+			</Link>
 			<NavigationMenu>
 				<NavigationMenuList>
 					<NavigationMenuItem>

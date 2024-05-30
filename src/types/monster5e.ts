@@ -71,3 +71,141 @@ export type MonsterTetraCube = {
 	separationPoint: number;
 	damage: [];
 };
+
+export const tetraCubeKeys = [
+	"name",
+	"size",
+	"type",
+	"tag",
+	"alignment",
+	"hitDice",
+	"armorName",
+	"shieldBonus",
+	"natArmorBonus",
+	"otherArmorDesc",
+	"speed",
+	"burrowSpeed",
+	"climbSpeed",
+	"flySpeed",
+	"hover",
+	"swimSpeed",
+	"customHP",
+	"customSpeed",
+	"hpText",
+	"speedDesc",
+	"strPoints",
+	"dexPoints",
+	"conPoints",
+	"intPoints",
+	"wisPoints",
+	"chaPoints",
+	"blindsight",
+	"blind",
+	"darkvision",
+	"tremorsense",
+	"truesight",
+	"telepathy",
+	"cr",
+	"customCr",
+	"customProf",
+	"isLegendary",
+	"legendariesDescription",
+	"isLair",
+	"lairDescription",
+	"lairDescriptionEnd",
+	"isMythic",
+	"mythicDescription",
+	"isRegional",
+	"regionalDescription",
+	"regionalDescriptionEnd",
+	"properties",
+	"abilities",
+	"actions",
+	"bonusActions",
+	"reactions",
+	"legendaries",
+	"mythics",
+	"lairs",
+	"regionals",
+	"sthrows",
+	"skills",
+	"damagetypes",
+	"specialdamage",
+	"conditions",
+	"languages",
+	"understandsBut",
+	"shortName",
+	"pluralName",
+	"doubleColumns",
+	"separationPoint",
+	"damage",
+];
+
+export type MonsterImprovedInitiative = {
+	Id: string;
+	Name: string;
+	Path: string;
+	Link: string;
+	SearchHint: string;
+	FilterDimensions: {
+		Level: string;
+		Source: string;
+		Type: string;
+	};
+	LastUpdateMs: number;
+	Version: string;
+	Source: string;
+	Type: string;
+	HP: {
+		Value: number;
+		Notes: string;
+	};
+	AC: {
+		Value: number;
+		Notes: string;
+	};
+	InitiativeModifier: number;
+	InitiativeAdvantage: boolean;
+	Speed: string[];
+	Abilities: {
+		Str: number;
+		Dex: number;
+		Con: number;
+		Int: number;
+		Wis: number;
+		Cha: number;
+	};
+	DamageVulnerabilities: string[];
+	DamageResistances: string[];
+	DamageImmunities: string[];
+	ConditionImmunities: string[];
+	Saves: {
+		Name: string;
+		Modifier: number;
+	}[];
+	Skills: {
+		Name: string;
+		Modifier: number;
+	}[];
+	Senses: string[];
+	Languages: string[];
+	Challenge: string;
+	Traits: {
+		Name: string;
+		Content: string;
+	}[];
+	Actions: {
+		Name: string;
+		Content: string;
+	}[];
+	BonusActions: any[];
+	Reactions: any[];
+	LegendaryActions: {
+		Name: string;
+		Content: string;
+	}[];
+	MythicActions: any[];
+	Description: string;
+	Player: string;
+	ImageURL: string;
+};

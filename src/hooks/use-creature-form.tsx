@@ -63,7 +63,7 @@ export function useCreatureForm() {
 			challenge_rating: proficiencyBonus.value,
 			special_abilities: addMarkdown(creature.special_abilities) || [],
 			actions: addMarkdown(creature.actions),
-			reactions: creature.reactions,
+			reactions: addMarkdown(creature.reactions),
 			legendary_desc: creature.legendary_desc || "",
 			legendary_actions: addMarkdown(creature.legendary_actions) || [],
 			lair_desc: creature.lair_desc || "",
@@ -200,6 +200,11 @@ export function useCreatureForm() {
 		values.mythic_actions = addMarkdown(values.mythic_actions);
 		values.lair_actions = addMarkdown(values.lair_actions);
 		values.regional_actions = addMarkdown(values.regional_actions);
+
+		values.document__license_url = "";
+		values.document__slug = "monsterbrew";
+		values.document__url = "";
+		values.document__title = `Monsterbrew - ${values.name}`;
 
 		setCreature(values);
 

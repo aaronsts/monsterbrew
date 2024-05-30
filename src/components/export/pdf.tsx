@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { useCreaturesStore } from "@/store/zustand";
 import { useCallback, useRef } from "react";
 import PdfStatblock from "../statblock/pdf-statblock";
+import { DropdownMenuItem } from "../ui/dropdown-menu";
 
 export default function ExportPdf() {
 	const { creature } = useCreaturesStore();
@@ -19,9 +20,7 @@ export default function ExportPdf() {
 	});
 	return (
 		<>
-			<Button variant="outline" onClick={handlePrint}>
-				PDF
-			</Button>
+			<DropdownMenuItem onClick={handlePrint}>PDF</DropdownMenuItem>
 			<div className="hidden">
 				<PdfStatblock ref={componentRef} />
 			</div>
