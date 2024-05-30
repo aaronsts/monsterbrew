@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { Sheet, SheetTrigger } from "../ui/sheet";
+import { ChevronDown } from "lucide-react";
 
 export default function ExportOptions() {
 	return (
@@ -20,7 +21,10 @@ export default function ExportOptions() {
 			<Sheet>
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
-						<Button variant="primary">Export Creature</Button>
+						<Button variant="primary">
+							Export Creature{" "}
+							<ChevronDown strokeWidth={1.5} className="ml-1 h-6" />
+						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent>
 						<DropdownMenuLabel>Export Options</DropdownMenuLabel>

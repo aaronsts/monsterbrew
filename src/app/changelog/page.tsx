@@ -6,6 +6,21 @@ export default async function Changelog() {
 			<h2>Changelog</h2>
 			<div>
 				<Divider />
+				<h3>V1.5.0</h3>
+				<span className="font-short">Thursday - 30/05/2024</span>
+				<p>
+					Finally created a decent homepage. The main focus was on implementing
+					support for Improved Initiative.
+				</p>
+				<ul>
+					<li>Add Homepage w/ info about features.</li>
+					<li>
+						Add Improved Initiative as supported format for import / export
+					</li>
+				</ul>
+			</div>
+			<div>
+				<Divider />
 				<h3>V1.4.0</h3>
 				<span className="font-short">Tuesday - 28/05/2024</span>
 				<p>
