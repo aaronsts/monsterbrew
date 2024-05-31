@@ -5,6 +5,27 @@ export default function SpecialThanks() {
 		<div className="text-xl max-w-prose space-y-3">
 			<h2>Disclaimers</h2>
 			<p>
+				The website uses{" "}
+				<a
+					rel="noopener noreferrer"
+					className="underline underline-offset-4 text-zinc-500 hover:text-cararra-950"
+					target="_blank"
+					href="https://plausible.io/privacy-focused-web-analytics"
+				>
+					Plausible Analytics
+				</a>{" "}
+				and{" "}
+				<a
+					rel="noopener noreferrer"
+					className="underline underline-offset-4 text-zinc-500 hover:text-cararra-950"
+					target="_blank"
+					href="https://sentry.io/welcome/"
+				>
+					Sentry Error Monitoring
+				</a>{" "}
+				to track any statistics or errors. No personal user data is collected.
+			</p>
+			<p>
 				This tool is still in the early stages of development, there are a ton
 				of features planned that, in time, will get added. If you have an idea
 				or suggestion for a feature request, please send it to{" "}
