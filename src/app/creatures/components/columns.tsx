@@ -1,0 +1,153 @@
+"use client";
+
+import { ColumnDef } from "@tanstack/react-table";
+import { DataTableColumnHeader } from "./data-table-column-header";
+import {
+	CHALLENGE_RATINGS,
+	CREATURE_SOURCES,
+	monster_sizes,
+	monster_types,
+} from "@/lib/constants";
+import { Monster5e } from "@sturlen/open5e-ts";
+import { Badge } from "@/components/ui/badge";
+
+export const creatureColumns: ColumnDef<Monster5e>[] = [
+	{
+		accessorKey: "name",
+		header: ({ column }) => (
+			<DataTableColumnHeader column={column} title="Name" />
+		),
+		cell: ({ row }) => (
+			<div className="w-72 font-short">{row.getValue("name")}</div>
+		),
+		enableSorting: true,
+	},
+	{
+		accessorKey: "challenge_rating",
+		header: ({ column }) => (
+			<DataTableColumnHeader column={column} title="CR" />
+		),
+		cell: ({ row }) => {
+			const cr = CHALLENGE_RATINGS.find(
+				(challenge) => challenge.label === row.getValue("challenge_rating")
+			);
+
+			if (!cr) {
+				return null;
+			}
+
+			return (
+				<div className="flex font-short items-center">
+					<span>{cr.label}</span>
+				</div>
+			);
+		},
+		filterFn: (row, id, value) => {
+			return value.includes(row.getValue(id));
+		},
+	},
+	{
+		accessorKey: "type",
+		header: ({ column }) => (
+			<DataTableColumnHeader column={column} title="Type" />
+		),
+		cell: ({ row }) => {
+			const type = monster_types.find(
+				(priority) =>
+					priority.value === (row.getValue("type") as string).toLowerCase()
+			);
+
+			if (!type) {
+				return null;
+			}
+
+			return (
+				<div className="flex font-short items-center">
+					<span
+						className={`bg-${type.value}/20 border-${type.value} border px-1 rounded-sm`}
+					>
+						{type.label}
+					</span>
+				</div>
+			);
+		},
+		filterFn: (row, id, value) => {
+			return value.includes((row.getValue(id) as string).toLowerCase());
+		},
+	},
+	{
+		accessorKey: "size",
+		header: ({ column }) => (
+			<DataTableColumnHeader column={column} title="Size" />
+		),
+		cell: ({ row }) => {
+			const size = monster_sizes.find(
+				(label) =>
+					label.value === (row.getValue("size") as string).toLowerCase()
+			);
+
+			if (!size) return null;
+
+			return (
+				<div className="flex w-24 font-short space-x-2">
+					<span>{size.label}</span>
+				</div>
+			);
+		},
+		filterFn: (row, id, value) => {
+			return value.includes((row.getValue(id) as string).toLowerCase());
+		},
+	},
+	{
+		accessorKey: "environments",
+		header: ({ column }) => (
+			// <DataTableColumnHeader column={column} title="Environments" />
+			<></>
+		),
+		cell: ({ row }) => {
+			const environments: string[] = row.getValue("environments");
+			return (
+				// <div className="flex w-full flex-wrap font-short gap-2">
+				// 	{environments.map((env, i) => (
+				// 		<Badge className="w-fit" key={i}>
+				// 			{env}
+				// 		</Badge>
+				// 	))}
+				// </div>
+				<></>
+			);
+		},
+		filterFn: (row, id, value) => {
+			const environments = (row.getValue(id) as string[]).map((env) =>
+				env.toLowerCase()
+			);
+			return value.some((v: string) => environments.includes(v));
+		},
+	},
+	{
+		accessorKey: "document__slug",
+		header: ({ column }) => (
+			<></>
+			// <DataTableColumnHeader column={column} title="Source" />
+		),
+		cell: ({ row }) => {
+			const src = CREATURE_SOURCES.find(
+				(label) =>
+					label.value ===
+					(row.getValue("document__slug") as string).toLowerCase()
+			);
+
+			if (!src) return null;
+
+			return (
+				<></>
+				// <div className="flex w-full font-short space-x-2">
+				// 	<span>{src.label}</span>
+				// </div>
+			);
+		},
+		filterFn: (row, id, value) => {
+			return value.includes((row.getValue(id) as string).toLowerCase());
+		},
+	},
+];

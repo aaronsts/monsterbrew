@@ -30,6 +30,7 @@
 		"@sentry/nextjs": "^8.3.0",
 		"@sturlen/open5e-ts": "^1.1.0",
 		"@tanstack/react-query": "^5.35.5",
+		"@tanstack/react-table": "^8.17.3",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
 		"cmdk": "0.2.0",
