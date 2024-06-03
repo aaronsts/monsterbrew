@@ -9,7 +9,8 @@ import {
 	monster_types,
 } from "@/lib/constants";
 import { Monster5e } from "@sturlen/open5e-ts";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const creatureColumns: ColumnDef<Monster5e>[] = [
 	{
@@ -148,6 +149,28 @@ export const creatureColumns: ColumnDef<Monster5e>[] = [
 		},
 		filterFn: (row, id, value) => {
 			return value.includes((row.getValue(id) as string).toLowerCase());
+		},
+	},
+	{
+		id: "actions",
+		cell: ({ row }) => {
+			const handleClick = () => {
+				console.log(row.original);
+			};
+			return (
+				<Link
+					href={{ pathname: "editor", query: { creature: row.original.slug } }}
+					passHref
+				>
+					<Button
+						className="bg-tower-200 text-black border border-tower-400 h-fit py-1 hover:bg-tower-400"
+						size="sm"
+						onClick={handleClick}
+					>
+						Edit
+					</Button>
+				</Link>
+			);
 		},
 	},
 ];

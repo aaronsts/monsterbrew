@@ -36,7 +36,6 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
 	columns,
 }: DataTableProps<TData, TValue>) {
-	const [searchValue, setSearchValue] = React.useState("");
 	const [tableCreatures, setTableCreatures] = React.useState([]);
 
 	const { data, isLoading } = useQuery({
@@ -78,7 +77,6 @@ export function DataTable<TData, TValue>({
 		getFacetedRowModel: getFacetedRowModel(),
 		getFacetedUniqueValues: getFacetedUniqueValues(),
 		initialState: {
-			//This line
 			pagination: {
 				pageSize: 10,
 			},
@@ -87,7 +85,7 @@ export function DataTable<TData, TValue>({
 
 	return (
 		<div className="space-y-4">
-			<DataTableToolbar setSearchValue={setSearchValue} table={table} />
+			<DataTableToolbar table={table} />
 			<div className="rounded-md border">
 				<Table>
 					<TableHeader>

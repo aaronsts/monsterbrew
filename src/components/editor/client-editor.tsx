@@ -1,16 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
-import StatblockForm from "./statblock-form";
 import { useQuery } from "@tanstack/react-query";
 import { getAllCreatures } from "@/services/creatures";
 import { useCreaturesStore } from "@/store/zustand";
 import { useCreatureForm } from "@/hooks/use-creature-form";
 import { CreatureListSelect } from "../creature-list-select";
-import { Button } from "../ui/button";
+import StatblockForm from "./statblock-form";
 import ExportOptions from "../export/export-options";
 import Statblock from "../statblock/statblock";
-import ImportButton from "../import-button";
 
 export default function ClientEditor() {
 	const { setCreatures } = useCreaturesStore();
@@ -29,7 +27,6 @@ export default function ClientEditor() {
 	return (
 		<div className="grid md:grid-cols-2 gap-6">
 			<StatblockForm form={form} onSubmit={onSubmit} />
-
 			<div className="flex flex-col relative gap-3">
 				<div className="print:hidden flex items-center justify-between sticky top-16 bg-white py-3 gap-3">
 					<CreatureListSelect />

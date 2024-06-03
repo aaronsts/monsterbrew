@@ -19,12 +19,10 @@ import { searchCreature } from "@/services/creatures";
 
 interface DataTableToolbarProps<TData> {
 	table: Table<TData>;
-	setSearchValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export function DataTableToolbar<TData>({
 	table,
-	setSearchValue,
 }: DataTableToolbarProps<TData>) {
 	const isFiltered = table.getState().columnFilters.length > 0;
 	const monster_ratings = Object.values(CHALLENGE_RATINGS).map((rating) => ({
@@ -39,7 +37,6 @@ export function DataTableToolbar<TData>({
 					placeholder="Search Creatures..."
 					value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
 					onChange={(event) => {
-						setSearchValue(event.currentTarget.value);
 						table.getColumn("name")?.setFilterValue(event.target.value);
 					}}
 					className="h-8 w-[150px] lg:w-[250px]"
