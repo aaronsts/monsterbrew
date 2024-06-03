@@ -37,6 +37,13 @@ export function MainNavigation() {
 						</Link>
 					</NavigationMenuItem>
 					<NavigationMenuItem>
+						<Link href="/creatures" legacyBehavior passHref>
+							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+								Creatures
+							</NavigationMenuLink>
+						</Link>
+					</NavigationMenuItem>
+					<NavigationMenuItem>
 						<Link href="/changelog" legacyBehavior passHref>
 							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
 								Changelog

@@ -23,6 +23,30 @@ export async function getAllCreatures() {
 	}
 }
 
+export async function getInitialCreatures() {
+	try {
+		const res = await fetch(
+			`${API_BASE_URL}/?format=json&limit=5000&fields=slug,name,challenge_rating,type,size,environments,document__slug&document__slug__in=5e,wotc-srd,tob,cc,tob2,dmag,menagerie,tob3,taldorei,tob-2023`
+		);
+		if (!res.ok) throw new Error("Failed to fetch data");
+		const data: any = await res.json();
+		return data;
+	} catch (error: any) {
+		toast.error(`Something went wrong ${error.message}`);
+	}
+}
+
+export async function searchCreature(searchParams: string) {
+	try {
+		const res = await fetch(`${API_BASE_URL}/?search=${searchParams}`);
+		if (!res.ok) throw new Error(`Failed to fetch data for ${searchParams}`);
+		const data = await res.json();
+		return data;
+	} catch (error: any) {
+		toast.error(`Something went wrong: ${error.message}`);
+	}
+}
+
 export async function getCreature(slug: string) {
 	try {
 		const res = await fetch(`${API_BASE_URL}/${slug}`);

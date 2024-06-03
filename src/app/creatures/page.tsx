@@ -6,7 +6,7 @@ export default async function Creatures() {
 	const queryClient = new QueryClient();
 
 	await queryClient.prefetchQuery({
-		queryKey: ["initial_creatures"],
+		queryKey: ["initialCreatures"],
 		queryFn: getInitialCreatures,
 	});
 
