@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/table";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { DataTablePagination } from "./data-table-pagination";
+import LoadingSpinner from "@/components/ui/loading-spinner";
 
 interface DataTableProps<TData, TValue> {
 	data: TData[];
@@ -75,7 +76,7 @@ export function DataTable<TData, TValue>({
 	return (
 		<div className="space-y-4">
 			<DataTableToolbar table={table} />
-			<div className="rounded-md border">
+			<div className="rounded-md border border-cararra-100">
 				<Table>
 					<TableHeader>
 						{table.getHeaderGroups().map((headerGroup) => (
@@ -116,9 +117,12 @@ export function DataTable<TData, TValue>({
 							<TableRow>
 								<TableCell
 									colSpan={columns.length}
-									className="h-24 text-center"
+									className="h-24 font-short text-lg text-cararra-900 text-center"
 								>
-									Loading Creatures
+									<div className="flex items-center justify-center gap-3">
+										<LoadingSpinner />
+										Loading Creatures
+									</div>
 								</TableCell>
 							</TableRow>
 						) : (

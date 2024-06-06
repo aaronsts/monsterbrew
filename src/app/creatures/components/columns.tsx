@@ -21,7 +21,7 @@ export const creatureColumns: ColumnDef<ListCreature>[] = [
 		cell: ({ row }) => (
 			<div className="w-72 font-short">
 				{row.getValue("name")}{" "}
-				<span className="text-xs text-zinc-400">
+				<span className="text-xs ml-1 bg-zinc-300/20 px-1 rounded-sm border border-zinc-300 py-0.5 text-zinc-500">
 					{row.getValue("document__slug")}
 				</span>
 			</div>

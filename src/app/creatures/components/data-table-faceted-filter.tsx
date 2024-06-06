@@ -102,19 +102,37 @@ export function DataTableFacetedFilter<TData, TValue>({
 											<CheckIcon className={cn("h-4 w-4")} />
 										</div>
 										{title === "CR" ? (
-											<span>
-												{option.value}{" "}
-												<span className="text-zinc-400">
-													({option.label} XP)
+											<>
+												<span>
+													{option.value}{" "}
+													<span className="text-zinc-400">
+														({option.label} XP)
+													</span>
 												</span>
-											</span>
+												{facets?.get(option.value) && (
+													<span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
+														{facets.get(option.value)}
+													</span>
+												)}
+											</>
+										) : title === "Source" ? (
+											<>
+												<span>{option.label}</span>
+												{facets?.get(option.value) && (
+													<span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
+														{facets.get(option.value)}
+													</span>
+												)}
+											</>
 										) : (
-											<span>{option.label}</span>
-										)}
-										{facets?.get(option.value) && (
-											<span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
-												{facets.get(option.value)}
-											</span>
+											<>
+												<span>{option.label}</span>
+												{facets?.get(option.label) && (
+													<span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
+														{facets.get(option.label)}
+													</span>
+												)}
+											</>
 										)}
 									</CommandItem>
 								);
