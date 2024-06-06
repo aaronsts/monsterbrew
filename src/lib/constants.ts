@@ -60,21 +60,21 @@ export const monster_sizes = [
 ];
 
 export const monster_types = [
-	{ label: "Aberration", value: "aberration" },
-	{ label: "Beast", value: "beast" },
-	{ label: "Celestial", value: "celestial" },
-	{ label: "Construct", value: "construct" },
-	{ label: "Dragon", value: "dragon" },
-	{ label: "Elemental", value: "elemental" },
-	{ label: "Fey", value: "fey" },
-	{ label: "Fiend", value: "fiend" },
-	{ label: "Giant", value: "giant" },
-	{ label: "Humanoid", value: "humanoid" },
-	{ label: "Monstrosity", value: "monstrosity" },
-	{ label: "Ooze", value: "ooze" },
-	{ label: "Plant", value: "plant" },
-	{ label: "Undead", value: "undead" },
-	{ label: "Other", value: "other" },
+	{ label: "Aberration", value: "aberration", colorCode: "#dd83fd" },
+	{ label: "Beast", value: "beast", colorCode: "#a98dba" },
+	{ label: "Celestial", value: "celestial", colorCode: "#fcfd96" },
+	{ label: "Construct", value: "construct", colorCode: "#f1c67c" },
+	{ label: "Dragon", value: "dragon", colorCode: "#dd5d63" },
+	{ label: "Elemental", value: "elemental", colorCode: "#70f0fd" },
+	{ label: "Fey", value: "fey", colorCode: "#82fad1" },
+	{ label: "Fiend", value: "fiend", colorCode: "#eb7648" },
+	{ label: "Giant", value: "giant", colorCode: "#afbec1" },
+	{ label: "Humanoid", value: "humanoid", colorCode: "#95b974" },
+	{ label: "Monstrosity", value: "monstrosity", colorCode: "#7597ec" },
+	{ label: "Ooze", value: "ooze", colorCode: "#bef0f5" },
+	{ label: "Plant", value: "plant", colorCode: "#64bc5e" },
+	{ label: "Undead", value: "undead", colorCode: "#c77e5d" },
+	{ label: "Other", value: "other", colorCode: "#efefef" },
 ];
 
 export const STAT_NAMES = [
@@ -356,4 +356,72 @@ export const ATTACK_TYPES = [
 	"Melee Spell Attack:",
 	"Ranged Weapon Attack:",
 	"Ranged Spell Attack:",
+];
+
+export const CREATURE_SOURCES = [
+	{ label: "5e Core Rules", value: "wotc-srd" },
+	{ label: "Tome of Beasts", value: "tob" },
+	{ label: "Creature Codex", value: "cc" },
+	{ label: "Tome of Beasts 2", value: "tob2" },
+	{
+		label: "Advanced 5e Monstrous Menagerie",
+		value: "menagerie",
+	},
+	{ label: "Tome of Beasts 3", value: "tob3" },
+	{
+		label: "Critical Role: Tal’Dorei",
+		value: "taldorei",
+	},
+	{ label: "Tome of Beasts 2023", value: "tob-2023" },
+];
+
+export const ENVIRONMENTS = [
+	{
+		label: "Arctic",
+		value: "arctic",
+	},
+	{
+		label: "Caves",
+		value: "caves",
+	},
+	{
+		label: "Coastal",
+		value: "coastal",
+	},
+	{
+		label: "Desert",
+		value: "desert",
+	},
+	{
+		label: "Grassland",
+		value: "grassland",
+	},
+	{
+		label: "Hill",
+		value: "hill",
+	},
+	{
+		label: "Mountains",
+		value: "mountains",
+	},
+	{
+		label: "Sewer",
+		value: "sewer",
+	},
+	{
+		label: "Swamp",
+		value: "swamp",
+	},
+	{
+		label: "Underdark",
+		value: "underdark",
+	},
+	{
+		label: "Urban",
+		value: "urban",
+	},
+	{
+		label: "Water",
+		value: "water",
+	},
 ];

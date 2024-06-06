@@ -5,7 +5,7 @@ import MonsterbrewLogo from "./monsterbrew-logo";
 
 const Footer = () => {
 	return (
-		<footer className="print:hidden mt-6 bg-cararra-950 text-white ">
+		<footer className="print:hidden mt-auto bg-cararra-950 text-white ">
 			<div className="py-6 max-w-7xl h-full mx-auto px-3 flex flex-col gap-6 justify-between items-center">
 				<div className="flex flex-col items-center justify-center gap-3">
 					<Link href="/" className="fill-cararra-50 flex gap-2 items-center">

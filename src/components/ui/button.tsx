@@ -5,12 +5,12 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-	"inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-offset-2 focus-visible:ring-cararra-800 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-zinc-300",
+	"inline-flex items-center justify-center whitespace-nowrap text-sm font-short transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-cararra-500  disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-zinc-300",
 	{
 		variants: {
 			variant: {
 				default:
-					"bg-zinc-900 text-zinc-50 shadow hover:bg-zinc-900/90 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-50/90",
+					"bg-transparent text-cararra-950 hover:bg-cararra-100 sketch-border dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-50/90",
 				primary:
 					"bg-cararra-600 border-2 border-cararra-800 text-cararra-50 hover:bg-cararra-800 sketch-border px-3 py-1 font-short transition-all",
 				secondary:
@@ -21,7 +21,7 @@ const buttonVariants = cva(
 					"bg-transparent font-short border-cararra-600 border  text-cararra-950 hover:bg-cararra-200 sketch-border transition-colors",
 
 				ghost:
-					"hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
+					" hover:bg-danger-100 sketch-border  dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
 				link: "text-zinc-900 underline-offset-4 hover:underline dark:text-zinc-50",
 			},
 			size: {
