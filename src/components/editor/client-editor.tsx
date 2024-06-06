@@ -9,6 +9,7 @@ import { CreatureListSelect } from "../creature-list-select";
 import StatblockForm from "./statblock-form";
 import ExportOptions from "../export/export-options";
 import Statblock from "../statblock/statblock";
+import ImportButton from "../import-button";
 
 export default function ClientEditor() {
 	const { setCreatures } = useCreaturesStore();
@@ -28,8 +29,8 @@ export default function ClientEditor() {
 		<div className="grid md:grid-cols-2 gap-6">
 			<StatblockForm form={form} onSubmit={onSubmit} />
 			<div className="flex flex-col relative gap-3">
-				<div className="print:hidden flex items-center justify-between sticky top-16 bg-white py-3 gap-3">
-					<CreatureListSelect />
+				<div className="print:hidden flex items-center justify-end sticky top-16 bg-white py-3 gap-3">
+					<ImportButton />
 					<ExportOptions />
 				</div>
 				<Statblock loadCreatureValues={loadCreatureValues} />

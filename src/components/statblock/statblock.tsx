@@ -10,6 +10,7 @@ import { Button } from "../ui/button";
 import { capitalize } from "@/lib/utils";
 import Actions from "./actions";
 import Markdown from "react-markdown";
+import { toast } from "sonner";
 
 interface StatblockProps {
 	loadCreatureValues: () => void;
@@ -30,12 +31,10 @@ const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 	}, [data, setCreature]);
 
 	if (isLoading) return <div className="font-yatra">Loading</div>;
-	if (error)
-		return (
-			<div className="font-yatra">
-				Something went wrong: could not load creature, please try again.
-			</div>
-		);
+	if (error) {
+		toast.error(`Something went wrong: ${error.message}`);
+		throw Error(`Something went wrong: ${error.message}`);
+	}
 
 	const skills = Object.entries(creature.skills)
 		.map((skl) => `${capitalize(skl[0])} +${skl[1]}`)

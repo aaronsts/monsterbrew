@@ -172,7 +172,7 @@ export const creatureColumns: ColumnDef<ListCreature>[] = [
 						size="sm"
 						onClick={handleClick}
 					>
-						Edit
+						View
 					</Button>
 				</Link>
 			);

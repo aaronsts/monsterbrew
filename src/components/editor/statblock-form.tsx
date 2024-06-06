@@ -29,7 +29,6 @@ import {
 import { UseFormReturn } from "react-hook-form";
 import { Monster5e } from "@/types/monster5e";
 import { Textarea } from "../ui/textarea";
-import ImportButton from "../import-button";
 
 interface StatblockFormProps {
 	form: UseFormReturn<Monster5e>;
@@ -46,7 +45,6 @@ export default function StatblockForm({ form, onSubmit }: StatblockFormProps) {
 				>
 					<div className="flex flex-col py-3 gap-2 sm:flex-row sticky z-30 top-16 bg-white justify-between">
 						<h2>Create Creature</h2>
-						<ImportButton />
 
 						<Button type="submit" variant="primary">
 							Save
