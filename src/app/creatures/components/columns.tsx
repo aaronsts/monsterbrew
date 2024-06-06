@@ -8,18 +8,23 @@ import {
 	monster_sizes,
 	monster_types,
 } from "@/lib/constants";
-import { Monster5e } from "@sturlen/open5e-ts";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { ListCreature } from "@/types";
 
-export const creatureColumns: ColumnDef<Monster5e>[] = [
+export const creatureColumns: ColumnDef<ListCreature>[] = [
 	{
 		accessorKey: "name",
 		header: ({ column }) => (
 			<DataTableColumnHeader column={column} title="Name" />
 		),
 		cell: ({ row }) => (
-			<div className="w-72 font-short">{row.getValue("name")}</div>
+			<div className="w-72 font-short">
+				{row.getValue("name")}{" "}
+				<span className="text-xs text-zinc-400">
+					{row.getValue("document__slug")}
+				</span>
+			</div>
 		),
 		enableSorting: true,
 	},

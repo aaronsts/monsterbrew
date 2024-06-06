@@ -26,28 +26,18 @@ import {
 } from "@/components/ui/table";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { DataTablePagination } from "./data-table-pagination";
-import { useQuery } from "@tanstack/react-query";
-import { getInitialCreatures, searchCreature } from "@/services/creatures";
 
 interface DataTableProps<TData, TValue> {
+	data: TData[];
 	columns: ColumnDef<TData, TValue>[];
+	isLoading: boolean;
 }
 
 export function DataTable<TData, TValue>({
+	data,
 	columns,
+	isLoading,
 }: DataTableProps<TData, TValue>) {
-	const [tableCreatures, setTableCreatures] = React.useState([]);
-
-	const { data, isLoading } = useQuery({
-		queryKey: ["initialCreatures"],
-		queryFn: getInitialCreatures,
-	});
-
-	React.useEffect(() => {
-		if (!data) return;
-		setTableCreatures(data.results);
-	}, [data]);
-
 	const [rowSelection, setRowSelection] = React.useState({});
 	const [columnVisibility, setColumnVisibility] =
 		React.useState<VisibilityState>({});
@@ -55,9 +45,8 @@ export function DataTable<TData, TValue>({
 		[]
 	);
 	const [sorting, setSorting] = React.useState<SortingState>([]);
-
 	const table = useReactTable({
-		data: tableCreatures,
+		data,
 		columns,
 		state: {
 			sorting,

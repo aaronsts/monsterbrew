@@ -13,9 +13,6 @@ import {
 	monster_sizes,
 	monster_types,
 } from "@/lib/constants";
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { searchCreature } from "@/services/creatures";
 
 interface DataTableToolbarProps<TData> {
 	table: Table<TData>;

@@ -1,7 +1,6 @@
 import { QueryClient } from "@tanstack/react-query";
 import { getInitialCreatures } from "@/services/creatures";
-import { DataTable } from "./components/data-table";
-import { creatureColumns } from "./components/columns";
+import ClientCreatureList from "./components/client-creature-list";
 
 export default async function Creatures() {
 	const queryClient = new QueryClient();
@@ -11,5 +10,5 @@ export default async function Creatures() {
 		queryFn: getInitialCreatures,
 	});
 
-	return <DataTable columns={creatureColumns} />;
+	return <ClientCreatureList />;
 }
