@@ -2,8 +2,33 @@ import { Divider } from "@/components/ui/divider";
 
 export default async function Changelog() {
 	return (
-		<div className="prose prose-zinc prose-h3:mb-0 prose-h3:leading-tight prose-p:my-3">
+		<div className="prose max-w-4xl mx-auto prose-zinc prose-h3:mb-0 prose-h3:leading-tight prose-p:my-3">
 			<h2>Changelog</h2>
+			<div>
+				<Divider />
+				<h3>V1.6.0</h3>
+				<span className="font-short">Friday - 07/06/2024</span>
+				<p>
+					WIth this release, It is easier to search for a specific creature that
+					you want to use as a template. Creatures are stored locally for better
+					and faster search results.
+				</p>
+				<ul>
+					<li>
+						A creatures page has been added with filters for Challenge Rating,
+						Size, Type, Source and Environment.
+					</li>
+					<li>Removed the dropdown select in the editor.</li>
+					<li>
+						Multiple sources for homebrew mosnters have been added (all
+						available via open5e)
+					</li>
+					<li>
+						Creatures will be fetched and stored locally in the browser for
+						better search results.
+					</li>
+				</ul>
+			</div>
 			<div>
 				<Divider />
 				<h3>V1.5.0</h3>
