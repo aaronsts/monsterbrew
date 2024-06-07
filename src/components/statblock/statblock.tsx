@@ -8,10 +8,9 @@ import { getCreature } from "@/services/creatures";
 import { useEffect } from "react";
 import { Button } from "../ui/button";
 import { capitalize } from "@/lib/utils";
-import { addMarkdown } from "@/lib/markdownConverter";
-import { Monster5e } from "@/types/monster5e";
 import Actions from "./actions";
 import Markdown from "react-markdown";
+import { toast } from "sonner";
 
 interface StatblockProps {
 	loadCreatureValues: () => void;
@@ -19,6 +18,7 @@ interface StatblockProps {
 
 const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 	const { selectedCreature, setCreature, creature } = useCreaturesStore();
+
 	const { data, isLoading, error } = useQuery({
 		queryKey: ["creature", selectedCreature],
 		queryFn: () => getCreature(selectedCreature),
@@ -27,29 +27,14 @@ const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 
 	useEffect(() => {
 		if (!data) return;
-		const hitPointsFormula = data.hit_dice.split("+");
-		const modifiedData: Monster5e = {
-			...data,
-			actions: addMarkdown(data.actions),
-			reactions: addMarkdown(data.reactions),
-			hit_dice: hitPointsFormula[0],
-			hit_modifier: hitPointsFormula[1] ? parseInt(hitPointsFormula[1]) : 0,
-			special_abilities: addMarkdown(data.special_abilities),
-			legendary_actions: addMarkdown(data.legendary_actions),
-			mythic_actions: addMarkdown(data.mythic_actions),
-			regional_actions: addMarkdown(data.regional_actions),
-			lair_actions: addMarkdown(data.lair_actions),
-		};
-		setCreature(modifiedData);
+		setCreature(data);
 	}, [data, setCreature]);
 
 	if (isLoading) return <div className="font-yatra">Loading</div>;
-	if (error)
-		return (
-			<div className="font-yatra">
-				Something went wrong: could not load creature, please try again.
-			</div>
-		);
+	if (error) {
+		toast.error(`Something went wrong: ${error.message}`);
+		throw Error(`Something went wrong: ${error.message}`);
+	}
 
 	const skills = Object.entries(creature.skills)
 		.map((skl) => `${capitalize(skl[0])} +${skl[1]}`)

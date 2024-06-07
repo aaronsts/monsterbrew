@@ -22,6 +22,7 @@ import { useCreaturesStore } from "@/store/zustand";
 import { useQuery } from "@tanstack/react-query";
 import { getCreature } from "@/services/creatures";
 import LoadingSpinner from "./ui/loading-spinner";
+import { useSearchParams } from "next/navigation";
 
 type Option = {
 	slug: string;
@@ -29,15 +30,22 @@ type Option = {
 };
 
 export function CreatureListSelect() {
+	const searchParams = useSearchParams();
 	const [open, setOpen] = useState(false);
 	const { setSelectedCreature, selectedCreature } = useCreaturesStore();
-	const isDesktop = useMediaQuery("(min-width: 768px)");
 	const [selectedStatus, setSelectedStatus] = useState<Option | null>(null);
 
+	const isDesktop = useMediaQuery("(min-width: 768px)");
+
 	useEffect(() => {
+		const paramsCreature = searchParams.get("creature");
+		if (searchParams.get("creature") !== null) {
+			setSelectedCreature(paramsCreature as string);
+			return;
+		}
 		if (!selectedStatus) return;
 		setSelectedCreature(selectedStatus.slug);
-	}, [selectedStatus, setSelectedCreature]);
+	}, [searchParams, selectedStatus, setSelectedCreature]);
 
 	const { isLoading } = useQuery({
 		queryKey: ["creature", selectedCreature],

@@ -5,6 +5,7 @@ import {
 	QueryClient,
 	dehydrate,
 } from "@tanstack/react-query";
+import { Suspense } from "react";
 
 export default async function Editor() {
 	const queryClient = new QueryClient();
@@ -14,8 +15,10 @@ export default async function Editor() {
 		queryFn: getAllCreatures,
 	});
 	return (
-		<HydrationBoundary state={dehydrate(queryClient)}>
-			<ClientEditor />
-		</HydrationBoundary>
+		<Suspense>
+			<HydrationBoundary state={dehydrate(queryClient)}>
+				<ClientEditor />
+			</HydrationBoundary>
+		</Suspense>
 	);
 }
