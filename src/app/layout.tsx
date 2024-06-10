@@ -12,7 +12,7 @@ import "@fontsource-variable/roboto-condensed";
 import PlausibleProvider from "next-plausible";
 
 export const metadata: Metadata = {
-	metadataBase: new URL("https://monsterbrew.vercel.app/"),
+	metadataBase: new URL("https://www.monsterbrew.app/"),
 	alternates: {
 		canonical: "./",
 	},
