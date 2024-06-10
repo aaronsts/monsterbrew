@@ -37,6 +37,13 @@ export function MainNavigation() {
 						</Link>
 					</NavigationMenuItem>
 					<NavigationMenuItem>
+						<Link href="/editor-v2" legacyBehavior passHref>
+							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+								Editor V2
+							</NavigationMenuLink>
+						</Link>
+					</NavigationMenuItem>
+					<NavigationMenuItem>
 						<Link href="/creatures" legacyBehavior passHref>
 							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
 								Creatures
