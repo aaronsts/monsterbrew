@@ -2,10 +2,9 @@
 
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getAllCreatures, getCreature } from "@/services/creatures";
+import { getCreature } from "@/services/creatures";
 import { useCreaturesStore } from "@/store/zustand";
 import { useCreatureForm } from "@/hooks/use-creature-form";
-import { CreatureListSelect } from "../creature-list-select";
 import StatblockForm from "./statblock-form";
 import ExportOptions from "../export/export-options";
 import Statblock from "../statblock/statblock";
@@ -15,19 +14,8 @@ import LoadingSpinner from "../ui/loading-spinner";
 
 export default function ClientEditor() {
 	const searchParams = useSearchParams();
-	const { setCreatures, setSelectedCreature, selectedCreature } =
-		useCreaturesStore();
+	const { setSelectedCreature, selectedCreature } = useCreaturesStore();
 	const { form, loadCreatureValues, onSubmit } = useCreatureForm();
-
-	const { data } = useQuery({
-		queryKey: ["creatures"],
-		queryFn: getAllCreatures,
-	});
-
-	useEffect(() => {
-		if (!data) return;
-		setCreatures(data.results);
-	}, [data, setCreatures]);
 
 	useEffect(() => {
 		const paramsCreature = searchParams.get("creature");
