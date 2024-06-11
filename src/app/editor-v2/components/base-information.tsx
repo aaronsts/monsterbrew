@@ -5,6 +5,13 @@ import React from "react";
 
 export default function BaseInformation() {
 	const { creature } = useCreaturesStoreV2();
+	const movement = Object.entries(creature.speed)
+		.map((move) => {
+			if (move[1] === null) return;
+			if (move[0] === "walk") return `${move[1]} ft.`;
+			return `${move[0]} ${move[1]} ft.`;
+		})
+		.join(", ");
 	return (
 		<div className="space-y-3">
 			<div className="flex justify-between">
@@ -14,14 +21,6 @@ export default function BaseInformation() {
 						{creature.size} {creature.type}, {creature.alignment}
 					</p>
 				</div>
-				{/* <Button
-					type="button"
-					variant="secondary"
-					className="bg-tower-500 print:hidden text-white border-tower-700 hover:bg-tower-700"
-					onClick={loadCreatureValues}
-				>
-					Edit
-				</Button> */}
 			</div>
 			<Divider />
 			<div>
@@ -39,7 +38,7 @@ export default function BaseInformation() {
 					</p>
 				</div>
 				<p className="font-yatra">
-					Speed <span className="font-sans">movement</span>
+					Speed <span className="font-sans">{movement}</span>
 				</p>
 			</div>
 		</div>

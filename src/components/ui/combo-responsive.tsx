@@ -43,7 +43,6 @@ export function ResponsiveComboBox({ options, name }: ResponsiveComboBoxProps) {
 	);
 
 	React.useEffect(() => {
-		console.log(selectedOption);
 		const option =
 			options.find(
 				(priority) => priority.label === creature[name as keyof Monster5e]

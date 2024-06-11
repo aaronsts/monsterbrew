@@ -159,9 +159,6 @@ export const creatureColumns: ColumnDef<ListCreature>[] = [
 	{
 		id: "actions",
 		cell: ({ row }) => {
-			const handleClick = () => {
-				console.log(row.original);
-			};
 			return (
 				<Link
 					href={{ pathname: "editor", query: { creature: row.original.slug } }}
@@ -170,7 +167,6 @@ export const creatureColumns: ColumnDef<ListCreature>[] = [
 					<Button
 						className="bg-tower-200 text-black border border-tower-400 h-fit py-1 hover:bg-tower-400"
 						size="sm"
-						onClick={handleClick}
 					>
 						View
 					</Button>

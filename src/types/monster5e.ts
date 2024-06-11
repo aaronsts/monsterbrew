@@ -3,6 +3,14 @@ import * as z from "zod";
 
 export type Monster5e = z.output<typeof monsterStatblockSchema>;
 
+export type Movement = {
+	walk: number | null;
+	swim: number | null;
+	burrow: number | null;
+	climb: number | null;
+	fly: number | null;
+};
+
 export type MonsterTetraCube = {
 	name: string;
 	size: string;
