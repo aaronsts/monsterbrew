@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { useCreaturesStoreV2 } from "@/store/creatureStore";
 import { calculateHP } from "@/lib/calculations";
 import MovementInputs from "./movement-inputs";
+import StatInputs from "./stats-inputs";
 
 export default function StatblockForm() {
 	const [customHP, setCustomHP] = useState(false);
@@ -149,8 +150,10 @@ export default function StatblockForm() {
 					</div>
 				</div>
 			</div>
-			<hr className="h-0.5 bg-cararra-400 border-0" />
+			<hr className="h-px bg-cararra-400 border-0" />
 			<MovementInputs />
+			<hr className="h-px bg-cararra-400 border-0" />
+			<StatInputs />
 		</div>
 	);
 }
