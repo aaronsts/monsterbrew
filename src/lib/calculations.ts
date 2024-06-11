@@ -1,5 +1,10 @@
 import { ISavingThrow, ISkill } from "@/types";
-import { ALL_SKILLS, CHALLENGE_RATINGS, STAT_NAMES } from "./constants";
+import {
+	ALL_SKILLS,
+	CHALLENGE_RATINGS,
+	STAT_NAMES,
+	monster_sizes,
+} from "./constants";
 import { Monster5e } from "@/types/monster5e";
 
 export function calculateSavingThrows(creature: Monster5e) {
@@ -51,4 +56,28 @@ export function calculateStatBonus(value: number) {
 	return Math.floor(value / 2) - 5 >= 0
 		? `(+${Math.floor(value / 2) - 5})`
 		: `(${Math.floor(value / 2) - 5})`;
+}
+
+export function calculateHP(amount: number, con: number, creatureSize: string) {
+	const conBonus = Math.floor(con / 2) - 5;
+	const hitDice =
+		monster_sizes.find((size) => size.label === creatureSize)?.hit_die || 8;
+	// '12d20 + 123' or ''
+	return amount ? `${amount}d${hitDice} + ${conBonus * amount}` : "";
+}
+
+export function calculateMedianHP(hitpoints: string) {
+	// 12d20 + 147
+	const dice = hitpoints.split("+").map((d) => d.trim());
+	// 12d20
+	const amount = dice[0]
+		.toLowerCase()
+		.split("d")
+		.map((a) => parseInt(a));
+	// 12 + 12*20
+	const hp = amount[0] + Math.floor(amount[0] * amount[1]);
+	const modifier = parseInt(dice[1]) || 0;
+	// 252 / 2 + 147
+	const medianHP = Math.floor(hp / 2 + modifier) || 0;
+	return medianHP;
 }
