@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { useCreaturesStoreV2 } from "@/store/creatureStore";
 import { Monster5e, Movement } from "@/types/monster5e";
 
-export default function MovementInputs() {
+export default function MovementInput() {
 	const { creature, updateCreature } = useCreaturesStoreV2();
 
 	function handleChange(event: React.FormEvent<HTMLInputElement>) {

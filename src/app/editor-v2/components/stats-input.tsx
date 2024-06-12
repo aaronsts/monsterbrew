@@ -4,7 +4,7 @@ import { calculateStatBonus } from "@/lib/calculations";
 import { useCreaturesStoreV2 } from "@/store/creatureStore";
 import React from "react";
 
-export default function StatInputs() {
+export default function StatInput() {
 	const { creature, updateCreature } = useCreaturesStoreV2();
 
 	function handleChange(event: React.FormEvent<HTMLInputElement>) {
