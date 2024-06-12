@@ -25,7 +25,7 @@ export default function StatInputs() {
 				<Input
 					onChange={handleChange}
 					id="strength"
-					defaultValue={creature.strength}
+					value={creature.strength}
 					placeholder="ex. 27"
 					type="number"
 				/>
@@ -40,7 +40,7 @@ export default function StatInputs() {
 				<Input
 					onChange={handleChange}
 					id="dexterity"
-					defaultValue={creature.dexterity}
+					value={creature.dexterity}
 					placeholder="ex. 27"
 					type="number"
 				/>
@@ -55,7 +55,7 @@ export default function StatInputs() {
 				<Input
 					onChange={handleChange}
 					id="constitution"
-					defaultValue={creature.constitution}
+					value={creature.constitution}
 					placeholder="ex. 27"
 					type="number"
 				/>
@@ -70,7 +70,7 @@ export default function StatInputs() {
 				<Input
 					onChange={handleChange}
 					id="intelligence"
-					defaultValue={creature.intelligence}
+					value={creature.intelligence}
 					placeholder="ex. 27"
 					type="number"
 				/>
@@ -85,7 +85,7 @@ export default function StatInputs() {
 				<Input
 					onChange={handleChange}
 					id="wisdom"
-					defaultValue={creature.wisdom}
+					value={creature.wisdom}
 					placeholder="ex. 27"
 					type="number"
 				/>
@@ -100,7 +100,7 @@ export default function StatInputs() {
 				<Input
 					onChange={handleChange}
 					id="charisma"
-					defaultValue={creature.charisma}
+					value={creature.charisma}
 					placeholder="ex. 27"
 					type="number"
 				/>

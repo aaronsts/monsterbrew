@@ -33,7 +33,7 @@ export default function MovementInputs() {
 					<Input
 						onChange={handleChange}
 						id="walk"
-						defaultValue={creature.speed.walk}
+						value={creature.speed.walk ?? ""}
 						placeholder="0"
 						type="number"
 					/>
@@ -48,7 +48,7 @@ export default function MovementInputs() {
 					<Input
 						onChange={handleChange}
 						id="swim"
-						defaultValue={creature.speed.swim}
+						value={creature.speed.swim ?? ""}
 						placeholder="0"
 						type="number"
 					/>
@@ -63,7 +63,7 @@ export default function MovementInputs() {
 					<Input
 						onChange={handleChange}
 						id="burrow"
-						defaultValue={creature.speed.burrow}
+						value={creature.speed.burrow ?? ""}
 						placeholder="0"
 						type="number"
 					/>
@@ -78,7 +78,7 @@ export default function MovementInputs() {
 					<Input
 						onChange={handleChange}
 						id="climb"
-						defaultValue={creature.speed.climb}
+						value={creature.speed.climb ?? ""}
 						placeholder="0"
 						type="number"
 					/>
@@ -93,7 +93,7 @@ export default function MovementInputs() {
 					<Input
 						onChange={handleChange}
 						id="fly"
-						defaultValue={creature.speed.fly}
+						value={creature.speed.fly ?? ""}
 						placeholder="0"
 						type="number"
 					/>

@@ -62,7 +62,7 @@ export default function StatblockForm() {
 						onChange={handleChange}
 						id="name"
 						name="name"
-						defaultValue={creature.name}
+						value={creature.name}
 						placeholder="ex. Ancient Black Dragon"
 					/>
 				</div>
@@ -79,7 +79,7 @@ export default function StatblockForm() {
 					<Input
 						onChange={handleChange}
 						id="alignment"
-						defaultValue={creature.alignment}
+						value={creature.alignment}
 						placeholder="ex. Chaotic Evil"
 					/>
 				</div>
@@ -88,7 +88,7 @@ export default function StatblockForm() {
 					<Input
 						onChange={handleChange}
 						id="armor_class"
-						defaultValue={creature.armor_class}
+						value={creature.armor_class}
 						placeholder="ex. 22"
 						type="number"
 					/>
@@ -98,7 +98,7 @@ export default function StatblockForm() {
 					<Input
 						onChange={handleChange}
 						id="armor_desc"
-						defaultValue={creature.armor_desc}
+						value={creature.armor_desc}
 						placeholder="ex. Natural Armor"
 					/>
 				</div>
@@ -123,7 +123,7 @@ export default function StatblockForm() {
 						<Input
 							onChange={handleChange}
 							id="hit_dice"
-							defaultValue={creature.hit_dice}
+							value={creature.hit_dice}
 							placeholder="ex. 21d12 + 147"
 						/>
 					) : (
@@ -131,7 +131,7 @@ export default function StatblockForm() {
 							onChange={handleChange}
 							id="hit_dice"
 							type="number"
-							defaultValue={parseInt(creature.hit_dice.split("d")[0])}
+							value={parseInt(creature.hit_dice.split("d")[0])}
 							placeholder="ex. 21"
 						/>
 					)}
