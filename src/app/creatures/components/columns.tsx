@@ -160,17 +160,36 @@ export const creatureColumns: ColumnDef<ListCreature>[] = [
 		id: "actions",
 		cell: ({ row }) => {
 			return (
-				<Link
-					href={{ pathname: "editor", query: { creature: row.original.slug } }}
-					passHref
-				>
-					<Button
-						className="bg-tower-200 text-black border border-tower-400 h-fit py-1 hover:bg-tower-400"
-						size="sm"
+				<>
+					<Link
+						href={{
+							pathname: "editor",
+							query: { creature: row.original.slug },
+						}}
+						passHref
 					>
-						View
-					</Button>
-				</Link>
+						<Button
+							className="bg-tower-200 text-black border border-tower-400 h-fit py-1 hover:bg-tower-400"
+							size="sm"
+						>
+							View
+						</Button>
+					</Link>
+					<Link
+						href={{
+							pathname: "editor-v2",
+							query: { creature: row.original.slug },
+						}}
+						passHref
+					>
+						<Button
+							className="bg-tower-200 text-black border border-tower-400 h-fit py-1 hover:bg-tower-400"
+							size="sm"
+						>
+							v2
+						</Button>
+					</Link>
+				</>
 			);
 		},
 	},

@@ -233,13 +233,13 @@ export const CONDITION_TYPES = [
 ];
 
 export const initialCreature = {
-	slug: "ancient-black-dragon",
-	name: "Ancient Black Dragon",
+	slug: "",
+	name: "New Creature",
 	desc: "",
 	size: "Gargantuan",
-	type: "Dragon",
+	type: "Aberration",
 	subtype: "",
-	group: "Black Dragon",
+	group: "",
 	alignment: "chaotic evil",
 	armor_class: 22,
 	armor_desc: "natural armor",
