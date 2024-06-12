@@ -17,6 +17,7 @@ import { useCreaturesStoreV2 } from "@/store/creatureStore";
 import { calculateHP } from "@/lib/calculations";
 import MovementInputs from "./movement-inputs";
 import StatInputs from "./stats-inputs";
+import SensesInputs from "./senses-inputs";
 
 export default function StatblockForm() {
 	const [customHP, setCustomHP] = useState(false);
@@ -56,6 +57,7 @@ export default function StatblockForm() {
 			<div className="grid grid-cols-3 gap-x-3 gap-y-1 h-fit">
 				<div className="space-y-0.5 col-span-2">
 					<Label htmlFor="name">Name</Label>
+
 					<Input
 						onChange={handleChange}
 						id="name"
@@ -152,8 +154,9 @@ export default function StatblockForm() {
 			</div>
 			<hr className="h-px bg-cararra-400 border-0" />
 			<MovementInputs />
-			<hr className="h-px bg-cararra-400 border-0" />
 			<StatInputs />
+			<hr className="h-px bg-cararra-400 border-0" />
+			<SensesInputs />
 		</div>
 	);
 }

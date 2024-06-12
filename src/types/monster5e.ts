@@ -11,6 +11,14 @@ export type Movement = {
 	fly: number | null;
 };
 
+export type Senses = {
+	blindsight?: number;
+	darkvision?: number;
+	tremorsense?: number;
+	truesight?: number;
+	passivePerception?: number;
+};
+
 export type MonsterTetraCube = {
 	name: string;
 	size: string;
