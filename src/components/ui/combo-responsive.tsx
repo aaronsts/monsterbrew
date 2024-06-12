@@ -35,7 +35,7 @@ interface ResponsiveComboBoxProps {
 }
 
 export function ResponsiveComboBox({ options, name }: ResponsiveComboBoxProps) {
-	const { creature, updateCreature } = useCreaturesStoreV2();
+	const { creature } = useCreaturesStoreV2();
 	const [open, setOpen] = React.useState(false);
 	const isDesktop = useMediaQuery("(min-width: 768px)");
 	const [selectedOption, setSelectedOption] = React.useState<Option | null>(
@@ -59,7 +59,10 @@ export function ResponsiveComboBox({ options, name }: ResponsiveComboBoxProps) {
 						className="w-full flex border-cararra-300 hover:bg-cararra-100 justify-between"
 					>
 						{selectedOption ? (
-							<>{selectedOption.label}</>
+							<>
+								{selectedOption.label}{" "}
+								{name === "challenge_rating" && `(${selectedOption.value} XP)`}
+							</>
 						) : (
 							<span className="text-zinc-400">Set {name}</span>
 						)}
@@ -87,7 +90,10 @@ export function ResponsiveComboBox({ options, name }: ResponsiveComboBoxProps) {
 					className="w-full flex border-cararra-300 hover:bg-cararra-100 justify-between"
 				>
 					{selectedOption ? (
-						<>{selectedOption.label}</>
+						<>
+							{selectedOption.label}{" "}
+							{name === "challenge_rating" && `(${selectedOption.value} XP)`}
+						</>
 					) : (
 						<span className="text-zinc-400">Set {name}</span>
 					)}
@@ -144,6 +150,7 @@ function OptionList({
 							{option.label}{" "}
 							<span className="text-zinc-400">
 								{option.hit_die && `d${option.hit_die}`}
+								{name === "challenge_rating" && `${option.value} XP`}
 							</span>
 						</CommandItem>
 					))}
