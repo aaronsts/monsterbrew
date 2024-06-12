@@ -86,6 +86,15 @@ export const STAT_NAMES = [
 	{ name: "Charisma", value: "cha" },
 ];
 
+export const STAT_NAMES_V2 = [
+	"strength",
+	"dexterity",
+	"constitution",
+	"intelligence",
+	"wisdom",
+	"charisma",
+];
+
 export const CHALLENGE_RATINGS = [
 	{ label: "0", value: "10", prof: 2 },
 	{ label: "1/8", value: "25", prof: 2 },

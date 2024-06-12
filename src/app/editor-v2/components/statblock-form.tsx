@@ -1,6 +1,10 @@
 "use client";
 
-import { monster_sizes, monster_types } from "@/lib/constants";
+import {
+	CHALLENGE_RATINGS,
+	monster_sizes,
+	monster_types,
+} from "@/lib/constants";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
@@ -15,9 +19,11 @@ import { Info } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useCreaturesStoreV2 } from "@/store/creatureStore";
 import { calculateHP } from "@/lib/calculations";
-import MovementInputs from "./movement-inputs";
-import StatInputs from "./stats-inputs";
-import SensesInputs from "./senses-inputs";
+import MovementInput from "./movement-input";
+import StatInput from "./stats-input";
+import SensesInput from "./senses-input";
+import ChallengeRatingInput from "./challenge-rating-input";
+import SavingThrowsInput from "./saving-throws-input";
 
 export default function StatblockForm() {
 	const [customHP, setCustomHP] = useState(false);
@@ -152,11 +158,13 @@ export default function StatblockForm() {
 					</div>
 				</div>
 			</div>
+			<ChallengeRatingInput />
 			<hr className="h-px bg-cararra-400 border-0" />
-			<MovementInputs />
-			<StatInputs />
+			<MovementInput />
+			<StatInput />
 			<hr className="h-px bg-cararra-400 border-0" />
-			<SensesInputs />
+			<SensesInput />
+			<SavingThrowsInput />
 		</div>
 	);
 }

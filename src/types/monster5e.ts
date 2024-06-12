@@ -19,6 +19,8 @@ export type Senses = {
 	passivePerception?: number;
 };
 
+export type SavingThrow = string;
+
 export type MonsterTetraCube = {
 	name: string;
 	size: string;

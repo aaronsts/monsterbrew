@@ -3,15 +3,26 @@ import {
 	ALL_SKILLS,
 	CHALLENGE_RATINGS,
 	STAT_NAMES,
+	STAT_NAMES_V2,
 	monster_sizes,
 } from "./constants";
-import { Monster5e } from "@/types/monster5e";
+import { Monster5e, SavingThrow } from "@/types/monster5e";
 
 export function calculateSavingThrows(creature: Monster5e) {
 	const newSavingThrows: ISavingThrow[] = [];
 	STAT_NAMES.forEach((stat) => {
 		const savingThrowStat = stat.name.toLowerCase() + "_save";
 		if (creature[savingThrowStat as keyof typeof creature] === null) return;
+		newSavingThrows.push(stat);
+	});
+	return newSavingThrows;
+}
+
+export function calculateSavingThrowsv2(creature: Monster5e) {
+	const newSavingThrows: SavingThrow[] = [];
+	STAT_NAMES_V2.forEach((stat) => {
+		const savingThrowStat = stat + "_save";
+		if (creature[savingThrowStat as keyof Monster5e] === null) return;
 		newSavingThrows.push(stat);
 	});
 	return newSavingThrows;
