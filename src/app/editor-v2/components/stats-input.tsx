@@ -10,7 +10,7 @@ export default function StatInput() {
 
 	function handleChange(event: React.FormEvent<HTMLInputElement>) {
 		const stat = event.currentTarget.id;
-		const value = parseInt(event.currentTarget.value);
+		const value = parseInt(event.currentTarget.value) || 0;
 		const profBonus = challengeRating().prof;
 		const statBonus = Math.floor(value / 2) - 5;
 		const saveBonus = profBonus + statBonus;
