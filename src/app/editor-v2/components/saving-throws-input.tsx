@@ -7,20 +7,17 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import {
-	calculateSavingThrowsv2,
-	calculateStatBonus,
-} from "@/lib/calculations";
+import { calculateSavingThrowsv2 } from "@/lib/calculations";
 import { CHALLENGE_RATINGS, STAT_NAMES_V2 } from "@/lib/constants";
 import { capitalize } from "@/lib/utils";
 import { useCreaturesStoreV2 } from "@/store/creatureStore";
-import { Monster5e, SavingThrow } from "@/types/monster5e";
+import { Monster5e } from "@/types/monster5e";
 import { Trash2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 export default function SavingThrowsInput() {
-	const { creature, updateCreature } = useCreaturesStoreV2();
-	const [savingThrows, setSavingThrows] = useState<SavingThrow[]>([]);
+	const { creature, updateCreature, savingThrows, setSavingThrows } =
+		useCreaturesStoreV2();
 	const [stat, setStat] = useState<string>();
 
 	const challengeRating = CHALLENGE_RATINGS.find(
@@ -34,20 +31,18 @@ export default function SavingThrowsInput() {
 	useEffect(() => {
 		const saves = calculateSavingThrowsv2(creature);
 		setSavingThrows(saves);
-		console.log(creature);
-	}, [creature]);
+	}, [creature, setSavingThrows]);
 
 	const addSavingThrow = () => {
 		if (!stat) return;
 		if (savingThrows.includes(stat)) return;
-
 		const profBonus = challengeRating?.prof || 0;
+
 		const statBonus =
 			Math.floor((creature[stat as keyof Monster5e] as number) / 2) - 5;
 		const saveBonus = profBonus + statBonus;
 
 		updateCreature({ [`${stat}_save`]: saveBonus });
-
 		setSavingThrows([...savingThrows, stat]);
 	};
 

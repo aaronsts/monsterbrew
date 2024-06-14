@@ -5,12 +5,26 @@ import { useCreaturesStoreV2 } from "@/store/creatureStore";
 import React from "react";
 
 export default function StatInput() {
-	const { creature, updateCreature } = useCreaturesStoreV2();
+	const { creature, updateCreature, challengeRating, savingThrows } =
+		useCreaturesStoreV2();
 
 	function handleChange(event: React.FormEvent<HTMLInputElement>) {
-		updateCreature({
-			[event.currentTarget.id]: event.currentTarget.value,
-		});
+		const stat = event.currentTarget.id;
+		const value = parseInt(event.currentTarget.value);
+		const profBonus = challengeRating().prof;
+		const statBonus = Math.floor(value / 2) - 5;
+		const saveBonus = profBonus + statBonus;
+
+		if (savingThrows.includes(stat)) {
+			updateCreature({
+				[stat]: event.currentTarget.value,
+				[`${stat}_save`]: saveBonus,
+			});
+		} else {
+			updateCreature({
+				[stat]: event.currentTarget.value,
+			});
+		}
 	}
 
 	return (
