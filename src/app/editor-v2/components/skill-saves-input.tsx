@@ -17,8 +17,8 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export default function SkillSavesInput() {
-	const { creature, updateCreature, challengeRating } = useCreaturesStoreV2();
-	const [skills, setSkills] = useState<Skill[]>([]);
+	const { creature, updateCreature, challengeRating, skills, setSkills } =
+		useCreaturesStoreV2();
 	const [selectedSkill, setSelectedSkill] = useState<string>();
 
 	const onSelectSkill = (e: string) => {
@@ -28,7 +28,7 @@ export default function SkillSavesInput() {
 	useEffect(() => {
 		const saves = calculateSkillSaves(creature, challengeRating());
 		setSkills(saves);
-	}, [challengeRating, creature]);
+	}, [challengeRating, creature, setSkills]);
 
 	function addSkill(event: React.MouseEvent<HTMLElement>) {
 		// get skill and stat modifier

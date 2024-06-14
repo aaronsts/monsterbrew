@@ -1,12 +1,18 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { calculateStatBonus } from "@/lib/calculations";
+import { ALL_SKILLS } from "@/lib/constants";
 import { useCreaturesStoreV2 } from "@/store/creatureStore";
 import React from "react";
 
 export default function StatInput() {
-	const { creature, updateCreature, challengeRating, savingThrows } =
-		useCreaturesStoreV2();
+	const {
+		creature,
+		updateCreature,
+		challengeRating,
+		savingThrows,
+		skills: skillsArray,
+	} = useCreaturesStoreV2();
 
 	function handleChange(event: React.FormEvent<HTMLInputElement>) {
 		const stat = event.currentTarget.id;
@@ -15,16 +21,20 @@ export default function StatInput() {
 		const statBonus = Math.floor(value / 2) - 5;
 		const saveBonus = profBonus + statBonus;
 
-		if (savingThrows.includes(stat)) {
-			updateCreature({
-				[stat]: event.currentTarget.value,
-				[`${stat}_save`]: saveBonus,
-			});
-		} else {
-			updateCreature({
-				[stat]: event.currentTarget.value,
-			});
-		}
+		skillsArray.forEach((entry) => {
+			const skill = ALL_SKILLS.find((skl) => skl.name === entry.name);
+			if (!skill) return;
+			const skillModifier = skill.expert
+				? statBonus + challengeRating().prof * 2
+				: statBonus + challengeRating().prof;
+			if (skill?.stat === stat) {
+				updateCreature({
+					[stat]: event.currentTarget.value,
+					skills: { ...creature.skills, [skill.name]: skillModifier },
+					[`${stat}_save`]: savingThrows.includes(stat) ? saveBonus : null,
+				});
+			}
+		});
 	}
 
 	return (
