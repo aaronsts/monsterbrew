@@ -3,6 +3,7 @@ import BaseInformation from "./base-information";
 import Stats from "./stats";
 import { CHALLENGE_RATINGS } from "@/lib/constants";
 import SavingThrows from "@/components/statblock/saving-throws";
+import { capitalize } from "@/lib/utils";
 
 export default function Statblock() {
 	const { creature } = useCreaturesStoreV2();
@@ -10,6 +11,11 @@ export default function Statblock() {
 	const challengeRating = CHALLENGE_RATINGS.find(
 		(cr) => creature.challenge_rating === cr.label
 	);
+
+	const skills = Object.entries(creature.skills)
+		.map((skl) => `${capitalize(skl[0])} +${skl[1]}`)
+		.sort()
+		.join(", ");
 
 	return (
 		<div className="w-full print:columns-2 text-cararra-950 space-y-3">
@@ -24,6 +30,12 @@ export default function Statblock() {
 					wisdom_save={creature.wisdom_save}
 					charisma_save={creature.charisma_save}
 				/>
+				{skills.length > 0 && (
+					<div className="flex gap-2 items-center">
+						<h4 className="font-yatra">Skills</h4>
+						<p className="font-sans leading-relaxed inline-block">{skills}</p>
+					</div>
+				)}
 				<div className="flex gap-2 items-center">
 					<h4 className="font-yatra">Sense</h4>
 					<p className="font-sans leading-relaxed inline-block">{senses[0]}</p>

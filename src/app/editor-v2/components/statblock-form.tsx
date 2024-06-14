@@ -24,6 +24,7 @@ import StatInput from "./stats-input";
 import SensesInput from "./senses-input";
 import ChallengeRatingInput from "./challenge-rating-input";
 import SavingThrowsInput from "./saving-throws-input";
+import SkillSavesInput from "./skill-saves-input";
 
 export default function StatblockForm() {
 	const [customHP, setCustomHP] = useState(false);
@@ -165,6 +166,7 @@ export default function StatblockForm() {
 			<hr className="h-px bg-cararra-400 border-0" />
 			<SensesInput />
 			<SavingThrowsInput />
+			<SkillSavesInput />
 		</div>
 	);
 }

@@ -21,6 +21,12 @@ export type Senses = {
 
 export type SavingThrow = string;
 
+export type Skill = {
+	name: string;
+	stat: string;
+	expert?: boolean;
+};
+
 export type MonsterTetraCube = {
 	name: string;
 	size: string;
