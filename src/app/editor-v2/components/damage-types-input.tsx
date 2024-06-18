@@ -15,7 +15,7 @@ import { Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function DamageTypesInput() {
-	const { creature, updateCreature, challengeRating } = useCreaturesStoreV2();
+	const { creature, updateCreature } = useCreaturesStoreV2();
 	const [damage, setDamage] = useState<string>();
 	const [damageList, setDamageList] = useState<string[]>([]);
 

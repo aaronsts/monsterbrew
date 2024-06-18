@@ -234,7 +234,6 @@ export const CONDITION_TYPES = [
 	"invisible",
 	"paralyzed",
 	"petrified",
-	"poisoned",
 	"prone",
 	"restrained",
 	"stunned",

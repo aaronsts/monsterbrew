@@ -22,6 +22,7 @@ import SavingThrowsInput from "./saving-throws-input";
 import SkillSavesInput from "./skill-saves-input";
 import DamageTypesInput from "./damage-types-input";
 import BasicInfoInput from "./basic-info-input";
+import ConditionTypesInput from "./condition-types-input";
 
 export default function StatblockForm() {
 	return (
@@ -36,6 +37,7 @@ export default function StatblockForm() {
 			<SavingThrowsInput />
 			<SkillSavesInput />
 			<DamageTypesInput />
+			<ConditionTypesInput />
 		</div>
 	);
 }
