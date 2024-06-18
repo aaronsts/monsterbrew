@@ -3,6 +3,30 @@ import * as z from "zod";
 
 export type Monster5e = z.output<typeof monsterStatblockSchema>;
 
+export type Movement = {
+	walk: number | null;
+	swim: number | null;
+	burrow: number | null;
+	climb: number | null;
+	fly: number | null;
+};
+
+export type Senses = {
+	blindsight?: number;
+	darkvision?: number;
+	tremorsense?: number;
+	truesight?: number;
+	passivePerception?: number;
+};
+
+export type SavingThrow = string;
+
+export type Skill = {
+	name: string;
+	stat: string;
+	expert?: boolean;
+};
+
 export type MonsterTetraCube = {
 	name: string;
 	size: string;

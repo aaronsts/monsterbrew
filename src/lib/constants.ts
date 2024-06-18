@@ -17,12 +17,12 @@ export const initialFormValues = {
 		hover: false,
 	},
 	challenge_rating: "",
-	strength: 10,
-	dexterity: 10,
-	constitution: 10,
-	intelligence: 10,
-	wisdom: 10,
-	charisma: 10,
+	strength: 0,
+	dexterity: 0,
+	constitution: 0,
+	intelligence: 0,
+	wisdom: 0,
+	charisma: 0,
 	languages: "",
 	special_abilities: null,
 	actions: null,
@@ -84,6 +84,15 @@ export const STAT_NAMES = [
 	{ name: "Intelligence", value: "int" },
 	{ name: "Wisdom", value: "wis" },
 	{ name: "Charisma", value: "cha" },
+];
+
+export const STAT_NAMES_V2 = [
+	"strength",
+	"dexterity",
+	"constitution",
+	"intelligence",
+	"wisdom",
+	"charisma",
 ];
 
 export const CHALLENGE_RATINGS = [
@@ -212,6 +221,9 @@ export const DAMAGE_TYPES = [
 	"radiant",
 	"slashing",
 	"thunder",
+	"non-magical bludgeoning piercing and slashing",
+	"non-silvered bludgeoning piercing and slashing",
+	"non-adamantine bludgeoning piercing and slashing",
 ];
 
 export const CONDITION_TYPES = [
@@ -225,7 +237,6 @@ export const CONDITION_TYPES = [
 	"invisible",
 	"paralyzed",
 	"petrified",
-	"poisoned",
 	"prone",
 	"restrained",
 	"stunned",
@@ -233,18 +244,18 @@ export const CONDITION_TYPES = [
 ];
 
 export const initialCreature = {
-	slug: "ancient-black-dragon",
-	name: "Ancient Black Dragon",
+	slug: "",
+	name: "New Creature",
 	desc: "",
 	size: "Gargantuan",
-	type: "Dragon",
+	type: "Aberration",
 	subtype: "",
-	group: "Black Dragon",
+	group: "",
 	alignment: "chaotic evil",
 	armor_class: 22,
 	armor_desc: "natural armor",
 	hit_points: 367,
-	hit_dice: "21d20+147",
+	hit_dice: "21d20",
 	hit_modifier: 147,
 	speed: {
 		walk: "40",

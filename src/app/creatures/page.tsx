@@ -1,5 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
-import { getInitialCreatures } from "@/services/creatures";
+import { getAllCreatures } from "@/services/creatures";
 import ClientCreatureList from "./components/client-creature-list";
 
 export default async function Creatures() {
@@ -7,7 +7,7 @@ export default async function Creatures() {
 
 	await queryClient.prefetchQuery({
 		queryKey: ["initialCreatures"],
-		queryFn: getInitialCreatures,
+		queryFn: getAllCreatures,
 	});
 
 	return <ClientCreatureList />;

@@ -20,6 +20,7 @@ export const monsterStatblockSchema = z.object({
 		.min(1, { message: "Please enter an Armor Class value" }),
 	armor_desc: z.string().optional(),
 	hit_points: z.number().optional(),
+	customHp: z.boolean().optional(),
 	hit_dice: z.string().regex(new RegExp(/(\d*)d(4|6|8|10|12|20)/gm), {
 		message: "Please use a format like 2d20",
 	}),

@@ -1,10 +1,10 @@
-import ClientEditor from "@/components/editor/client-editor";
 import {
 	HydrationBoundary,
 	QueryClient,
 	dehydrate,
 } from "@tanstack/react-query";
 import { Suspense } from "react";
+import ClientEditor from "./components/client-editor";
 
 export default async function Editor() {
 	const queryClient = new QueryClient();

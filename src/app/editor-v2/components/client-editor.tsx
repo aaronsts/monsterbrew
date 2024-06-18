@@ -5,17 +5,16 @@ import { useQuery } from "@tanstack/react-query";
 import { getCreature } from "@/services/creatures";
 import { useCreaturesStore } from "@/store/zustand";
 import { useCreatureForm } from "@/hooks/use-creature-form";
-import StatblockForm from "./statblock-form";
-import ExportOptions from "../export/export-options";
-import Statblock from "../statblock/statblock";
-import ImportButton from "../import-button";
+import LoadingSpinner from "@/components/ui/loading-spinner";
 import { useSearchParams } from "next/navigation";
-import LoadingSpinner from "../ui/loading-spinner";
+import Statblock from "./statblock";
+import StatblockForm from "./statblock-form";
+import { useCreaturesStoreV2 } from "@/store/creatureStore";
 
 export default function ClientEditor() {
 	const searchParams = useSearchParams();
 	const { setSelectedCreature, selectedCreature } = useCreaturesStore();
-	const { form, loadCreatureValues, onSubmit } = useCreatureForm();
+	const { updateCreature } = useCreaturesStoreV2();
 
 	useEffect(() => {
 		const paramsCreature = searchParams.get("creature");
@@ -23,24 +22,25 @@ export default function ClientEditor() {
 		setSelectedCreature(paramsCreature as string);
 	}, [searchParams, setSelectedCreature]);
 
-	const { isLoading } = useQuery({
+	const { data, isLoading } = useQuery({
 		queryKey: ["creature", selectedCreature],
 		queryFn: () => getCreature(selectedCreature),
 	});
 
+	useEffect(() => {
+		if (!data) return;
+		updateCreature(data);
+	}, [data, updateCreature]);
+
 	return (
 		<div className="grid md:grid-cols-2 gap-6">
-			<StatblockForm form={form} onSubmit={onSubmit} />
+			<StatblockForm />
 			<div className="flex flex-col relative gap-3">
-				<div className="print:hidden flex items-center justify-end sticky top-16 bg-white py-3 gap-3">
+				{/* <div className="print:hidden flex items-center justify-end sticky top-16 bg-white py-3 gap-3">
 					<ImportButton />
 					<ExportOptions />
-				</div>
-				{isLoading ? (
-					<LoadingSpinner />
-				) : (
-					<Statblock loadCreatureValues={loadCreatureValues} />
-				)}
+				</div> */}
+				{isLoading ? <LoadingSpinner /> : <Statblock />}
 			</div>
 		</div>
 	);

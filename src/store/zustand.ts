@@ -9,6 +9,7 @@ interface CreatureStore {
 	setCreatures: (data: { slug: string; name: string }[]) => void;
 	setCreature: (creature: Monster5e) => void;
 	setSelectedCreature: (slug: string) => void;
+	updateCreature: (data: Partial<Monster5e>) => void;
 }
 
 export const useCreaturesStore = create<CreatureStore>((set) => ({
@@ -21,4 +22,6 @@ export const useCreaturesStore = create<CreatureStore>((set) => ({
 			return { creature: data || prevState.creature };
 		}),
 	setSelectedCreature: (slug) => set(() => ({ selectedCreature: slug })),
+	updateCreature: (data) =>
+		set((prevState) => ({ creature: { ...prevState.creature, ...data } })),
 }));
