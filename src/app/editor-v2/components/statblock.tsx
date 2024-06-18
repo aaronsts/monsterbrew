@@ -46,6 +46,30 @@ export default function Statblock() {
 						{creature.languages}
 					</p>
 				</div>
+				{creature.damage_vulnerabilities !== "" && (
+					<div className="flex gap-2 items-center">
+						<h4 className="font-yatra">Vulnerabilities</h4>
+						<p className="font-sans capitalize leading-relaxed inline-block">
+							{creature.damage_vulnerabilities}
+						</p>
+					</div>
+				)}
+				{creature.damage_resistances !== "" && (
+					<div className="flex gap-2 items-center">
+						<h4 className="font-yatra">Resistances</h4>
+						<p className="font-sans capitalize leading-relaxed inline-block">
+							{creature.damage_resistances}
+						</p>
+					</div>
+				)}
+				{creature.damage_immunities !== "" && (
+					<div className="flex gap-2 items-center">
+						<h4 className="font-yatra">Immunities</h4>
+						<p className="font-sans capitalize leading-relaxed inline-block">
+							{creature.damage_immunities}
+						</p>
+					</div>
+				)}
 				<div className="flex justify-between">
 					<div className="flex gap-2 items-center">
 						<h4 className="font-yatra">Challenge Rating</h4>

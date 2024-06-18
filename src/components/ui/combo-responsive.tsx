@@ -119,7 +119,6 @@ function OptionList({
 	setOpen,
 	name,
 	options,
-	selectedOption,
 	setSelectedOption,
 }: {
 	setOpen: (open: boolean) => void;
@@ -129,6 +128,7 @@ function OptionList({
 	setSelectedOption: (status: Option | null) => void;
 }) {
 	const { updateCreature } = useCreaturesStoreV2();
+	// TODO: Update Saving Throws when CR changes (Proficiency Bonus)
 
 	return (
 		<Command>

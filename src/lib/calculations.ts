@@ -7,6 +7,7 @@ import {
 	monster_sizes,
 } from "./constants";
 import { Monster5e, SavingThrow } from "@/types/monster5e";
+import { capitalize } from "./utils";
 
 export function calculateSavingThrows(creature: Monster5e) {
 	const newSavingThrows: ISavingThrow[] = [];
@@ -26,6 +27,28 @@ export function calculateSavingThrowsv2(creature: Monster5e) {
 		newSavingThrows.push(stat);
 	});
 	return newSavingThrows;
+}
+
+export function calculateDamageTypes(creature: Monster5e) {
+	const dmgImm =
+		creature.damage_immunities!.length > 0
+			? creature
+					.damage_immunities!?.split(", ")
+					.map((dmg) => "immune to " + dmg)
+			: [];
+	const dmgVul =
+		creature.damage_vulnerabilities!.length > 0
+			? creature
+					.damage_vulnerabilities!?.split(", ")
+					.map((dmg) => "vulnerable to " + dmg)
+			: [];
+	const dmgRes =
+		creature.damage_resistances!.length > 0
+			? creature
+					.damage_resistances!?.split(", ")
+					.map((dmg) => "resistant to " + dmg)
+			: [];
+	return [...dmgImm, ...dmgVul, ...dmgRes];
 }
 
 export function calculateSkillSaves(

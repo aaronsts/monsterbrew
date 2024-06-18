@@ -25,6 +25,7 @@ import SensesInput from "./senses-input";
 import ChallengeRatingInput from "./challenge-rating-input";
 import SavingThrowsInput from "./saving-throws-input";
 import SkillSavesInput from "./skill-saves-input";
+import DamageTypesInput from "./damage-types-input";
 
 export default function StatblockForm() {
 	const [customHP, setCustomHP] = useState(false);
@@ -167,6 +168,7 @@ export default function StatblockForm() {
 			<SensesInput />
 			<SavingThrowsInput />
 			<SkillSavesInput />
+			<DamageTypesInput />
 		</div>
 	);
 }
