@@ -31,45 +31,40 @@ export default function Statblock() {
 					charisma_save={creature.charisma_save}
 				/>
 				{skills.length > 0 && (
-					<div className="flex gap-2 items-center">
-						<h4 className="font-yatra">Skills</h4>
-						<p className="font-sans leading-relaxed inline-block">{skills}</p>
-					</div>
-				)}
-				<div className="flex gap-2 items-center">
-					<h4 className="font-yatra">Sense</h4>
-					<p className="font-sans leading-relaxed inline-block">{senses[0]}</p>
-				</div>
-				<div className="flex gap-2 items-center">
-					<h4 className="font-yatra">Languages</h4>
-					<p className="font-sans leading-relaxed inline-block">
-						{creature.languages}
+					<p className="font-yatra">
+						Skills <span className="font-sans">{skills}</span>
 					</p>
-				</div>
+				)}
+				{creature.condition_immunities !== "" && (
+					<p className="capitalize font-yatra">
+						Condition Immunities{" "}
+						<span className="font-sans">{creature.condition_immunities}</span>
+					</p>
+				)}
 				{creature.damage_vulnerabilities !== "" && (
-					<div className="flex gap-2 items-center">
-						<h4 className="font-yatra">Vulnerabilities</h4>
-						<p className="font-sans capitalize leading-relaxed inline-block">
-							{creature.damage_vulnerabilities}
-						</p>
-					</div>
+					<p className="capitalize font-yatra">
+						Damage Vulnerabilities{" "}
+						<span className="font-sans">{creature.damage_vulnerabilities}</span>
+					</p>
 				)}
 				{creature.damage_resistances !== "" && (
-					<div className="flex gap-2 items-center">
-						<h4 className="font-yatra">Resistances</h4>
-						<p className="font-sans capitalize leading-relaxed inline-block">
-							{creature.damage_resistances}
-						</p>
-					</div>
+					<p className="capitalize font-yatra">
+						Damage Resistances{" "}
+						<span className="font-sans">{creature.damage_resistances}</span>
+					</p>
 				)}
 				{creature.damage_immunities !== "" && (
-					<div className="flex gap-2 items-center">
-						<h4 className="font-yatra">Immunities</h4>
-						<p className="font-sans capitalize leading-relaxed inline-block">
-							{creature.damage_immunities}
-						</p>
-					</div>
+					<p className="capitalize font-yatra">
+						Damage Immunities{" "}
+						<span className="font-sans">{creature.damage_immunities}</span>
+					</p>
 				)}
+				<p className="font-yatra">
+					Senses <span className="font-sans">{creature.senses}</span>
+				</p>
+				<p className="capitalize font-yatra">
+					Languages <span className="font-sans">{creature.languages}</span>
+				</p>
 				<div className="flex justify-between">
 					<div className="flex gap-2 items-center">
 						<h4 className="font-yatra">Challenge Rating</h4>
