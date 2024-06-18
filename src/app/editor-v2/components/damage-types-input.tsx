@@ -19,6 +19,24 @@ export default function DamageTypesInput() {
 	const [damage, setDamage] = useState<string>();
 	const [damageList, setDamageList] = useState<string[]>([]);
 
+	function updateFormatedDamages(damages: string[]) {
+		const immunities = damages
+			.filter((dmg) => dmg.includes("immune"))
+			.map((dmg) => dmg.replace("immune to ", ""));
+		const vulnerabilities = damages
+			.filter((dmg) => dmg.includes("vulnerable"))
+			.map((dmg) => dmg.replace("vulnerable to ", ""));
+		const resistances = damages
+			.filter((dmg) => dmg.includes("resistant"))
+			.map((dmg) => dmg.replace("resistant to ", ""));
+
+		updateCreature({
+			damage_immunities: immunities.join(", "),
+			damage_resistances: resistances.join(", "),
+			damage_vulnerabilities: vulnerabilities.join(", "),
+		});
+	}
+
 	const onSelectDamage = (e: string) => {
 		setDamage(e);
 	};
@@ -35,8 +53,6 @@ export default function DamageTypesInput() {
 		const element = damageList.find((dmg) => dmg.includes(damageToAdd));
 		const newDamageList = [...damageList];
 
-		console.log(damageCondition, damageToAdd, damageList);
-
 		if (element) {
 			const index = damageList.indexOf(element);
 			newDamageList[index] = `${damageCondition} to ${damageToAdd}`;
@@ -45,22 +61,7 @@ export default function DamageTypesInput() {
 			newDamageList.push(`${damageCondition} to ${damageToAdd}`);
 			setDamageList(newDamageList);
 		}
-
-		const immunities = newDamageList
-			.filter((dmg) => dmg.includes("immune"))
-			.map((dmg) => dmg.replace("immune to ", ""));
-		const vulnerabilities = newDamageList
-			.filter((dmg) => dmg.includes("vulnerable"))
-			.map((dmg) => dmg.replace("vulnerable to ", ""));
-		const resistances = newDamageList
-			.filter((dmg) => dmg.includes("resistant"))
-			.map((dmg) => dmg.replace("resistant to ", ""));
-
-		updateCreature({
-			damage_immunities: immunities.join(", "),
-			damage_resistances: resistances.join(", "),
-			damage_vulnerabilities: vulnerabilities.join(", "),
-		});
+		updateFormatedDamages(newDamageList);
 	};
 
 	const removeDamage = (event: React.MouseEvent<HTMLElement>) => {
@@ -68,6 +69,7 @@ export default function DamageTypesInput() {
 		const index = parseInt(event.currentTarget.dataset.index);
 		const newDamageList = damageList.filter((_, i) => i !== index);
 		setDamageList(newDamageList);
+		updateFormatedDamages(newDamageList);
 	};
 
 	return (
