@@ -17,22 +17,42 @@ import { useEffect, useState } from "react";
 export default function DamageTypesInput() {
 	const { creature, updateCreature, challengeRating } = useCreaturesStoreV2();
 	const [damage, setDamage] = useState<string>();
-	const [damageList, setDamageList] = useState<string[]>(
-		calculateDamageTypes(creature)
-	);
+	const [damageList, setDamageList] = useState<string[]>([]);
 
 	const onSelectDamage = (e: string) => {
 		setDamage(e);
 	};
-
 	useEffect(() => {
-		const immunities = damageList
+		const damages = calculateDamageTypes(creature);
+		setDamageList(damages);
+	}, [creature]);
+
+	const addDamage = (event: React.MouseEvent<HTMLElement>) => {
+		const damageCondition = event.currentTarget.dataset.damage;
+		const damageToAdd = DAMAGE_TYPES.find((dmg) => dmg === damage);
+
+		if (!damageToAdd) return;
+		const element = damageList.find((dmg) => dmg.includes(damageToAdd));
+		const newDamageList = [...damageList];
+
+		console.log(damageCondition, damageToAdd, damageList);
+
+		if (element) {
+			const index = damageList.indexOf(element);
+			newDamageList[index] = `${damageCondition} to ${damageToAdd}`;
+			setDamageList(newDamageList);
+		} else {
+			newDamageList.push(`${damageCondition} to ${damageToAdd}`);
+			setDamageList(newDamageList);
+		}
+
+		const immunities = newDamageList
 			.filter((dmg) => dmg.includes("immune"))
-			.map((dmg) => capitalize(dmg.replace("immune to ", "")));
-		const vulnerabilities = damageList
+			.map((dmg) => dmg.replace("immune to ", ""));
+		const vulnerabilities = newDamageList
 			.filter((dmg) => dmg.includes("vulnerable"))
 			.map((dmg) => dmg.replace("vulnerable to ", ""));
-		const resistances = damageList
+		const resistances = newDamageList
 			.filter((dmg) => dmg.includes("resistant"))
 			.map((dmg) => dmg.replace("resistant to ", ""));
 
@@ -41,23 +61,6 @@ export default function DamageTypesInput() {
 			damage_resistances: resistances.join(", "),
 			damage_vulnerabilities: vulnerabilities.join(", "),
 		});
-	}, [damageList, updateCreature]);
-
-	const addDamage = (event: React.MouseEvent<HTMLElement>) => {
-		const damageCondition = event.currentTarget.dataset.damage;
-		const damageToAdd = DAMAGE_TYPES.find((dmg) => dmg === damage);
-
-		if (!damageToAdd) return;
-		const element = damageList.find((dmg) => dmg.includes(damageToAdd));
-
-		if (element) {
-			const index = damageList.indexOf(element);
-			const newDamageList = [...damageList];
-			newDamageList[index] = `${damageCondition} to ${damageToAdd}`;
-			setDamageList(newDamageList);
-			return;
-		}
-		setDamageList([...damageList, `${damageCondition} to ${damageToAdd}`]);
 	};
 
 	const removeDamage = (event: React.MouseEvent<HTMLElement>) => {
