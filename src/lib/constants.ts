@@ -221,6 +221,9 @@ export const DAMAGE_TYPES = [
 	"radiant",
 	"slashing",
 	"thunder",
+	"non-magical bludgeoning piercing and slashing",
+	"non-silvered bludgeoning piercing and slashing",
+	"non-adamantine bludgeoning piercing and slashing",
 ];
 
 export const CONDITION_TYPES = [
