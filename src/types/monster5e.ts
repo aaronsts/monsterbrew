@@ -27,6 +27,11 @@ export type Skill = {
 	expert?: boolean;
 };
 
+export type Action = {
+	name: string;
+	desc: string;
+};
+
 export type MonsterTetraCube = {
 	name: string;
 	size: string;
