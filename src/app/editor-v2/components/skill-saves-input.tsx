@@ -26,11 +26,13 @@ export default function SkillSavesInput() {
 	};
 
 	useEffect(() => {
+		if (!creature) return;
 		const saves = calculateSkillSaves(creature, challengeRating());
 		setSkills(saves);
 	}, [challengeRating, creature, setSkills]);
 
 	function addSkill(event: React.MouseEvent<HTMLElement>) {
+		if (!creature) return;
 		// get skill and stat modifier
 		const skill = ALL_SKILLS.find((s) => s.name === selectedSkill);
 		if (!skill) {
@@ -71,6 +73,7 @@ export default function SkillSavesInput() {
 	}
 
 	function removeSkill(event: React.MouseEvent<HTMLElement>) {
+		if (!creature) return;
 		if (!event.currentTarget.dataset.index) return;
 		const index = parseInt(event.currentTarget.dataset.index);
 		const newSkillList = skills.filter((_, i) => i !== index);

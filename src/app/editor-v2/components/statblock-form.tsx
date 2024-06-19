@@ -23,8 +23,10 @@ import SkillSavesInput from "./skill-saves-input";
 import DamageTypesInput from "./damage-types-input";
 import BasicInfoInput from "./basic-info-input";
 import ConditionTypesInput from "./condition-types-input";
+import ActionsInput from "./actions-input";
 
 export default function StatblockForm() {
+	const { creature } = useCreaturesStoreV2();
 	return (
 		<div className="space-y-3">
 			<BasicInfoInput />
@@ -38,6 +40,7 @@ export default function StatblockForm() {
 			<SkillSavesInput />
 			<DamageTypesInput />
 			<ConditionTypesInput />
+			{creature && <ActionsInput />}
 		</div>
 	);
 }

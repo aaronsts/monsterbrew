@@ -4,9 +4,12 @@ import Stats from "./stats";
 import { CHALLENGE_RATINGS } from "@/lib/constants";
 import SavingThrows from "@/components/statblock/saving-throws";
 import { capitalize } from "@/lib/utils";
+import Actions from "./actions";
 
 export default function Statblock() {
 	const { creature } = useCreaturesStoreV2();
+	if (!creature) return;
+
 	const senses = creature.senses?.split(" passive") || "";
 	const challengeRating = CHALLENGE_RATINGS.find(
 		(cr) => creature.challenge_rating === cr.label
@@ -79,6 +82,8 @@ export default function Statblock() {
 						</p>
 					</div>
 				</div>
+				<Actions type="special_abilities" />
+				<Actions type="actions" />
 			</div>
 		</div>
 	);

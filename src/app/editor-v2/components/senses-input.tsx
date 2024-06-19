@@ -6,7 +6,7 @@ import { useCreaturesStoreV2 } from "@/store/creatureStore";
 export default function SensesInput() {
 	const { creature, updateCreature } = useCreaturesStoreV2();
 
-	const senses = creature.senses?.split("passive") || "";
+	const senses = creature?.senses?.split("passive") || "";
 
 	function handleChange(event: React.FormEvent<HTMLInputElement>) {
 		updateCreature({
@@ -21,7 +21,7 @@ export default function SensesInput() {
 					placeholder=""
 					onChange={handleChange}
 					id="senses"
-					value={senses[0]}
+					value={senses[0] ?? ""}
 				/>
 			</div>
 			<div className="space-y-0.5 col-span-4">
@@ -30,7 +30,7 @@ export default function SensesInput() {
 					placeholder=""
 					onChange={handleChange}
 					id="languages"
-					value={creature.languages}
+					value={creature?.languages ?? ""}
 				/>
 			</div>
 			{/* <div className="space-y-0.5">

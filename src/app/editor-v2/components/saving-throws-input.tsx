@@ -21,20 +21,21 @@ export default function SavingThrowsInput() {
 	const [stat, setStat] = useState<string>();
 
 	const challengeRating = CHALLENGE_RATINGS.find(
-		(cr) => creature.challenge_rating === cr.label
-	);
+		(cr) => creature?.challenge_rating === cr.label
+	) || { label: "0", value: "10", prof: 2 };
 
 	const onSelectSkill = (e: string) => {
 		setStat(e);
 	};
 
 	useEffect(() => {
+		if (!creature) return;
 		const saves = calculateSavingThrowsv2(creature);
 		setSavingThrows(saves);
 	}, [creature, setSavingThrows]);
 
 	const addSavingThrow = () => {
-		if (!stat) return;
+		if (!stat || !creature) return;
 		if (savingThrows.includes(stat)) return;
 		const profBonus = challengeRating?.prof || 0;
 
