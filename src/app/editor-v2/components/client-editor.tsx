@@ -8,7 +8,7 @@ import { useCreatureForm } from "@/hooks/use-creature-form";
 import LoadingSpinner from "@/components/ui/loading-spinner";
 import { useSearchParams } from "next/navigation";
 import Statblock from "./statblock";
-import StatblockForm from "./statblock-form";
+import StatblockForm from "./form/statblock-form";
 import { useCreaturesStoreV2 } from "@/store/creatureStore";
 
 export default function ClientEditor() {

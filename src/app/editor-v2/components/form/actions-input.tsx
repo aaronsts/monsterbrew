@@ -4,28 +4,33 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { addMarkdown } from "@/lib/markdownConverter";
 import { useCreaturesStoreV2 } from "@/store/creatureStore";
-import { Monster5e } from "@/types/monster5e";
+import { Action as ActionType, Creature5e } from "@/types/monster5e";
 import { Plus } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 
 export default function ActionsInput() {
 	const { creature, updateCreature } = useCreaturesStoreV2();
-	const form = useForm<Partial<Monster5e>>({
+	const form = useForm<Creature5e>({
 		defaultValues: {
 			actions: addMarkdown(creature!.actions),
 		},
 	});
-	const { handleSubmit } = form;
 	const { fields, append, remove } = useFieldArray({
 		name: "actions",
 		control: form.control,
 	});
+	const { watch } = form;
 
-	function onSubmit(event: any) {
-		const formattedActions = addMarkdown(event.actions);
-		updateCreature({ actions: formattedActions });
-	}
+	useEffect(() => {
+		watch((data) => {
+			const actions = data.actions as ActionType[] | null;
+			if (!actions) return;
+			updateCreature({
+				actions: addMarkdown(actions),
+			});
+		});
+	}, [updateCreature, watch]);
 
 	return (
 		<div>
@@ -45,7 +50,7 @@ export default function ActionsInput() {
 			</div>
 			<div>
 				<Form {...form}>
-					<form onChange={handleSubmit(onSubmit)}>
+					<form>
 						<Accordion type="multiple" className="w-full space-y-2">
 							{fields.map((field, index) => (
 								<Action

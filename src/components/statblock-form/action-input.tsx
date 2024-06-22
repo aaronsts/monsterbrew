@@ -20,6 +20,7 @@ import {
 	UseFormReturn,
 	useWatch,
 } from "react-hook-form";
+import { Creature5e } from "@/types/monster5e";
 
 interface ActionProps {
 	inputName:
@@ -31,7 +32,7 @@ interface ActionProps {
 		| "mythic_actions"
 		| "reactions";
 	field: Record<"id", string>;
-	form: UseFormReturn<FieldValues, any, undefined>;
+	form: UseFormReturn<Creature5e, any, undefined>;
 	remove: UseFieldArrayRemove;
 	index: number;
 }

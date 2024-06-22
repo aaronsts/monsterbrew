@@ -30,7 +30,73 @@ export type Skill = {
 export type Action = {
 	name: string;
 	desc: string;
+	damage_dice?: string;
+	attack_bonus?: number;
 };
+
+export interface Creature5e {
+	// basic info
+	slug?: string;
+	name: string;
+	desc: string;
+	type: string;
+	subtype?: string;
+	size: string;
+	alignment: string;
+	armor_class: number;
+	armor_desc?: string;
+	hit_points: number;
+	customHp: boolean;
+	hit_dice: string;
+	hit_modifier: number;
+	speed: Movement;
+	challenge_rating: string;
+	perception: string | null;
+	skills: Record<string, number>;
+	senses: string;
+	languages: string;
+	// immunities
+	damage_vulnerabilities: string;
+	damage_resistances: string;
+	damage_immunities: string;
+	condition_immunities: string;
+	// actions
+	special_abilities: Action[] | null;
+	actions: Action[] | null;
+	reactions: Action[] | null;
+	bonus_actions: Action[] | null;
+	legendary_desc: string;
+	legendary_actions: Action[] | null;
+	lair_desc: string;
+	lair_actions: Action[] | null;
+	regional_desc: string;
+	regional_actions: Action[] | null;
+	mythic_desc: string;
+	mythic_actions: Action[] | null;
+	spell_list: string[];
+	// stats
+	strength: number;
+	dexterity: number;
+	constitution: number;
+	intelligence: number;
+	wisdom: number;
+	charisma: number;
+	// savingthrows
+	strength_save: number | null;
+	dexterity_save: number | null;
+	constitution_save: number | null;
+	intelligence_save: number | null;
+	wisdom_save: number | null;
+	charisma_save: number | null;
+	environments: string[];
+	// metadata
+	page_no?: number;
+	img_main: string | null;
+	document__slug: string;
+	document__title: string;
+	document__license_url: string;
+	document__url: string;
+}
 
 export type MonsterTetraCube = {
 	name: string;

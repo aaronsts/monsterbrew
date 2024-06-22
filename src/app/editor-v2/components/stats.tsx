@@ -13,8 +13,8 @@ export default function Stats() {
 				<div className="flex flex-col items-center">
 					<h4 className="font-bold">STR</h4>
 					<p>
-						{creature.strength}{" "}
-						<span>{calculateStatBonus(creature.strength)}</span>
+						{creature!.strength}{" "}
+						<span>{calculateStatBonus(creature!.strength)}</span>
 					</p>
 				</div>
 				<div className="flex flex-col items-center ">

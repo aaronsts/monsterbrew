@@ -1,19 +1,5 @@
 "use client";
-
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-import { ResponsiveComboBox } from "@/components/ui/combo-responsive";
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { Info } from "lucide-react";
-import { useEffect, useState } from "react";
 import { useCreaturesStoreV2 } from "@/store/creatureStore";
-import { calculateHP } from "@/lib/calculations";
 import MovementInput from "./movement-input";
 import StatInput from "./stats-input";
 import SensesInput from "./senses-input";
@@ -24,6 +10,8 @@ import DamageTypesInput from "./damage-types-input";
 import BasicInfoInput from "./basic-info-input";
 import ConditionTypesInput from "./condition-types-input";
 import ActionsInput from "./actions-input";
+import SpecialTraitsInput from "./special-traits-input";
+import ReactionsInput from "./reactions-input";
 
 export default function StatblockForm() {
 	const { creature } = useCreaturesStoreV2();
@@ -40,7 +28,13 @@ export default function StatblockForm() {
 			<SkillSavesInput />
 			<DamageTypesInput />
 			<ConditionTypesInput />
-			{creature && <ActionsInput />}
+			{creature && (
+				<>
+					<SpecialTraitsInput />
+					<ActionsInput />
+					<ReactionsInput />
+				</>
+			)}
 		</div>
 	);
 }
