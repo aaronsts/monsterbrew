@@ -91,6 +91,7 @@ export default function Statblock() {
 				<Actions type="special_abilities" />
 				<Actions title="Actions" type="actions" />
 				<Actions title="Reactions" type="reactions" />
+				<Actions title="Legendary Actions" type="legendary_actions" />
 			</div>
 		</div>
 	);

@@ -12,6 +12,7 @@ import ConditionTypesInput from "./condition-types-input";
 import ActionsInput from "./actions-input";
 import SpecialTraitsInput from "./special-traits-input";
 import ReactionsInput from "./reactions-input";
+import LegendaryActionsInput from "./legendary-actions-input";
 
 export default function StatblockForm() {
 	const { creature } = useCreaturesStoreV2();
@@ -33,6 +34,7 @@ export default function StatblockForm() {
 					<SpecialTraitsInput />
 					<ActionsInput />
 					<ReactionsInput />
+					<LegendaryActionsInput />
 				</>
 			)}
 		</div>
