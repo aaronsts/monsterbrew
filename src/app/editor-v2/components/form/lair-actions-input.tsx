@@ -12,35 +12,35 @@ import { Plus } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 
-export default function LegendaryActionsInput() {
+export default function LairActionsInput() {
 	const { creature, updateCreature } = useCreaturesStoreV2();
-	const [isLegendary, setIsLegendary] = useState<boolean>(false);
+	const [isLair, setIsLair] = useState<boolean>(false);
 
 	const form = useForm<Creature5e>({
 		defaultValues: {
-			legendary_desc: creature!.legendary_desc,
-			legendary_actions: addMarkdown(creature!.legendary_actions),
+			lair_desc: creature!.lair_desc,
+			lair_actions: addMarkdown(creature!.lair_actions),
 		},
 	});
 	const { fields, append, remove } = useFieldArray({
-		name: "legendary_actions",
+		name: "lair_actions",
 		control: form.control,
 	});
 	const { watch } = form;
 
 	useEffect(() => {
-		if (!creature?.legendary_desc) return;
-		creature!.legendary_desc.length > 0
-			? setIsLegendary(true)
-			: setIsLegendary(false);
+		if (!creature?.lair_desc) return;
+		creature!.lair_desc.length > 0 ? setIsLair(true) : setIsLair(false);
 	}, [creature]);
+
+	console.log(isLair);
 
 	useEffect(() => {
 		watch((data) => {
-			const legendary_actions = data.legendary_actions as ActionType[] | null;
-			if (!legendary_actions) return;
+			const lair_actions = data.lair_actions as ActionType[] | null;
+			if (!lair_actions) return;
 			updateCreature({
-				legendary_actions: addMarkdown(legendary_actions),
+				lair_actions: addMarkdown(lair_actions),
 			});
 		});
 	}, [updateCreature, watch]);
@@ -52,26 +52,26 @@ export default function LegendaryActionsInput() {
 		});
 	}
 
-	function toggleLegendary() {
-		setIsLegendary(!isLegendary);
+	function toggleLair() {
+		setIsLair(!isLair);
 	}
 
 	return (
 		<div>
 			<div className="flex border-cararra-700 pb-2 items-end mb-2 justify-between border-b">
-				<h3>Legendary Actions</h3>
+				<h3>Lair Actions</h3>
 				<div className="flex gap-6">
 					<div className="space-x-2 flex items-center">
 						<Checkbox
-							id="legendary-actions"
-							checked={isLegendary}
-							onCheckedChange={toggleLegendary}
+							id="lair-actions"
+							checked={isLair}
+							onCheckedChange={toggleLair}
 						/>
 						<Label
-							htmlFor="legendary-actions"
+							htmlFor="lair-actions"
 							className="text-xs font-short font-bold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 						>
-							Legendary Creature
+							Has Lair
 						</Label>
 					</div>
 					<Button
@@ -87,23 +87,23 @@ export default function LegendaryActionsInput() {
 					</Button>
 				</div>
 			</div>
-			{isLegendary && (
+			{isLair && (
 				<div>
 					<Form {...form}>
 						<form>
 							<Accordion type="multiple" className="w-full space-y-2">
 								<div className="space-y-0.5 col-span-2">
-									<Label htmlFor="legendary_desc">Description</Label>
+									<Label htmlFor="lair_desc">Description</Label>
 									<Textarea
 										onChange={handleChange}
-										id="legendary_desc"
-										name="legendary_desc"
-										value={creature?.legendary_desc || ""}
+										id="lair_desc"
+										name="lair_desc"
+										value={creature?.lair_desc || ""}
 									/>
 								</div>
 								{fields.map((field, index) => (
 									<Action
-										inputName="legendary_actions"
+										inputName="lair_actions"
 										field={field}
 										index={index}
 										key={field.id}

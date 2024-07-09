@@ -13,6 +13,9 @@ import ActionsInput from "./actions-input";
 import SpecialTraitsInput from "./special-traits-input";
 import ReactionsInput from "./reactions-input";
 import LegendaryActionsInput from "./legendary-actions-input";
+import LairActionsInput from "./lair-actions-input";
+import MythicActionsInput from "./mythic-actions-input";
+import DescriptionInput from "./description-input";
 
 export default function StatblockForm() {
 	const { creature } = useCreaturesStoreV2();
@@ -35,8 +38,11 @@ export default function StatblockForm() {
 					<ActionsInput />
 					<ReactionsInput />
 					<LegendaryActionsInput />
+					<LairActionsInput />
+					<MythicActionsInput />
 				</>
 			)}
+			<DescriptionInput />
 		</div>
 	);
 }

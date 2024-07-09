@@ -6,6 +6,7 @@ import SavingThrows from "@/components/statblock/saving-throws";
 import { capitalize } from "@/lib/utils";
 import Actions from "./actions";
 import { Divider } from "@/components/ui/divider";
+import Markdown from "react-markdown";
 
 export default function Statblock() {
 	const { creature } = useCreaturesStoreV2();
@@ -92,6 +93,12 @@ export default function Statblock() {
 				<Actions title="Actions" type="actions" />
 				<Actions title="Reactions" type="reactions" />
 				<Actions title="Legendary Actions" type="legendary_actions" />
+				<Actions title="Lair Actions" type="lair_actions" />
+				<Actions title="Mythic Actions" type="mythic_actions" />
+				<div>
+					<h2>Description</h2>
+					<Markdown>{creature.desc}</Markdown>
+				</div>
 			</div>
 		</div>
 	);
