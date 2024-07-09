@@ -21,7 +21,7 @@ export default function Actions({ type, title }: ActionProps) {
 	if (!creature[type] || creature[type]?.length === 0) return <></>;
 	return (
 		<div className="space-y-2">
-			{title && <h2 className="border-b border-zinc-700">{title}</h2>}
+			{title && <h3 className="border-b border-zinc-700">{title}</h3>}
 			<p>{type === "legendary_actions" && creature.legendary_desc}</p>
 			<div className="space-y-1">
 				{creature[type]!.map((ability, i) => (
