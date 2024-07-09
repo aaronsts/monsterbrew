@@ -6,6 +6,8 @@ import React from "react";
 export default function Stats() {
 	const { creature } = useCreaturesStoreV2();
 
+	if (!creature) return <></>;
+
 	return (
 		<div className="space-y-3">
 			<Divider />
@@ -20,7 +22,7 @@ export default function Stats() {
 				<div className="flex flex-col items-center ">
 					<h4 className="font-bold">DEX</h4>
 					<p>
-						{creature.dexterity}{" "}
+						{creature?.dexterity}{" "}
 						<span>{calculateStatBonus(creature.dexterity)}</span>
 					</p>
 				</div>

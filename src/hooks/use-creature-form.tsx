@@ -9,6 +9,7 @@ import { monsterStatblockSchema } from "@/lib/schemas";
 import { capitalize } from "@/lib/utils";
 import { useCreatureFormStore } from "@/store/creatureForm";
 import { useCreaturesStore } from "@/store/zustand";
+import { Creature5e, Monster5e } from "@/types/monster5e";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -88,7 +89,11 @@ export function useCreatureForm() {
 		setSavingThrows(savingThrows);
 
 		// Skill Saves
-		const skillSaves = calculateSkillSaves(creature, proficiencyBonus);
+
+		const skillSaves = calculateSkillSaves(
+			creature as unknown as Creature5e,
+			proficiencyBonus
+		);
 		setSkillList(skillSaves);
 
 		// Conditions

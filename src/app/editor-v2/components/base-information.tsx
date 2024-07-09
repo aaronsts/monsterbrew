@@ -5,6 +5,8 @@ import React from "react";
 
 export default function BaseInformation() {
 	const { creature } = useCreaturesStoreV2();
+	if (!creature) return <></>;
+
 	const movement = Object.entries(creature.speed)
 		.map((move) => {
 			if (move[1] === null) return;

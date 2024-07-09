@@ -18,7 +18,7 @@ export default function MovementInput() {
 		if (!movement) {
 			delete speed[event.currentTarget.id as keyof Movement];
 		} else {
-			speed[event.currentTarget.id as keyof Movement] = movement;
+			speed[event.currentTarget.id as keyof Movement] = parseInt(movement);
 		}
 		updateCreature({ speed: speed });
 	}

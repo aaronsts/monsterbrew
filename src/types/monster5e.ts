@@ -64,7 +64,7 @@ export interface Creature5e {
 	special_abilities: Action[] | null;
 	actions: Action[] | null;
 	reactions: Action[] | null;
-	bonus_actions: Action[] | null;
+	// bonus_actions: Action[] | null;
 	legendary_desc: string;
 	legendary_actions: Action[] | null;
 	lair_desc: string;

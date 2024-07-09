@@ -11,6 +11,7 @@ import { capitalize } from "@/lib/utils";
 import Actions from "./actions";
 import Markdown from "react-markdown";
 import { toast } from "sonner";
+import { Monster5e } from "@/types/monster5e";
 
 interface StatblockProps {
 	loadCreatureValues: () => void;
@@ -27,7 +28,7 @@ const Statblock = ({ loadCreatureValues }: StatblockProps) => {
 
 	useEffect(() => {
 		if (!data) return;
-		setCreature(data);
+		setCreature(data as unknown as Monster5e);
 	}, [data, setCreature]);
 
 	if (isLoading) return <div className="font-yatra">Loading</div>;
