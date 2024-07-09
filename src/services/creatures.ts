@@ -1,6 +1,6 @@
 import { addMarkdown } from "@/lib/markdownConverter";
 import { Open5eApi, ListCreature } from "@/types";
-import { Monster5e } from "@/types/monster5e";
+import { Creature5e, Monster5e } from "@/types/monster5e";
 import { toast } from "sonner";
 
 export const API_BASE_URL = "https://api.open5e.com/monsters";
@@ -22,10 +22,11 @@ export async function getCreature(slug: string) {
 	try {
 		const res = await fetch(`${API_BASE_URL}/${slug}`);
 		if (!res.ok) throw new Error(`Failed to fetch data for ${slug}`);
-		const data: Monster5e = await res.json();
+		const data: Creature5e = await res.json();
 		const hitPointsFormula = data.hit_dice.split("+");
-		const modifiedData: Monster5e = {
+		const modifiedData: Creature5e = {
 			...data,
+			desc: data.desc || "",
 			actions: addMarkdown(data.actions),
 			reactions: addMarkdown(data.reactions),
 			hit_dice: hitPointsFormula[0],

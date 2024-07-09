@@ -41,6 +41,7 @@ export default function DamageTypesInput() {
 		setDamage(e);
 	};
 	useEffect(() => {
+		if (!creature) return;
 		const damages = calculateDamageTypes(creature);
 		setDamageList(damages);
 	}, [creature]);

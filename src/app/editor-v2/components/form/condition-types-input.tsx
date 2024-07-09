@@ -23,11 +23,12 @@ export default function ConditionTypesInput() {
 	};
 
 	useEffect(() => {
+		if (!creature?.condition_immunities) return;
 		const conditionImmunities =
 			creature.condition_immunities?.split(", ").filter((con) => con !== "") ||
 			[];
 		setConditionList(conditionImmunities);
-	}, [creature.condition_immunities]);
+	}, [creature?.condition_immunities]);
 
 	const addCondition = () => {
 		const conditionToAdd = CONDITION_TYPES.find((cnd) => cnd === condition);

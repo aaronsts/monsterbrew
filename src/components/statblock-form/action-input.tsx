@@ -15,14 +15,12 @@ import { Input } from "../ui/input";
 import { Trash2 } from "lucide-react";
 import { Textarea } from "../ui/textarea";
 import {
-	FieldArrayWithId,
 	FieldValues,
 	UseFieldArrayRemove,
 	UseFormReturn,
 	useWatch,
 } from "react-hook-form";
-import { monsterStatblockSchema } from "@/lib/schemas";
-import * as z from "zod";
+import { Creature5e } from "@/types/monster5e";
 
 interface ActionProps {
 	inputName:
@@ -33,8 +31,8 @@ interface ActionProps {
 		| "regional_actions"
 		| "mythic_actions"
 		| "reactions";
-	field: FieldArrayWithId<z.infer<typeof monsterStatblockSchema>>;
-	form: UseFormReturn<z.infer<typeof monsterStatblockSchema>>;
+	field: Record<"id", string>;
+	form: UseFormReturn<Creature5e, any, undefined>;
 	remove: UseFieldArrayRemove;
 	index: number;
 }

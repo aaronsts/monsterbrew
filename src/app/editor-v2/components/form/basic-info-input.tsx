@@ -19,6 +19,7 @@ export default function BasicInfoInput() {
 	const { creature, updateCreature } = useCreaturesStoreV2();
 
 	function handleChange(event: React.FormEvent<HTMLInputElement>) {
+		if (!creature) return;
 		if (event.currentTarget.id === "hit_dice" && !customHP) {
 			const amount = parseInt(event.currentTarget.value);
 			const hp = calculateHP(amount, creature.constitution, creature.size);
@@ -33,19 +34,23 @@ export default function BasicInfoInput() {
 	}
 
 	useEffect(() => {
+		if (!creature?.hit_dice && !creature?.constitution && !creature?.size)
+			return;
 		if (customHP) return;
+
 		const amount = parseInt(creature.hit_dice.split("d")[0]);
 		const hp = calculateHP(amount, creature.constitution, creature.size);
 		updateCreature({
 			hit_dice: hp,
 		});
 	}, [
-		creature.size,
-		creature.constitution,
-		creature.hit_dice,
 		updateCreature,
 		customHP,
+		creature?.hit_dice,
+		creature?.constitution,
+		creature?.size,
 	]);
+
 	return (
 		<div className="grid grid-cols-3 gap-x-3 gap-y-1 h-fit">
 			<div className="space-y-0.5 col-span-2">
@@ -54,7 +59,7 @@ export default function BasicInfoInput() {
 					onChange={handleChange}
 					id="name"
 					name="name"
-					value={creature.name}
+					value={creature?.name || ""}
 					placeholder="ex. Ancient Black Dragon"
 				/>
 			</div>
@@ -71,7 +76,7 @@ export default function BasicInfoInput() {
 				<Input
 					onChange={handleChange}
 					id="alignment"
-					value={creature.alignment}
+					value={creature?.alignment || ""}
 					placeholder="ex. Chaotic Evil"
 				/>
 			</div>
@@ -80,7 +85,7 @@ export default function BasicInfoInput() {
 				<Input
 					onChange={handleChange}
 					id="armor_class"
-					value={creature.armor_class}
+					value={creature?.armor_class || ""}
 					placeholder="ex. 22"
 					type="number"
 				/>
@@ -90,7 +95,7 @@ export default function BasicInfoInput() {
 				<Input
 					onChange={handleChange}
 					id="armor_desc"
-					value={creature.armor_desc || ""}
+					value={creature?.armor_desc || ""}
 					placeholder="ex. Natural Armor"
 				/>
 			</div>
@@ -115,7 +120,7 @@ export default function BasicInfoInput() {
 					<Input
 						onChange={handleChange}
 						id="hit_dice"
-						value={creature.hit_dice}
+						value={creature?.hit_dice || ""}
 						placeholder="ex. 21d12 + 147"
 					/>
 				) : (
@@ -123,7 +128,9 @@ export default function BasicInfoInput() {
 						onChange={handleChange}
 						id="hit_dice"
 						type="number"
-						value={parseInt(creature.hit_dice.split("d")[0])}
+						value={
+							(creature && parseInt(creature.hit_dice.split("d")[0])) || ""
+						}
 						placeholder="ex. 21"
 					/>
 				)}

@@ -6,7 +6,7 @@ import {
 	STAT_NAMES_V2,
 	monster_sizes,
 } from "./constants";
-import { Monster5e, SavingThrow } from "@/types/monster5e";
+import { Creature5e, Monster5e, SavingThrow } from "@/types/monster5e";
 import { capitalize } from "./utils";
 
 export function calculateSavingThrows(creature: Monster5e) {
@@ -19,7 +19,7 @@ export function calculateSavingThrows(creature: Monster5e) {
 	return newSavingThrows;
 }
 
-export function calculateSavingThrowsv2(creature: Monster5e) {
+export function calculateSavingThrowsv2(creature: Creature5e) {
 	const newSavingThrows: SavingThrow[] = [];
 	STAT_NAMES_V2.forEach((stat) => {
 		const savingThrowStat = stat + "_save";
@@ -29,7 +29,7 @@ export function calculateSavingThrowsv2(creature: Monster5e) {
 	return newSavingThrows;
 }
 
-export function calculateDamageTypes(creature: Monster5e) {
+export function calculateDamageTypes(creature: Creature5e) {
 	const dmgImm =
 		creature.damage_immunities!.length > 0
 			? creature
@@ -52,7 +52,7 @@ export function calculateDamageTypes(creature: Monster5e) {
 }
 
 export function calculateSkillSaves(
-	creature: Monster5e,
+	creature: Creature5e,
 	proficiencyBonus: (typeof CHALLENGE_RATINGS)[0]
 ) {
 	const newSKillList: ISkill[] = [];

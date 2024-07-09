@@ -10,6 +10,7 @@ export default function MovementInput() {
 	const { creature, updateCreature } = useCreaturesStoreV2();
 
 	function handleChange(event: React.FormEvent<HTMLInputElement>) {
+		if (!creature) return;
 		const speed = { ...creature.speed };
 		const movement =
 			event.currentTarget.value === "" ? null : event.currentTarget.value;
@@ -17,7 +18,7 @@ export default function MovementInput() {
 		if (!movement) {
 			delete speed[event.currentTarget.id as keyof Movement];
 		} else {
-			speed[event.currentTarget.id as keyof Movement] = movement;
+			speed[event.currentTarget.id as keyof Movement] = parseInt(movement);
 		}
 		updateCreature({ speed: speed });
 	}
@@ -33,7 +34,7 @@ export default function MovementInput() {
 					<Input
 						onChange={handleChange}
 						id="walk"
-						value={creature.speed.walk ?? ""}
+						value={creature?.speed.walk ?? ""}
 						placeholder="0"
 						type="number"
 					/>
@@ -48,7 +49,7 @@ export default function MovementInput() {
 					<Input
 						onChange={handleChange}
 						id="swim"
-						value={creature.speed.swim ?? ""}
+						value={creature?.speed.swim ?? ""}
 						placeholder="0"
 						type="number"
 					/>
@@ -63,7 +64,7 @@ export default function MovementInput() {
 					<Input
 						onChange={handleChange}
 						id="burrow"
-						value={creature.speed.burrow ?? ""}
+						value={creature?.speed.burrow ?? ""}
 						placeholder="0"
 						type="number"
 					/>
@@ -78,7 +79,7 @@ export default function MovementInput() {
 					<Input
 						onChange={handleChange}
 						id="climb"
-						value={creature.speed.climb ?? ""}
+						value={creature?.speed.climb ?? ""}
 						placeholder="0"
 						type="number"
 					/>
@@ -93,7 +94,7 @@ export default function MovementInput() {
 					<Input
 						onChange={handleChange}
 						id="fly"
-						value={creature.speed.fly ?? ""}
+						value={creature?.speed.fly ?? ""}
 						placeholder="0"
 						type="number"
 					/>
