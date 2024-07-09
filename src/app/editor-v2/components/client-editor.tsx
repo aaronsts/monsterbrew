@@ -4,12 +4,12 @@ import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCreature } from "@/services/creatures";
 import { useCreaturesStore } from "@/store/zustand";
-import { useCreatureForm } from "@/hooks/use-creature-form";
 import LoadingSpinner from "@/components/ui/loading-spinner";
 import { useSearchParams } from "next/navigation";
 import Statblock from "./statblock";
 import StatblockForm from "./form/statblock-form";
 import { useCreaturesStoreV2 } from "@/store/creatureStore";
+import ExportOptions from "./export/export-options";
 
 export default function ClientEditor() {
 	const searchParams = useSearchParams();
@@ -36,10 +36,10 @@ export default function ClientEditor() {
 		<div className="grid md:grid-cols-2 gap-6">
 			<StatblockForm />
 			<div className="flex flex-col relative gap-3">
-				{/* <div className="print:hidden flex items-center justify-end sticky top-16 bg-white py-3 gap-3">
-					<ImportButton />
+				<div className="print:hidden flex items-center justify-end sticky top-16 bg-white py-3 gap-3">
+					{/* <ImportButton /> */}
 					<ExportOptions />
-				</div> */}
+				</div>
 				{isLoading ? <LoadingSpinner /> : <Statblock />}
 			</div>
 		</div>

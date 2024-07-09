@@ -1,28 +1,28 @@
-import { Monster5e } from "@/types/monster5e";
+import { Creature5e, Monster5e } from "@/types/monster5e";
 import { capitalize } from "./utils";
 import { calculateStatBonus } from "./calculations";
 import { CHALLENGE_RATINGS } from "./constants";
 
-export function createMarkdownPage(creature: Monster5e) {
+export function createMarkdownPage(creature: Monster5e | Creature5e) {
 	let markdownWindow = window.open();
 	let markdown = [
 		'<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><title>',
 		creature.name,
 		'</title><link rel="shortcut icon" type="image/x-icon" href="./dndimages/favicon.ico" /></head><body>',
 	];
-	markdown.push("<h2>Homebrewery V3</h2>", generateMarkdown(creature));
+	markdown.push(generateMarkdown(creature));
 	markdown.push("</body></html>");
 	markdownWindow!.document.write(markdown.join(""));
 }
 
-function generateMarkdown(creature: Monster5e) {
+function generateMarkdown(creature: Monster5e | Creature5e) {
 	const markdownLines: string[] = [];
 	const speed = Object.entries(creature.speed).map((s) => {
 		if (s[0] === "walk") return `${s[1]}ft.`;
 		return `${s[0]} ${s[1]}ft.`;
 	});
 
-	markdownLines.push(`{{monster,frame,wide`);
+	markdownLines.push(`{{monster,frame`);
 	markdownLines.push(
 		`## ${creature.name}`,
 		`*${capitalize(creature.size)} ${creature.type}, ${creature.alignment}*`,
