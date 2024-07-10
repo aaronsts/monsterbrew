@@ -34,15 +34,15 @@ export default function ExportJson() {
 		link.click();
 	};
 
-	// useEffect(() => {
-	// 	if (!creature) return;
-	// 	if (format === "improved-initiative") {
-	// 		const formattedStatblock = exportConverter(creature);
-	// 		setJsonOutput(formattedStatblock);
-	// 	} else {
-	// 		setJsonOutput(creature);
-	// 	}
-	// }, [creature, format]);
+	useEffect(() => {
+		if (!creature) return;
+		if (format === "improved-initiative") {
+			const formattedStatblock = exportConverter(creature);
+			setJsonOutput(formattedStatblock);
+		} else {
+			setJsonOutput(creature);
+		}
+	}, [creature, format]);
 
 	if (!creature) return <></>;
 
